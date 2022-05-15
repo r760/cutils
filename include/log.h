@@ -21,14 +21,16 @@
 #define LOG_COLOR_YELLOW ""
 #endif
 
+enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
+
 #define LOG_TEMPLATE(LOG_TYPE, LOG_MESSAGE, ...) \
-    if (LOG_TYPE == 0) { \
+    if (LOG_TYPE == INFO) { \
         fprintf(stderr, "%s %s%s%s (%s:%d) ", \
                 __TIME__, LOG_COLOR_GREEN, "INFO ", LOG_COLOR_RESET, __FILE__, __LINE__); \
-    } else if (LOG_TYPE == 1) { \
+    } else if (LOG_TYPE == DEBUG) { \
         fprintf(stderr, "%s %s%s%s (%s:%d)", \
                 __TIME__, LOG_COLOR_CYAN, "DEBUG", LOG_COLOR_RESET, __FILE__, __LINE__); \
-    } else if (LOG_TYPE == 2) { \
+    } else if (LOG_TYPE == WARN) { \
         fprintf(stderr, "%s %s%s%s (%s:%d)", \
                 __TIME__, LOG_COLOR_YELLOW, "WARN ", LOG_COLOR_RESET, __FILE__, __LINE__); \
     } else { \
@@ -44,13 +46,13 @@
     errno = 0
 
 #ifdef E_LOG_INFO
-#define LOG_INFO(LOG_MESSAGE, ...) LOG_TEMPLATE(0, LOG_MESSAGE, ##__VA_ARGS__);
+#define LOG_INFO(LOG_MESSAGE, ...) LOG_TEMPLATE(INFO, LOG_MESSAGE, ##__VA_ARGS__);
 #else
 #define LOG_INFO(LOG_MESSAGE, ...)
 #endif
 
 #ifdef E_LOG_DEBUG
-#define LOG_DEBUG(LOG_MESSAGE, ...) LOG_TEMPLATE(1, LOG_MESSAGE, ##__VA_ARGS__);
+#define LOG_DEBUG(LOG_MESSAGE, ...) LOG_TEMPLATE(DEBUG, LOG_MESSAGE, ##__VA_ARGS__);
 #else
 #define LOG_DEBUG(LOG_MESSAGE, ...)
 #endif
@@ -58,7 +60,7 @@
 #ifdef E_LOG_WARN
 #define LOG_WARN(CHECK_CONDITION, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
-        LOG_TEMPLATE(2, LOG_MESSAGE, ##__VA_ARGS__); \
+        LOG_TEMPLATE(WARN, LOG_MESSAGE, ##__VA_ARGS__); \
     }
 #else
 #define LOG_WARN(CHECK_CONDITION, LOG_MESSAGE, ...)
@@ -67,7 +69,7 @@
 #ifdef E_LOG_ERROR
 #define LOG_ERROR(CHECK_CONDITION, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
-        LOG_TEMPLATE(3, LOG_MESSAGE, ##__VA_ARGS__); \
+        LOG_TEMPLATE(ERROR, LOG_MESSAGE, ##__VA_ARGS__); \
         goto error; \
     }
 #else
