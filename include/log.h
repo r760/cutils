@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 
+char *date_time();
+enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
+
 #ifdef E_LOG_COLORS
 #define LOG_COLOR_BLUE   "\x1B[34m"
 #define LOG_COLOR_CYAN   "\x1B[36m"
@@ -21,26 +24,24 @@
 #define LOG_COLOR_YELLOW ""
 #endif
 
-enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
-
 #define LOG_TEMPLATE(LOG_TYPE, LOG_MESSAGE, ...) \
     if (LOG_TYPE == INFO) { \
-        fprintf(stderr, "%s %s%s%s (%s:%d) ", \
-                __TIME__, LOG_COLOR_GREEN, "INFO ", LOG_COLOR_RESET, __FILE__, __LINE__); \
+        fprintf(stderr, "%s %s%s%s (%s:%d) %s() ", \
+                date_time(), LOG_COLOR_GREEN, "INFO ", LOG_COLOR_RESET, __FILE__, __LINE__, __FUNCTION__); \
     } else if (LOG_TYPE == DEBUG) { \
-        fprintf(stderr, "%s %s%s%s (%s:%d)", \
-                __TIME__, LOG_COLOR_CYAN, "DEBUG", LOG_COLOR_RESET, __FILE__, __LINE__); \
+        fprintf(stderr, "%s %s%s%s (%s:%d) %s() ", \
+                date_time(), LOG_COLOR_CYAN, "DEBUG", LOG_COLOR_RESET, __FILE__, __LINE__, __FUNCTION__); \
     } else if (LOG_TYPE == WARN) { \
-        fprintf(stderr, "%s %s%s%s (%s:%d)", \
-                __TIME__, LOG_COLOR_YELLOW, "WARN ", LOG_COLOR_RESET, __FILE__, __LINE__); \
+        fprintf(stderr, "%s %s%s%s (%s:%d) %s() ", \
+                date_time(), LOG_COLOR_YELLOW, "WARN ", LOG_COLOR_RESET, __FILE__, __LINE__, __FUNCTION__); \
     } else { \
-        fprintf(stderr, "%s %s%s%s (%s:%d)", \
-                __TIME__, LOG_COLOR_RED, "ERROR", LOG_COLOR_RESET, __FILE__, __LINE__); \
+        fprintf(stderr, "%s %s%s%s (%s:%d) %s() ", \
+                date_time(), LOG_COLOR_RED, "ERROR", LOG_COLOR_RESET, __FILE__, __LINE__, __FUNCTION__); \
     } \
     if (errno == 0) { \
-        fprintf(stderr, "\t--> " LOG_MESSAGE "\n", ##__VA_ARGS__); \
+        fprintf(stderr, " --> " LOG_MESSAGE "\n", ##__VA_ARGS__); \
     } else { \
-        fprintf(stderr, "\t--> [strerror:%s%s%s] " LOG_MESSAGE "\n", LOG_COLOR_RED, \
+        fprintf(stderr, " --> [strerror:%s%s%s] " LOG_MESSAGE "\n", LOG_COLOR_RED, \
                 strerror(errno), LOG_COLOR_RESET, ##__VA_ARGS__); \
     } \
     errno = 0
