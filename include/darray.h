@@ -105,7 +105,7 @@ void *darray_get_element_at_index(darray *d, size_t index);
 bool darray_set_element_at_index(darray *d, void* element, size_t index);
 
 /**
- * reverses dynamic arrad 'd' elementwise
+ * reverses dynamic array 'd' element-wise
  * returns true if successful, false otherwise
  *
  * O(n)
