@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../include/log.h"
+#include "../include/logic.h"
 #include "../include/darray.h"
 
 darray* darray_create()
@@ -162,8 +163,7 @@ bool darray_insert_element_at_index(darray *d, void *element, size_t index)
 {
     LOG_ERROR(d != NULL, "in: darray is NULL");
     LOG_ERROR(element != NULL, "in: element is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
-    LOG_ERROR(index >= 0 && index <= d->size - 1, "in: index is out of range [0, %lu]", d->size - 1);
+    LOG_ERROR(IMPLIES(d->size > 0, index <= d->size), "in: index is out of range [0, %lu]", d->size);
 
     bool retval;
 
@@ -204,9 +204,14 @@ void *darray_delete_at_index(darray *d, size_t index)
         LOG_ERROR(retval != false, "failed to delete rear of darray");
     } else {
         int i = 0;
+        void *data = darray_get_element_at_index(d, index);
+        LOG_ERROR(data != NULL, "failed to get element at index '%lu' of darray", index);
         for (i = index; i < d->size - 1; i++) {
             d->data[i] = d->data[i + 1];
         }
+        bool rv;
+        rv = darray_set_element_at_index(d, data, d->size - 1);
+        LOG_ERROR(rv != false, "failed to set element '%p' at index '%lu' of darray", data, index);
         retval = darray_delete_rear(d);
         LOG_ERROR(retval != false, "failed to delete rear of darray");
     }

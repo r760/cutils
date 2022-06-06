@@ -36,41 +36,69 @@ int main(int argc, char *argv[])
         char *command = strtok(buffer, " ");
 
         if (strcmp(command, "exit") == 0) {
+            // exit cli
             break;
         } else if (strcmp(command, "ar") == 0) {
+            // append rear
             char *arg = strtok(NULL, " ");
             int *j = malloc(sizeof(int));
             *j = atoi(arg);
             darray_append_element(d, j);
             darray_print(d);
         } else if (strcmp(command, "af") == 0) {
+            // append front
             char *arg = strtok(NULL, " ");
             int *j = malloc(sizeof(int));
             *j = atoi(arg);
             darray_prepend_element(d, j);
             darray_print(d);
         } else if (strcmp(command, "dr") == 0) {
+            // delete rear
             int *j = darray_delete_rear(d);
             if (j != NULL) {
                 free(j);
             }
             darray_print(d);
         } else if (strcmp(command, "df") == 0) {
+            // delete front
             int *j = darray_delete_front(d);
             if (j != NULL) {
                 free(j);
             }
             darray_print(d);
         } else if (strcmp(command, "rev") == 0) {
+            // reverse
             darray_reverse(d);
             darray_print(d);
+        } else if (strcmp(command, "a@i") == 0) {
+            // add at index
+            char *arg = strtok(NULL, " ");
+            int *j = malloc(sizeof(int));
+            *j = atoi(arg);
+            arg = strtok(NULL, " ");
+            int k;
+            k = atoi(arg);
+            darray_insert_element_at_index(d, j, k);
+            darray_print(d);
+        } else if (strcmp(command, "d@i") == 0) {
+            // delete at index
+            char *arg = strtok(NULL, " ");
+            int j;
+            j = atoi(arg);
+            void *data = darray_delete_at_index(d, j);
+            free(data);
+            darray_print(d);
         } else if (strcmp(command, "gs") == 0) {
+            // get size
             printf("%lu\n", darray_get_size(d));
         } else if (strcmp(command, "gc") == 0) {
+            // get capactiy
             printf("%lu\n", darray_get_capacity(d));
         } else if (strcmp(command, "print") == 0) {
+            // print darray
             darray_print(d);
         } else if (strcmp(command, "clear") == 0) {
+            // clear screen
             system("clear");
         }
     }
