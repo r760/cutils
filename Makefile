@@ -12,7 +12,7 @@ CFLAGS+=-I$(INCLUDEDIR)
 CFLAGS+=-L$(LIBDIR)
 
 ## all: compile everything
-all:	$(BINDIR)/darray_cli $(LIBDIR)/liblog.so
+all:	$(BINDIR)/darray_cli $(LIBDIR)/liblog.a
 
 ## lib: create lib dir
 lib:
@@ -22,36 +22,45 @@ lib:
 bin:
 	mkdir $(BINDIR)
 
-## lib/liblog.so: compile shared object lib/liblog.so
-$(LIBDIR)/liblog.so:	$(SRCDIR)/log.c
+## lib/%.o: compile object files
+$(LIBDIR)/%.o:	$(SRCDIR)/%.c
 	make lib > /dev/null
-	$(CC) $(CFLAGS) $(DFLAGS) -fPIC -shared -lc $^ -o $@
+	$(CC) $(CFLAGS) $(DFLAGS) -c $^ -o $@
 
-## lib/libdarray.so: compile shared object lib/libdarray.so
-$(LIBDIR)/libdarray.so:	$(SRCDIR)/log.c $(SRCDIR)/darray.c
-	make lib > /dev/null
-	$(CC) $(CFLAGS) $(DFLAGS) -fPIC -shared -lc $^ -o $@
+## lib/log.o: compile object lib/log.o
+$(LIBDIR)/log.o:	$(LIBDIR)/log.o
+
+## lib/darray.o: compile object lib/darray.o
+$(LIBDIR)/darray.o:	$(LIBDIR)/darray.o
+
+## lib/liblog.a: compile static library lib/liblog.a
+$(LIBDIR)/liblog.a:	$(LIBDIR)/log.o
+	ar rcs $@ $^
+
+## lib/libdarray.a: compile static library lib/libdarray.a
+$(LIBDIR)/libdarray.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o
+	ar rcs $@ $^
 
 ## bin/darray_cli: compile bin/darray_cli
-$(BINDIR)/darray_cli:	$(SRCDIR)/darray_cli.c $(LIBDIR)/libdarray.so
+$(BINDIR)/darray_cli:	$(SRCDIR)/darray_cli.c $(LIBDIR)/libdarray.a
 	make bin > /dev/null
 	$(CC) $(CFLAGS) $(DFLAGS) $< -ldarray -o $@
 
 ## run_darray_cli: run darray_cli
 run_darray_cli:	$(BINDIR)/darray_cli
-	export LD_LIBRARY_PATH=$(shell pwd)/$(LIBDIR); ./$<
+	./$<
 
 ## run_tests: run tests
 run_tests:	$(BINDIR)/darray_cli
-	export LD_LIBRARY_PATH=$(shell pwd)/$(LIBDIR); cd $(TESTSDIR); ./run.sh
+	cd $(TESTSDIR); ./run.sh
 
 ## run_valgrind_tests: run tests (and check for memory leaks)
 run_valgrind_tests:	$(BINDIR)/darray_cli
-	export LD_LIBRARY_PATH=$(shell pwd)/$(LIBDIR); cd $(TESTSDIR); ./run.sh --check-memory-leaks
+	cd $(TESTSDIR); ./run.sh --check-memory-leaks
 
-## clean: remove binaries, object files, and shared object files, and empty lib and bin dirs
+## clean: remove binaries, object files, and shared object files, static libraries, and empty lib and bin dirs
 clean:
-	rm -f $(LIBDIR)/*.o $(LIBDIR)/*.so $(BINDIR)/*
+	rm -f $(LIBDIR)/*.o $(LIBDIR)/*.so $(LIBDIR)/*.a $(BINDIR)/*
 	rmdir $(LIBDIR) $(BINDIR) || true
 
 help:	Makefile
