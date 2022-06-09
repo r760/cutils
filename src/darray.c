@@ -276,13 +276,19 @@ error:
 size_t darray_get_size(darray *d)
 {
     LOG_ERROR(d != NULL, "in: darray is NULL");
-error:
+
     return d->size;
+
+error:
+    return 0;
 }
 
 size_t darray_get_capacity(darray *d)
 {
     LOG_ERROR(d != NULL, "in: darray is NULL");
-error:
+
     return d->capacity;
+
+error:
+    return 0;
 }
