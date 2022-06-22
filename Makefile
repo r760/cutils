@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -g
-DFLAGS=-DE_LOG_COLORS -DE_LOG_INFO -DE_LOG_DEBUG -DE_LOG_WARN -DE_LOG_ERROR
+DFLAGS=
 
 INCLUDEDIR=include
 SRCDIR=src
@@ -76,7 +76,7 @@ run_queue_cli:	$(BINDIR)/queue_cli
 	./$<
 
 ## run_tests: run tests
-run_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli
+run_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDIR)/queue_cli
 	cd $(TESTSDIR); ./run.sh
 
 ## run_valgrind_tests: run tests (and check for memory leaks)

@@ -8,20 +8,20 @@
 char *date_time();
 enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
 
-#ifdef E_LOG_COLORS
-#define LOG_COLOR_BLUE   "\x1B[34m"
-#define LOG_COLOR_CYAN   "\x1B[36m"
-#define LOG_COLOR_GREEN  "\x1B[32m"
-#define LOG_COLOR_RED    "\x1B[31m"
-#define LOG_COLOR_RESET  "\x1B[0m"
-#define LOG_COLOR_YELLOW "\x1B[33m"
-#else
+#ifdef N_LOG_COLORS
 #define LOG_COLOR_BLUE   ""
 #define LOG_COLOR_CYAN   ""
 #define LOG_COLOR_GREEN  ""
 #define LOG_COLOR_RED    ""
 #define LOG_COLOR_RESET  ""
 #define LOG_COLOR_YELLOW ""
+#else
+#define LOG_COLOR_BLUE   "\x1B[34m"
+#define LOG_COLOR_CYAN   "\x1B[36m"
+#define LOG_COLOR_GREEN  "\x1B[32m"
+#define LOG_COLOR_RED    "\x1B[31m"
+#define LOG_COLOR_RESET  "\x1B[0m"
+#define LOG_COLOR_YELLOW "\x1B[33m"
 #endif
 
 #define LOG_TEMPLATE(LOG_TYPE, LOG_MESSAGE, ...) \
@@ -46,35 +46,35 @@ enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
     } \
     errno = 0
 
-#ifdef E_LOG_INFO
-#define LOG_INFO(LOG_MESSAGE, ...) LOG_TEMPLATE(INFO, LOG_MESSAGE, ##__VA_ARGS__);
-#else
+#ifdef N_LOG_INFO
 #define LOG_INFO(LOG_MESSAGE, ...)
-#endif
-
-#ifdef E_LOG_DEBUG
-#define LOG_DEBUG(LOG_MESSAGE, ...) LOG_TEMPLATE(DEBUG, LOG_MESSAGE, ##__VA_ARGS__);
 #else
-#define LOG_DEBUG(LOG_MESSAGE, ...)
+#define LOG_INFO(LOG_MESSAGE, ...) LOG_TEMPLATE(INFO, LOG_MESSAGE, ##__VA_ARGS__);
 #endif
 
-#ifdef E_LOG_WARN
+#ifdef N_LOG_DEBUG
+#define LOG_DEBUG(LOG_MESSAGE, ...)
+#else
+#define LOG_DEBUG(LOG_MESSAGE, ...) LOG_TEMPLATE(DEBUG, LOG_MESSAGE, ##__VA_ARGS__);
+#endif
+
+#ifdef N_LOG_WARN
+#define LOG_WARN(CHECK_CONDITION, LOG_MESSAGE, ...)
+#else
 #define LOG_WARN(CHECK_CONDITION, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
         LOG_TEMPLATE(WARN, LOG_MESSAGE, ##__VA_ARGS__); \
     }
-#else
-#define LOG_WARN(CHECK_CONDITION, LOG_MESSAGE, ...)
 #endif 
 
-#ifdef E_LOG_ERROR
+#ifdef N_LOG_ERROR
+#define LOG_ERROR(CHECK_CONDITION, LOG_MESSAGE, ...)
+#else
 #define LOG_ERROR(CHECK_CONDITION, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
         LOG_TEMPLATE(ERROR, LOG_MESSAGE, ##__VA_ARGS__); \
         goto error; \
     }
-#else
-#define LOG_ERROR(CHECK_CONDITION, LOG_MESSAGE, ...)
 #endif
 
 #endif

@@ -59,7 +59,66 @@ test_sllist()
     done
 }
 
+test_stack()
+{
+    echo "=== === === === ==="
+    echo "|  Testing stack  |"
+    echo "=== === === === ==="
+
+    for test in $(ls stack/in);
+    do
+        case $1 in
+            "--check-memory-leaks")
+                valgrind --track-origins=yes --leak-check=full ${BINDIR}/stack_cli < stack/in/${test} > tmp.${test}
+                ;;
+            *)
+                ${BINDIR}/stack_cli < stack/in/${test} > tmp.${test}
+                ;;
+        esac
+        TEST_RES=$(diff tmp.${test} stack/expected/${test})
+
+        if [[ ${TEST_RES} == "" ]]; then
+            echo -e " - ${test} Passed"
+        else
+            echo -e " - ${test} Failed"
+            echo "${TEST_RES}"
+        fi
+    done
+}
+
+test_queue()
+{
+    echo "=== === === === ==="
+    echo "|  Testing queue  |"
+    echo "=== === === === ==="
+
+    for test in $(ls queue/in);
+    do
+        case $1 in
+            "--check-memory-leaks")
+                valgrind --track-origins=yes --leak-check=full ${BINDIR}/queue_cli < queue/in/${test} > tmp.${test}
+                ;;
+            *)
+                ${BINDIR}/queue_cli < queue/in/${test} > tmp.${test}
+                ;;
+        esac
+        TEST_RES=$(diff tmp.${test} queue/expected/${test})
+
+        if [[ ${TEST_RES} == "" ]]; then
+            echo -e " - ${test} Passed"
+        else
+            echo -e " - ${test} Failed"
+            echo "${TEST_RES}"
+        fi
+    done
+}
+
 BINDIR=../bin
 test_darray $1
+echo
 test_sllist $1
+echo
+test_stack $1
+echo
+test_queue $1
 cleanup
