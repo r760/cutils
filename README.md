@@ -2,7 +2,7 @@
 utilities for the C programming language
 
 ## features
-- data structures; dynamic-array
+- data structures; dynamic-array, single linked list, stack, queue
 - logging tools: info, debug, warning, error macros
 - logic macros
 

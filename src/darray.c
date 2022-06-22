@@ -39,6 +39,26 @@ error:
     return false;
 }
 
+size_t darray_get_size(darray *d)
+{
+    LOG_ERROR(d != NULL, "in: darray is NULL");
+
+    return d->size;
+
+error:
+    return 0;
+}
+
+size_t darray_get_capacity(darray *d)
+{
+    LOG_ERROR(d != NULL, "in: darray is NULL");
+
+    return d->capacity;
+
+error:
+    return 0;
+}
+
 bool darray_is_empty(darray *d)
 {
     LOG_ERROR(d != NULL, "in: darray is NULL");
@@ -49,6 +69,23 @@ bool darray_is_empty(darray *d)
 
 error:
     return true;
+}
+
+bool darray_prepend_element(darray *d, void *element)
+{
+    bool retval = darray_append_element(d, element);
+    LOG_ERROR(retval == true, "failed to append element to darray");
+
+    int i = 0;
+    for (i = d->size - 1; i >= 1; i--) {
+        d->data[i] = d->data[i - 1];
+    }
+    d->data[0] = element;
+
+    return true;
+
+error:
+    return false;
 }
 
 bool darray_append_element(darray *d, void *element)
@@ -77,23 +114,6 @@ error:
     return false;
 }
 
-bool darray_prepend_element(darray *d, void *element)
-{
-    bool retval = darray_append_element(d, element);
-    LOG_ERROR(retval == true, "failed to append element to darray");
-
-    int i = 0;
-    for (i = d->size - 1; i >= 1; i--) {
-        d->data[i] = d->data[i - 1];
-    }
-    d->data[0] = element;
-
-    return true;
-
-error:
-    return false;
-}
-
 bool trim(darray *d)
 {
     d->capacity = d->size;
@@ -105,6 +125,29 @@ bool trim(darray *d)
 
 error:
     return false;
+}
+
+void *darray_delete_front(darray *d)
+{
+    LOG_ERROR(d != NULL, "in: darray is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
+
+    void *retval = d->data[0];
+    if (d->capacity > 1) {
+        int i = 0;
+        for (i = 0; i < (d->size - 1); i++) {
+            d->data[i] = d->data[i + 1];
+        }
+    }
+    if (d->capacity >= 1) {
+        bool rv = darray_delete_rear(d);
+        LOG_ERROR(rv != false, "failed to delete rear of darray");
+    }
+
+    return retval;
+
+error:
+    return NULL;
 }
 
 void *darray_delete_rear(darray *d)
@@ -128,29 +171,6 @@ void *darray_delete_rear(darray *d)
         d->capacity = 0;
         d->size = 0;
         d->data = NULL;
-    }
-
-    return retval;
-
-error:
-    return NULL;
-}
-
-void *darray_delete_front(darray *d)
-{
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
-
-    void *retval = d->data[0];
-    if (d->capacity > 1) {
-        int i = 0;
-        for (i = 0; i < (d->size - 1); i++) {
-            d->data[i] = d->data[i + 1];
-        }
-    }
-    if (d->capacity >= 1) {
-        bool rv = darray_delete_rear(d);
-        LOG_ERROR(rv != false, "failed to delete rear of darray");
     }
 
     return retval;
@@ -271,24 +291,4 @@ bool darray_reverse(darray *d)
 
 error:
     return false;
-}
-
-size_t darray_get_size(darray *d)
-{
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-
-    return d->size;
-
-error:
-    return 0;
-}
-
-size_t darray_get_capacity(darray *d)
-{
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-
-    return d->capacity;
-
-error:
-    return 0;
 }

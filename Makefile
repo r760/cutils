@@ -12,7 +12,7 @@ CFLAGS+=-I$(INCLUDEDIR)
 CFLAGS+=-L$(LIBDIR)
 
 ## all: compile everything
-all:	$(BINDIR)/darray_cli
+all:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDIR)/queue_cli
 
 ## lib: create lib dir
 lib:
@@ -35,27 +35,68 @@ $(LIBDIR)/liblog.a:	$(LIBDIR)/log.o
 $(LIBDIR)/libdarray.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o
 	ar rcs $@ $^
 
+## lib/libsllist.a: compile static library lib/libsllist.a
+$(LIBDIR)/libsllist.a:	$(LIBDIR)/log.o $(LIBDIR)/sllist.o
+	ar rcs $@ $^
+
 ## bin/darray_cli: compile bin/darray_cli
 $(BINDIR)/darray_cli:	$(SRCDIR)/darray_cli.c $(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a
 	make bin > /dev/null
 	$(CC) $(CFLAGS) $(DFLAGS) $< -llog -ldarray -o $@
 
+## bin/sllist_cli: compile bin/sllist_cli
+$(BINDIR)/sllist_cli:	$(SRCDIR)/sllist_cli.c $(LIBDIR)/liblog.a $(LIBDIR)/libsllist.a
+	make bin > /dev/null
+	$(CC) $(CFLAGS) $(DFLAGS) $< -llog -lsllist -o $@
+
+## bin/stack_cli: compile bin/stack_cli
+$(BINDIR)/stack_cli:	$(SRCDIR)/stack_cli.c $(LIBDIR)/liblog.a $(LIBDIR)/libsllist.a
+	make bin > /dev/null
+	$(CC) $(CFLAGS) $(DFLAGS) $< -llog -lsllist -o $@
+
+## bin/queue_cli: compile bin/queue_cli
+$(BINDIR)/queue_cli:	$(SRCDIR)/queue_cli.c $(LIBDIR)/liblog.a $(LIBDIR)/libsllist.a
+	make bin > /dev/null
+	$(CC) $(CFLAGS) $(DFLAGS) $< -llog -lsllist -o $@
+
 ## run_darray_cli: run darray_cli
 run_darray_cli:	$(BINDIR)/darray_cli
 	./$<
 
+## run_sllist_cli: run sllist_cli
+run_sllist_cli:	$(BINDIR)/sllist_cli
+	./$<
+
+## run_stack_cli: run stack_cli
+run_stack_cli:	$(BINDIR)/stack_cli
+	./$<
+
+## run_queue_cli: run queue_cli
+run_queue_cli:	$(BINDIR)/queue_cli
+	./$<
+
 ## run_tests: run tests
-run_tests:	$(BINDIR)/darray_cli
+run_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli
 	cd $(TESTSDIR); ./run.sh
 
 ## run_valgrind_tests: run tests (and check for memory leaks)
-run_valgrind_tests:	$(BINDIR)/darray_cli
+run_valgrind_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli
 	cd $(TESTSDIR); ./run.sh --check-memory-leaks
+
+## install: install log, darray, sllist, stack, queue libraries
+install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
+	cd $(INCLUDEDIR); find . -name "*.h" -exec sudo cp -v {} /usr/local/include/ \;
+	cd $(LIBDIR); find . -name "*.a" -exec sudo cp -v {} /usr/local/lib/ \;
+
+## uninstall: remove log, darray, sllist, stack, queue header-files and libraries from /usr/local/
+uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
+	cd $(INCLUDEDIR); find . -name "*.h" -exec sudo rm -v /usr/local/include/{} \;
+	cd $(LIBDIR); find . -name "*.a" -exec sudo rm -v /usr/local/lib/{} \;
 
 ## clean: remove binaries, object files, and shared object files, static libraries, and empty lib and bin dirs
 clean:
 	rm -f $(LIBDIR)/*.o $(LIBDIR)/*.so $(LIBDIR)/*.a $(BINDIR)/*
-	rmdir $(LIBDIR) $(BINDIR) || true
+	rmdir $(LIBDIR) $(BINDIR) &> /dev/null || true
 
 help:	Makefile
 	@sed -n 's/^##[ ]*/\n/p' $< | sed 's/: /:\n\t/g; 1d'

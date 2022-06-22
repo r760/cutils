@@ -1,33 +1,22 @@
 gs
-gc
 ar 3
 gs
-gc
 af 2
 gs
-gc
 af 1
 gs
-gc
 ar 4
 gs
-gc
 af 0
 gs
-gc
 df
 gs
-gc
 dr
 gs
-gc
 df
 gs
-gc
 dr
 gs
-gc
 df
 gs
-gc
 exit

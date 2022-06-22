@@ -86,7 +86,9 @@ int main(int argc, char *argv[])
             int j;
             j = atoi(arg);
             void *data = darray_delete_at_index(d, j);
-            free(data);
+            if (data != NULL) {
+                free(data);
+            }
             darray_print(d);
         } else if (strcmp(command, "gs") == 0) {
             // get size

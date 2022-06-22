@@ -35,19 +35,25 @@ darray* darray_create();
 bool darray_delete(darray **d);
 
 /**
+ * returns the size of dynamic array 'd'
+ *
+ * O(1)
+ */
+size_t darray_get_size(darray *d);
+
+/**
+ * returns the capacity of dynamic array 'd'
+ *
+ * O(1)
+ */
+size_t darray_get_capacity(darray *d);
+
+/**
  * returns true if dynamic array 'd' is empty, false otherwise
  *
  * O(1)
  */
 bool darray_is_empty(darray *d);
-
-/**
- * adds 'element' to the end of dynamic array 'd'
- * returns true if successful, false otherwise
- *
- * O(1)
- */
-bool darray_append_element(darray *d, void *element);
 
 /**
  * adds 'element' to the front of dynamic array 'd'
@@ -58,12 +64,12 @@ bool darray_append_element(darray *d, void *element);
 bool darray_prepend_element(darray *d, void *element);
 
 /**
- * removes the last element of dynamic array 'd' 
- * returns the removed element if successful, NULL otherwise
+ * adds 'element' to the end of dynamic array 'd'
+ * returns true if successful, false otherwise
  *
  * O(1)
  */
-void *darray_delete_rear(darray *d);
+bool darray_append_element(darray *d, void *element);
 
 /**
  * removes the first element of dynamic array 'd'
@@ -72,6 +78,14 @@ void *darray_delete_rear(darray *d);
  * O(n)
  */
 void *darray_delete_front(darray *d);
+
+/**
+ * removes the last element of dynamic array 'd' 
+ * returns the removed element if successful, NULL otherwise
+ *
+ * O(1)
+ */
+void *darray_delete_rear(darray *d);
 
 /**
  * inserts 'element' at 'index' of dynamic array 'd'
@@ -111,19 +125,5 @@ bool darray_set_element_at_index(darray *d, void* element, size_t index);
  * O(n)
  */
 bool darray_reverse(darray *d);
-
-/**
- * returns the size of dynamic array 'd'
- *
- * O(1)
- */
-size_t darray_get_size(darray *d);
-
-/**
- * returns the capacity of dynamic array 'd'
- *
- * O(1)
- */
-size_t darray_get_capacity(darray *d);
 
 #endif
