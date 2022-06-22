@@ -80,7 +80,7 @@ run_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDI
 	cd $(TESTSDIR); ./run.sh
 
 ## run_valgrind_tests: run tests (and check for memory leaks)
-run_valgrind_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli
+run_valgrind_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDIR)/queue_cli
 	cd $(TESTSDIR); ./run.sh --check-memory-leaks
 
 ## install: install log, darray, sllist, stack, queue libraries
