@@ -41,7 +41,7 @@ typedef sllist queue;
  *
  * O(1)
  */
-#define queue_peek(q) sllist_get_rear_data(q)
+#define queue_peek(q) sllist_get_front_data(q)
 
 /**
  * adds element 'e' to queue 'q'
@@ -55,8 +55,8 @@ typedef sllist queue;
  * removes the most anciently added element in queue 'q'
  * returns the most anciently added element to queue 'q' if it exists, NULL otherwise
  *
- * O(n)
+ * O(1)
  */
-#define queue_dequeue(q) sllist_delete_rear(q)
+#define queue_dequeue(q) sllist_delete_front(q)
 
 #endif
