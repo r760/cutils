@@ -34,7 +34,7 @@ typedef sllist stack;
  *
  * O(1)
  */
-#define stack_is_empty(l) sllist_is_empty(l)
+#define stack_is_empty(s) sllist_is_empty(s)
 
 /**
  * returns the most recently added element to stack 's' if it exists, NULL otherwise
