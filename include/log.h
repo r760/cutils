@@ -60,8 +60,14 @@ enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
 
 #ifdef N_LOG_WARN
 #define LOG_WARN(CHECK_CONDITION, LOG_MESSAGE, ...)
+#define LOG_WARN_NO_JUMP(CHECK_CONDITION, LOG_MESSAGE, ...)
 #else
 #define LOG_WARN(CHECK_CONDITION, LOG_MESSAGE, ...) \
+    if (!(CHECK_CONDITION)) { \
+        LOG_TEMPLATE(WARN, LOG_MESSAGE, ##__VA_ARGS__); \
+        goto warn; \
+    }
+#define LOG_WARN_NO_JUMP(CHECK_CONDITION, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
         LOG_TEMPLATE(WARN, LOG_MESSAGE, ##__VA_ARGS__); \
     }
@@ -69,11 +75,16 @@ enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
 
 #ifdef N_LOG_ERROR
 #define LOG_ERROR(CHECK_CONDITION, LOG_MESSAGE, ...)
+#define LOG_ERROR_NO_JUMP(CHECK_CONDITION, LOG_MESSAGE, ...)
 #else
 #define LOG_ERROR(CHECK_CONDITION, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
         LOG_TEMPLATE(ERROR, LOG_MESSAGE, ##__VA_ARGS__); \
         goto error; \
+    }
+#define LOG_ERROR_NO_JUMP(CHECK_CONDITION, LOG_MESSAGE, ...) \
+    if (!(CHECK_CONDITION)) { \
+        LOG_TEMPLATE(ERROR, LOG_MESSAGE, ##__VA_ARGS__); \
     }
 #endif
 
