@@ -11,6 +11,9 @@ TESTSDIR=tests
 CFLAGS+=-I$(INCLUDEDIR)
 CFLAGS+=-L$(LIBDIR)
 
+help:	Makefile
+	@sed -n 's/^##[ ]*/\n/p' $< | sed 's/: /:\n\t/g; 1d'
+
 ## all: compile everything
 all:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDIR)/queue_cli
 
@@ -97,6 +100,3 @@ uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
 clean:
 	rm -f $(LIBDIR)/*.o $(LIBDIR)/*.so $(LIBDIR)/*.a $(BINDIR)/*
 	rmdir $(LIBDIR) $(BINDIR) &> /dev/null || true
-
-help:	Makefile
-	@sed -n 's/^##[ ]*/\n/p' $< | sed 's/: /:\n\t/g; 1d'

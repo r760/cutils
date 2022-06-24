@@ -8,5 +8,5 @@ utilities for the C programming language
 
 ## How can I view all the make directives ?
 ```
-make help
+make
 ```
