@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     }
 
     queue_delete(&q);
-    LOG_ERROR(q == NULL, "failed to cleanup queue");
+    LOG_ERROR(q == NULL, error, "failed to cleanup queue");
     return 0;
 
 error:

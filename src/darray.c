@@ -9,7 +9,7 @@
 darray* darray_create()
 {
     darray *d = malloc(sizeof(darray));
-    LOG_ERROR(d != NULL, "failed to malloc darray")
+    LOG_ERROR(d != NULL, error, "failed to malloc darray")
 
     d->size = 0;
     d->capacity = 0;
@@ -22,8 +22,8 @@ error:
 
 bool darray_delete(darray **d)
 {
-    LOG_ERROR(d != NULL, "in: pointer to darray is NULL");
-    LOG_ERROR(*d != NULL, "in: darray is NULL");
+    LOG_ERROR(d != NULL, error, "in: pointer to darray is NULL");
+    LOG_ERROR(*d != NULL, error, "in: darray is NULL");
 
     if ((*d)->data != NULL) {
         free((*d)->data);
@@ -41,7 +41,7 @@ error:
 
 size_t darray_get_size(darray *d)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
 
     return d->size;
 
@@ -51,7 +51,7 @@ error:
 
 size_t darray_get_capacity(darray *d)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
 
     return d->capacity;
 
@@ -61,7 +61,7 @@ error:
 
 bool darray_is_empty(darray *d)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
 
     if (d->capacity >= 1 && d->size >= 1) {
         return false;
@@ -74,7 +74,7 @@ error:
 bool darray_prepend_element(darray *d, void *element)
 {
     bool retval = darray_append_element(d, element);
-    LOG_ERROR(retval == true, "failed to append element to darray");
+    LOG_ERROR(retval == true, error, "failed to append element to darray");
 
     int i = 0;
     for (i = d->size - 1; i >= 1; i--) {
@@ -90,19 +90,19 @@ error:
 
 bool darray_append_element(darray *d, void *element)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-    LOG_ERROR(element != NULL, "in: element is NULL");
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
+    LOG_ERROR(element != NULL, error, "in: element is NULL");
 
     if (d->capacity == 0){
         d->size = 0;
         d->capacity = 1;
         d->data = malloc(d->size_of_data);
-        LOG_ERROR(d->data != NULL, "failed to malloc darray->data");
+        LOG_ERROR(d->data != NULL, error, "failed to malloc darray->data");
     } else if (d->size >= d->capacity){
         d->capacity *= 2;
         void *raptr;
         raptr = realloc(d->data, d->size_of_data * d->capacity);
-        LOG_ERROR(raptr != NULL, "failed to re-alloc darray->data");
+        LOG_ERROR(raptr != NULL, error, "failed to re-alloc darray->data");
         d->data = raptr;
     }
     d->data[d->size] = element;
@@ -118,7 +118,7 @@ bool trim(darray *d)
 {
     d->capacity = d->size;
     void *raptr = realloc(d->data, d->size_of_data * d->capacity);
-    LOG_ERROR(raptr != NULL, "failed to re-alloc darray->data");
+    LOG_ERROR(raptr != NULL, error, "failed to re-alloc darray->data");
     d->data = raptr;
 
     return true;
@@ -129,8 +129,8 @@ error:
 
 void *darray_delete_front(darray *d)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
 
     void *retval = d->data[0];
     if (d->capacity > 1) {
@@ -141,7 +141,7 @@ void *darray_delete_front(darray *d)
     }
     if (d->capacity >= 1) {
         bool rv = darray_delete_rear(d);
-        LOG_ERROR(rv != false, "failed to delete rear of darray");
+        LOG_ERROR(rv != false, error, "failed to delete rear of darray");
     }
 
     return retval;
@@ -152,8 +152,8 @@ error:
 
 void *darray_delete_rear(darray *d)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
 
     void *retval = d->data[d->size - 1];
     if (d->capacity > 1) {
@@ -161,7 +161,7 @@ void *darray_delete_rear(darray *d)
 
         if (d->size >= 2 && (d->size * 2 == d->capacity)) {
             bool is_success = trim(d);
-            LOG_ERROR(is_success, "failed to trim darray");
+            LOG_ERROR(is_success, error, "failed to trim darray");
         } else if (d->size == 0) {
             free(d->data);
             d->data = NULL;
@@ -181,21 +181,21 @@ error:
 
 bool darray_insert_element_at_index(darray *d, void *element, size_t index)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-    LOG_ERROR(element != NULL, "in: element is NULL");
-    LOG_ERROR(IMPLIES(d->size > 0, index <= d->size), "in: index is out of range [0, %lu]", d->size);
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
+    LOG_ERROR(element != NULL, error, "in: element is NULL");
+    LOG_ERROR(IMPLIES(d->size > 0, index <= d->size), error, "in: index is out of range [0, %lu]", d->size);
 
     bool retval;
 
     if (index == 0) {
         retval = darray_prepend_element(d, element);
-        LOG_ERROR(retval != false, "failed to prepend element '%p' to darray", element);
+        LOG_ERROR(retval != false, error, "failed to prepend element '%p' to darray", element);
     } else if (index == d->size) {
         retval = darray_append_element(d, element);
-        LOG_ERROR(retval != false, "failed to append element '%p' to darray", element);
+        LOG_ERROR(retval != false, error, "failed to append element '%p' to darray", element);
     } else {
         retval = darray_append_element(d, element);
-        LOG_ERROR(retval != false, "failed to append element '%p' to darray", element);
+        LOG_ERROR(retval != false, error, "failed to append element '%p' to darray", element);
         int i = 0;
         for (i = d->size - 1 ; i >= index + 1; i--) {
             d->data[i] = d->data[i - 1];
@@ -211,29 +211,29 @@ error:
 
 void *darray_delete_at_index(darray *d, size_t index)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
-    LOG_ERROR(index >= 0 && index <= d->size - 1, "in: index is out of range [0, %lu]", d->size - 1);
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
+    LOG_ERROR(index >= 0 && index <= d->size - 1, error, "in: index is out of range [0, %lu]", d->size - 1);
 
     void *retval = NULL;
     if (index == 0) {
         retval = darray_delete_front(d);
-        LOG_ERROR(retval != false, "failed to delete front of darray");
+        LOG_ERROR(retval != false, error, "failed to delete front of darray");
     } else if (index == d->size - 1) {
         retval = darray_delete_rear(d);
-        LOG_ERROR(retval != false, "failed to delete rear of darray");
+        LOG_ERROR(retval != false, error, "failed to delete rear of darray");
     } else {
         int i = 0;
         void *data = darray_get_element_at_index(d, index);
-        LOG_ERROR(data != NULL, "failed to get element at index '%lu' of darray", index);
+        LOG_ERROR(data != NULL, error, "failed to get element at index '%lu' of darray", index);
         for (i = index; i < d->size - 1; i++) {
             d->data[i] = d->data[i + 1];
         }
         bool rv;
         rv = darray_set_element_at_index(d, data, d->size - 1);
-        LOG_ERROR(rv != false, "failed to set element '%p' at index '%lu' of darray", data, index);
+        LOG_ERROR(rv != false, error, "failed to set element '%p' at index '%lu' of darray", data, index);
         retval = darray_delete_rear(d);
-        LOG_ERROR(retval != false, "failed to delete rear of darray");
+        LOG_ERROR(retval != false, error, "failed to delete rear of darray");
     }
 
     return retval;
@@ -244,9 +244,9 @@ error:
 
 void *darray_get_element_at_index(darray *d, size_t index)
 {
-    LOG_ERROR(d != NULL, "in: darray is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
-    LOG_ERROR(index >= 0 && index <= d->size - 1, "in: index is out of range [0, %lu]", d->size - 1);
+    LOG_ERROR(d != NULL, error, "in: darray is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
+    LOG_ERROR(index >= 0 && index <= d->size - 1, error, "in: index is out of range [0, %lu]", d->size - 1);
 
     return d->data[index];
 
@@ -256,10 +256,10 @@ error:
 
 bool darray_set_element_at_index(darray *d, void* element, size_t index)
 {
-    LOG_ERROR(d != NULL, "index: darray is NULL");
-    LOG_ERROR(element != NULL, "in: element is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
-    LOG_ERROR(index >= 0 && index <= d->size - 1, "in: index is out of range [0, %lu]", d->size - 1);
+    LOG_ERROR(d != NULL, error, "index: darray is NULL");
+    LOG_ERROR(element != NULL, error, "in: element is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
+    LOG_ERROR(index >= 0 && index <= d->size - 1, error, "in: index is out of range [0, %lu]", d->size - 1);
 
     d->data[index] = element;
 
@@ -271,8 +271,8 @@ error:
 
 bool darray_reverse(darray *d)
 {
-    LOG_ERROR(d != NULL, "index: darray is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, "darray is empty");
+    LOG_ERROR(d != NULL, error, "index: darray is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
 
     size_t i = 0, j = d->size - 1;
     while (i < j) {
@@ -282,7 +282,7 @@ bool darray_reverse(darray *d)
         bool retval0, retval1;
         retval0 = darray_set_element_at_index(d, eai, j);
         retval1 = darray_set_element_at_index(d, eaj, i);
-        LOG_ERROR(retval0 != false && retval1 != false, "failed to swap '%p' and '%p' in darray", eai, eaj);
+        LOG_ERROR(retval0 != false && retval1 != false, error, "failed to swap '%p' and '%p' in darray", eai, eaj);
         i++;
         j--;
     }

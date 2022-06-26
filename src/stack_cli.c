@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     }
 
     stack_delete(&s);
-    LOG_ERROR(s == NULL, "failed to cleanup stack");
+    LOG_ERROR(s == NULL, error, "failed to cleanup stack");
     return 0;
 
 error:

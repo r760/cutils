@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
     }
 
     sllist_delete(&l);
-    LOG_ERROR(l == NULL, "failed to cleanup sllist");
+    LOG_ERROR(l == NULL, error, "failed to cleanup sllist");
     return 0;
 
 error:

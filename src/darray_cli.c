@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     }
 
     darray_delete(&d);
-    LOG_ERROR(d == NULL, "failed to cleanup darray");
+    LOG_ERROR(d == NULL, error, "failed to cleanup darray");
     return 0;
 
 error:
