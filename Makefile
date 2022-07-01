@@ -88,13 +88,15 @@ run_valgrind_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cl
 
 ## install: install log, darray, sllist, stack, queue libraries
 install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
-	cd $(INCLUDEDIR); find . -name "*.h" -exec sudo cp -v {} /usr/local/include/ \;
-	cd $(LIBDIR); find . -name "*.a" -exec sudo cp -v {} /usr/local/lib/ \;
+	[ -d /usr/local/include ] || sudo mkdir -p /usr/local/include
+	[ -d /usr/local/lib ] || sudo mkdir -p /usr/local/lib
+	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo cp -v {} /usr/local/include/ \;
+	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo cp -v {} /usr/local/lib/ \;
 
 ## uninstall: remove log, darray, sllist, stack, queue header-files and libraries from /usr/local/
 uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
-	cd $(INCLUDEDIR); find . -name "*.h" -exec sudo rm -v /usr/local/include/{} \;
-	cd $(LIBDIR); find . -name "*.a" -exec sudo rm -v /usr/local/lib/{} \;
+	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo rm -v /usr/local/include/{} \;
+	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo rm -v /usr/local/lib/{} \;
 
 ## clean: remove binaries, object files, and shared object files, static libraries, and empty lib and bin dirs
 clean:
