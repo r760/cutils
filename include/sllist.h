@@ -2,15 +2,39 @@
 #define SLLIST_H
 #include <stdbool.h>
 #include <stdlib.h>
+
+/**
+ * walk sllist
+ *
+ * @param curr
+ * name of node variable to be created
+ *
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * there does not exist a variable named curr
+ *
+ * @note runtime O(n)
+ */
 #define SLLIST_FOR_EACH(curr, l) \
-for (node *curr = (sllist_is_empty(l) == false) ? sllist_get_front(l) : NULL; curr != NULL; curr = curr->next)
+    for (node *curr = (sllist_is_empty(l) == false) ? sllist_get_front(l) : NULL; curr != NULL; curr = curr->next)
 
 /**
  * definition of a node
  */
 struct node {
-    struct node *next;
-    void *data;
+    /**
+     * next node
+     */
+    struct node *next; 
+    /**
+     * data contained in current node
+     */
+    void *data; 
 };
 
 typedef struct node node;
@@ -19,114 +43,251 @@ typedef struct node node;
  * definition of a sllist (single linked list)
  */
 typedef struct {
-    node *header;
-    node *trailer;
-    size_t size;
+    /**
+     * header node of sllist
+     */
+    node *header; 
+    /**
+     * trailer node of sllist
+     */
+    node *trailer; 
+    /**
+     * size of sllist, which excludes; header, and trailer nodes
+     */
+    size_t size; 
 } sllist;
 
 /**
- * creates a new node
- * returns a pointer to it if successful, NULL otherwise
+ * create a new node
+ * 
+ * @returns newly created node if successful, NULL otherwise
  *
- * O(1)
+ * @note runtime O(1)
  */
 node *node_create();
 
 /**
- * deletes the node pointed to by 'n'
- * returns true if successful, false otherwise
+ * delete node
  *
- * O(1)
+ * @param n
+ * node
+ *
+ * @pre
+ * n is not NULL
+ *
+ * @pre
+ * *n is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
  */
 bool node_delete(node **n);
 
 /**
- * creates a new sllist
- * returns a pointer to it if successful, NULL otherwise
+ * create a new sllist
  *
- * O(1)
+ * @returns newly created sllist if successful, NULL otherwise
+ *
+ * @note runtime O(1)
  */
 sllist *sllist_create();
 
 /**
- * deletes the sllist pointed to by 'l'
- * returns true if successful, false otherwise
+ * delete sllist
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * *l is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
  */
 bool sllist_delete(sllist **l);
 
 /**
- * returns the size of sllist 'd'
+ * get size of sllist
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @returns size of sllist
+ *
+ * @note runtime O(1)
  */
 size_t sllist_get_size(sllist *l);
 
 /**
- * returns true if sllist 'l' is empty, false otherwise
+ * check if sllist is empty
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @returns true if sllist is empty, false otherwise
+ *
+ * @note runtime O(1)
  */
 bool sllist_is_empty(sllist *l);
 
 /**
- * returns the first node of sllist 'l' if it exists, NULL otherwise
+ * get first node of sllist
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @returns first node of sllist if it exists, NULL otherwise
+ *
+ * @note runtime O(1)
  */
 node *sllist_get_front(sllist *l);
 
 /**
- * returns the first node's data of sllist 'l' if it exists, NULL otherwise
+ * get sllist's first node's data
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @returns sllist's first node's data if it exists, NULL otherwise
+ *
+ * @note runtime O(1)
  */
 void *sllist_get_front_data(sllist *l);
 
 /**
- * returns the last node of sllist 'l' if it exists, NULL otherwise
+ * get last node of sllist
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @returns last node of sllist if it exists, NULL otherwise
+ *
+ * @note runtime O(1)
  */
 node *sllist_get_rear(sllist *l);
 
 /**
- * returns the last node's data of sllist 'l' if it exists, NULL otherwise
+ * get sllist's last node's data
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @returns sllist's last node's data if it exists, NULL otherwise
+ *
+ * @note runtime O(1)
  */
 void *sllist_get_rear_data(sllist *l);
 
 /**
- * adds 'element' to the front of sllist 'l'
- * returns true if successful, false otherwise
+ * add element to front of sllist
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @param element
+ * element
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * element is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
  */
 bool sllist_prepend_element(sllist *l, void *element);
 
 /**
- * adds 'element' to the end of sllist 'l'
- * returns true if successful, false otherwise
+ * add element to end of sllist
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @param element
+ * element
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * element is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
  */
 bool sllist_append_element(sllist *l, void *element);
 
 /**
- * removes the first element of sllist 'l'
- * returns the removed element if successful, NULL otherwise
+ * remove first element of the sllist
  *
- * O(1)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @returns removed element from sllist if successful, NULL otherwise
+ *
+ * @note runtime O(1)
  */
 void *sllist_delete_front(sllist *l);
 
 /**
- * removes the last element of sllist 'l' 
- * returns the removed element if successful, NULL otherwise
+ * remove last element of sllist
  *
- * O(n)
+ * @param l
+ * sllist
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @returns removed element from sllist if successful, NULL otherwise
+ *
+ * @note runtime O(n)
  */
 void *sllist_delete_rear(sllist *l);
 

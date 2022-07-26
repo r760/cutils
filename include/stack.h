@@ -4,58 +4,129 @@
 
 typedef sllist stack;
 
+/**
+ * walk stack
+ *
+ * @note runtime O(n)
+ * @see SLLIST_FOR_EACH
+ */
 #define STACK_FOR_EACH SLLIST_FOR_EACH
 
 /**
- * creates a new stack
- * returns a pointer to it if successful, NULL otherwise
+ * create a new stack
  *
- * O(1)
+ * @returns newly created stack if successful, NULL otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_create()
  */
 #define stack_create() sllist_create()
 
 /**
- * deletes the stack pointed to by 's'
- * returns true if successful, false otherwise
+ * delete stack
  *
- * O(1)
+ * @param s
+ * stack
+ *
+ * @pre
+ * s is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_delete()
  */
 #define stack_delete(s) sllist_delete(s)
 
 /**
- * returns the size of stack 's'
+ * get size of stack
  *
- * O(1)
+ * @param s
+ * stack
+ *
+ * @pre
+ * s is not NULL
+ *
+ * @returns size of stack
+ *
+ * @note runtime O(1)
+ * @see sllist_get_size()
  */
 #define stack_get_size(s) sllist_get_size(s)
 
 /**
- * returns true if stack 's' is empty, false otherwise
+ * check if stack is empty
  *
- * O(1)
+ * @param s 
+ * stack
+ *
+ * @pre
+ * s is not NULL
+ *
+ * @returns true if stack is empty, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_is_empty() 
  */
 #define stack_is_empty(s) sllist_is_empty(s)
 
 /**
- * returns the most recently added element to stack 's' if it exists, NULL otherwise
+ * get most recently added element to stack
  *
- * O(1)
+ * @param s
+ * stack
+ *
+ * @pre
+ * s is not NULL
+ *
+ * @pre
+ * s is not empty
+ *
+ * @returns most recently added element to stack if it exists, NULL otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_get_front_data()
  */
 #define stack_top(s) sllist_get_front_data(s)
 
 /**
- * pushes element 'e' on to stack 's'
- * returns true if successful, false otherwise
+ * push element to stack
  *
- * O(1)
+ * @param s
+ * stack
+ *
+ * @param e
+ * element
+ *
+ * @pre
+ * s is not NULL
+ *
+ * @pre
+ * e is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_prepend_element()
  */
 #define stack_push(s, e) sllist_prepend_element(s, e)
 
 /**
- * pops stack 's'
- * returns the most recently added element to stack 's' if it exists, NULL otherwise
+ * pop stack
  *
- * O(1)
+ * @param s
+ * stack
+ *
+ * @pre
+ * s is not NULL
+ *
+ * @pre
+ * s is not empty
+ *
+ * @returns most recently added element to stack if it exists, NULL otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_delete_front()
  */
 #define stack_pop(s) sllist_delete_front(s)
 

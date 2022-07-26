@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * get current data time (no newline)
+ */
 char *date_time();
 enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
 
@@ -49,12 +52,18 @@ enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
 #ifdef N_LOG_INFO
 #define LOG_INFO(LOG_MESSAGE, ...)
 #else
+/**
+ * print INFO message to log
+ */
 #define LOG_INFO(LOG_MESSAGE, ...) LOG_TEMPLATE(INFO, LOG_MESSAGE, ##__VA_ARGS__);
 #endif
 
 #ifdef N_LOG_DEBUG
 #define LOG_DEBUG(LOG_MESSAGE, ...)
 #else
+/**
+ * print DEBUG message to log
+ */
 #define LOG_DEBUG(LOG_MESSAGE, ...) LOG_TEMPLATE(DEBUG, LOG_MESSAGE, ##__VA_ARGS__);
 #endif
 
@@ -62,11 +71,19 @@ enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
 #define LOG_WARN(CHECK_CONDITION, GOTO_LABEL, LOG_MESSAGE, ...)
 #define LOG_WARN_NO_JUMP(CHECK_CONDITION, LOG_MESSAGE, ...)
 #else
+/**
+ * if check condition fails then print WARNING message to log and jump to user defined goto label,
+ * otherwise do nothing
+ */
 #define LOG_WARN(CHECK_CONDITION, GOTO_LABEL, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
         LOG_TEMPLATE(WARN, LOG_MESSAGE, ##__VA_ARGS__); \
         goto GOTO_LABEL; \
     }
+/**
+ * if check condition fails then print WARNING message to log,
+ * otherwise do nothing
+ */
 #define LOG_WARN_NO_JUMP(CHECK_CONDITION, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
         LOG_TEMPLATE(WARN, LOG_MESSAGE, ##__VA_ARGS__); \
@@ -77,11 +94,19 @@ enum LOG_TYPE { INFO, DEBUG, WARN, ERROR };
 #define LOG_ERROR(CHECK_CONDITION, GOTO_LABEL, LOG_MESSAGE, ...)
 #define LOG_ERROR_NO_JUMP(CHECK_CONDITION, LOG_MESSAGE, ...)
 #else
+/**
+ * if check condition fails then print ERROR message to log and jump to user defined goto label,
+ * otherwise do nothing
+ */
 #define LOG_ERROR(CHECK_CONDITION, GOTO_LABEL, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
         LOG_TEMPLATE(ERROR, LOG_MESSAGE, ##__VA_ARGS__); \
         goto GOTO_LABEL; \
     }
+/**
+ * if check condition fails then print ERROR message to log,
+ * otherwise do nothing
+ */
 #define LOG_ERROR_NO_JUMP(CHECK_CONDITION, LOG_MESSAGE, ...) \
     if (!(CHECK_CONDITION)) { \
         LOG_TEMPLATE(ERROR, LOG_MESSAGE, ##__VA_ARGS__); \

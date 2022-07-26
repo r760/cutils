@@ -4,58 +4,129 @@
 
 typedef sllist queue;
 
+/**
+ * walk queue
+ *
+ * @note runtime O(n)
+ * @see SLLIST_FOR_EACH
+ */
 #define QUEUE_FOR_EACH SLLIST_FOR_EACH
 
 /**
- * creates a new queue
- * returns a pointer to it if successful, NULL otherwise
+ * create a new queue
  *
- * O(1)
+ * @returns newly created queue if successful, NULL otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_create()
  */
 #define queue_create() sllist_create()
 
 /**
- * deletes the queue pointed to by 'q'
- * returns true if successful, false otherwise
+ * delete queue
  *
- * O(1)
+ * @param q
+ * queue
+ *
+ * @pre
+ * q is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_delete()
  */
 #define queue_delete(q) sllist_delete(q)
 
 /**
- * returns the size of queue 'q'
+ * get size of queue
  *
- * O(1)
+ * @param q
+ * queue
+ *
+ * @pre
+ * q is not NULL
+ *
+ * @returns size of queue
+ *
+ * @note runtime O(1)
+ * @see sllist_get_size()
  */
 #define queue_get_size(q) sllist_get_size(q)
 
 /**
- * returns true if queue 'q' is empty, false otherwise
+ * check if queue is empty
  *
- * O(1)
+ * @param q
+ * queue
+ *
+ * @pre
+ * q is not NULL
+ *
+ * @returns true if queue is empty, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_is_empty()
  */
 #define queue_is_empty(q) sllist_is_empty(q)
 
 /**
- * returns the most anciently added element to queue 'q' if it exists, NULL otherwise
+ * get most anciently added element to queue
  *
- * O(1)
+ * @param q
+ * queue
+ *
+ * @pre
+ * q is not NULL
+ *
+ * @pre
+ * q is not empty
+ *
+ * @returns most anciently added element to queue if it exists, NULL otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_get_front_data()
  */
 #define queue_peek(q) sllist_get_front_data(q)
 
 /**
- * adds element 'e' to queue 'q'
- * returns true if successful, false otherwise
+ * add element to queue
  *
- * O(1)
+ * @param q
+ * queue
+ *
+ * @param e
+ * element
+ *
+ * @pre
+ * q is not NULL
+ *
+ * @pre
+ * e is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_append_element()
  */
 #define queue_enqueue(q, e) sllist_append_element(q, e)
 
 /**
- * removes the most anciently added element in queue 'q'
- * returns the most anciently added element to queue 'q' if it exists, NULL otherwise
+ * remove most anciently added element to queue
  *
- * O(1)
+ * @param q
+ * queue
+ *
+ * @pre
+ * q is not NULL
+ *
+ * @pre
+ * q is not empty
+ *
+ * @returns most anciently added element to queue if it exists, NULL otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_delete_front()
  */
 #define queue_dequeue(q) sllist_delete_front(q)
 
