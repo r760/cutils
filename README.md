@@ -2,19 +2,19 @@
 utilities for the C programming language
 
 ## data structures
-- dynamic array [view docs](file:///home/richard/Github/cutils/docs/html/darray_8h.html)
-- single linked list [view docs](file:///home/richard/Github/cutils/docs/html/sllist_8h.html)
-- stack [view docs](file:///home/richard/Github/cutils/docs/html/stack_8h.html)
-- queue [view docs](file:///home/richard/Github/cutils/docs/html/queue_8h.html)
+- dynamic array
+- single linked list
+- stack
+- queue
 
 ## logging tools
-- log info macro [view docs](file:///home/richard/Github/cutils/docs/html/log_8h.html)
-- log debug macros [view docs](file:///home/richard/Github/cutils/docs/html/log_8h.html)
-- log warning macros [view docs](file:///home/richard/Github/cutils/docs/html/log_8h.html)
-- log error macros [view docs](file:///home/richard/Github/cutils/docs/html/log_8h.html)
+- log info macro
+- log debug macros
+- log warning macros
+- log error macros
 
 ## other
-- logic operator macros [view docs](file:///home/richard/Github/cutils/docs/html/logic_8h.html)
+- logic operator macros
 
 ## how to view all Makefile directives ?
 ```
