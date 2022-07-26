@@ -1,6 +1,8 @@
 # cutils
 utilities for the C programming language
 
+- to view the documentation go to [https://r760.github.io/cutils/](https://r760.github.io/cutils/)
+
 ## data structures
 - dynamic array
 - single linked list
