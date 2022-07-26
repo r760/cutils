@@ -23,15 +23,15 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "utilities for the C programming language", "index.html", [
-    [ "cutils", "md_README.html", [
-      [ "data structures", "md_README.html#autotoc_md1", null ],
-      [ "logging tools", "md_README.html#autotoc_md2", null ],
-      [ "other", "md_README.html#autotoc_md3", null ],
-      [ "how to view all Makefile directives ?", "md_README.html#autotoc_md4", null ],
-      [ "how to compile ?", "md_README.html#autotoc_md5", null ],
-      [ "how to install ?", "md_README.html#autotoc_md6", null ],
-      [ "how to uninstall ?", "md_README.html#autotoc_md7", null ],
-      [ "how to use; data structures, logging tools, and logic operators", "md_README.html#autotoc_md8", null ]
+    [ "cutils", "index.html", [
+      [ "data structures", "index.html#autotoc_md1", null ],
+      [ "logging tools", "index.html#autotoc_md2", null ],
+      [ "other", "index.html#autotoc_md3", null ],
+      [ "how to view all Makefile directives ?", "index.html#autotoc_md4", null ],
+      [ "how to compile ?", "index.html#autotoc_md5", null ],
+      [ "how to install ?", "index.html#autotoc_md6", null ],
+      [ "how to uninstall ?", "index.html#autotoc_md7", null ],
+      [ "how to use; data structures, logging tools, and logic operators", "index.html#autotoc_md8", null ]
     ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
