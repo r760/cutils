@@ -106,7 +106,45 @@ logging tools</h1>
 <li>log warning macros</li>
 <li>log error macros</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<p>note:</p><ul>
+<li>log colors can be turned off by defining <code>N_LOG_COLORS</code></li>
+<li>log info macros can be turned off by defining <code>N_LOG_INFO</code></li>
+<li>log debug macros can be turned off by defining <code>N_LOG_DEBUG</code></li>
+<li>log warning macros can be turned off by defining <code>N_LOG_WARN</code></li>
+<li>log error macros can be turned off by defining <code>N_LOG_ERROR</code></li>
+</ul>
+<p>for example, consider the following program (example.c) </p><div class="fragment"><div class="line">#include &lt;log.h&gt;</div>
+<div class="line"> </div>
+<div class="line">int main(int argc, char *argv[])</div>
+<div class="line">{</div>
+<div class="line">    LOG_INFO(&quot;argc: %d&quot;, argc);</div>
+<div class="line"> </div>
+<div class="line">    for (int i = 1; i &lt; argc; i++) {</div>
+<div class="line">        LOG_DEBUG(&quot;argv[%d]: %s&quot;, i, argv[i]);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    printf(&quot;hello, world!\n&quot;);</div>
+<div class="line"> </div>
+<div class="line">    return 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>which can be compiled using different define directives inorder to toggle log off select log features;</p>
+<p>Version 1: </p><div class="fragment"><div class="line">{/tmp} &gt;&gt;&gt; gcc -Wall -g example.c -llog -o example</div>
+<div class="line">{/tmp} &gt;&gt;&gt; ./example 1 2 3</div>
+<div class="line">Thu Jul 28 21:27:33 2022 INFO  (example.c:5) main()  --&gt; argc: 4</div>
+<div class="line">Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --&gt; argv[1]: 1</div>
+<div class="line">Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --&gt; argv[2]: 2</div>
+<div class="line">Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --&gt; argv[3]: 3</div>
+<div class="line">hello, world!</div>
+</div><!-- fragment --><p>Version 2: </p><div class="fragment"><div class="line">{/tmp} &gt;&gt;&gt; gcc -Wall -g -DN_LOG_INFO example.c -llog -o example</div>
+<div class="line">{/tmp} &gt;&gt;&gt; ./example 1 2 3</div>
+<div class="line">Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --&gt; argv[1]: 1</div>
+<div class="line">Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --&gt; argv[2]: 2</div>
+<div class="line">Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --&gt; argv[3]: 3</div>
+<div class="line">hello, world!</div>
+</div><!-- fragment --><p>Version 3: </p><div class="fragment"><div class="line">{/tmp} &gt;&gt;&gt; gcc -Wall -g -DN_LOG_INFO -DN_LOG_DEBUG example.c -llog -o example</div>
+<div class="line">{/tmp} &gt;&gt;&gt; ./example 1 2 3</div>
+<div class="line">hello, world!</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
 other</h1>
 <ul>
 <li>logic operator macros</li>
@@ -139,7 +177,7 @@ how to use; data structures, logging tools, and logic operators</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jul 26 2022 23:31:34 for utilities for the C programming language by
+    <li class="footer">Generated on Fri Jul 29 2022 01:44:09 for utilities for the C programming language by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
