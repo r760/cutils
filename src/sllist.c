@@ -16,8 +16,8 @@ error:
 
 bool node_delete(node **n)
 {
-    LOG_ERROR(n != NULL, error, "in: pointer to node is NULL");
-    LOG_ERROR(*n != NULL, error, "in: node is NULL");
+    LOG_ERROR(n != NULL, error, "pointer to node is NULL");
+    LOG_ERROR(*n != NULL, error, "node is NULL");
 
     free(*n);
     *n = NULL;
@@ -49,8 +49,8 @@ error:
 
 bool sllist_delete(sllist **l)
 {
-    LOG_ERROR(l != NULL, error, "in: pointer to sllist is NULL");
-    LOG_ERROR(*l != NULL, error, "in: sllist is NULL");
+    LOG_ERROR(l != NULL, error, "pointer to sllist is NULL");
+    LOG_ERROR(*l != NULL, error, "sllist is NULL");
 
     free((*l)->header);
     free((*l)->trailer);
@@ -65,7 +65,7 @@ error:
 
 size_t sllist_get_size(sllist *l)
 {
-    LOG_ERROR(l != NULL, error, "in: sllist is NULL");
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
 
     return l->size;
 
@@ -75,7 +75,7 @@ error:
 
 bool sllist_is_empty(sllist *l)
 {
-    LOG_ERROR(l != NULL, error, "in: sllist is NULL");
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
 
     if (sllist_get_size(l) >= 1) {
         return false;
@@ -87,10 +87,10 @@ error:
 
 node *sllist_get_front(sllist *l)
 {
-    LOG_ERROR(l != NULL, error, "in: sllist is NULL");
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
     LOG_ERROR(sllist_is_empty(l) == false, error, "sllist is empty");
-    LOG_ERROR(l->header != NULL, error, "in: sllist->header is NULL");
-    LOG_ERROR(l->header->next != NULL, error, "in: sllist->header->next is NULL");
+    LOG_ERROR(l->header != NULL, error, "sllist->header is NULL");
+    LOG_ERROR(l->header->next != NULL, error, "sllist->header->next is NULL");
 
     return l->header->next;
 
@@ -111,10 +111,10 @@ error:
 
 node *sllist_get_rear(sllist *l)
 {
-    LOG_ERROR(l != NULL, error, "in: sllist is NULL");
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
     LOG_ERROR(sllist_is_empty(l) == false, error, "sllist is empty");
-    LOG_ERROR(l->trailer != NULL, error, "in: sllist->trailer is NULL");
-    LOG_ERROR(l->trailer->next != NULL, error, "in: sllist->trailer->next is NULL");
+    LOG_ERROR(l->trailer != NULL, error, "sllist->trailer is NULL");
+    LOG_ERROR(l->trailer->next != NULL, error, "sllist->trailer->next is NULL");
 
     return l->trailer->next;
 
@@ -135,8 +135,8 @@ error:
 
 bool sllist_prepend_element(sllist *l, void *element)
 {
-    LOG_ERROR(l != NULL, error, "in: sllist is NULL");
-    LOG_ERROR(element != NULL, error, "in: element is NULL");
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
+    LOG_ERROR(element != NULL, error, "element is NULL");
 
     node *n = node_create();
     LOG_ERROR(n != NULL, error, "failed to create node");
@@ -159,8 +159,8 @@ error:
 
 bool sllist_append_element(sllist *l, void *element)
 {
-    LOG_ERROR(l != NULL, error, "in: sllist is NULL");
-    LOG_ERROR(element != NULL, error, "in: element is NULL");
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
+    LOG_ERROR(element != NULL, error, "element is NULL");
 
     node *n = node_create();
     LOG_ERROR(n != NULL, error, "failed to create node");
@@ -185,12 +185,12 @@ error:
 
 void *sllist_delete_front(sllist *l)
 {
-    LOG_ERROR(l != NULL, error, "in: sllist is NULL");
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
     LOG_ERROR(sllist_is_empty(l) == false, error, "sllist is empty");
-    LOG_ERROR(l->header != NULL, error, "in: sllist->header is NULL");
-    LOG_ERROR(l->header->next != NULL, error, "in: sllist->header->next is NULL");
-    LOG_ERROR(l->trailer != NULL, error, "in: sllist->trailer is NULL");
-    LOG_ERROR(l->trailer->next != NULL, error, "in: sllist->trailer->next is NULL");
+    LOG_ERROR(l->header != NULL, error, "sllist->header is NULL");
+    LOG_ERROR(l->header->next != NULL, error, "sllist->header->next is NULL");
+    LOG_ERROR(l->trailer != NULL, error, "sllist->trailer is NULL");
+    LOG_ERROR(l->trailer->next != NULL, error, "sllist->trailer->next is NULL");
 
     size_t size = sllist_get_size(l);
     node *first = sllist_get_front(l);
@@ -216,12 +216,12 @@ error:
 
 void *sllist_delete_rear(sllist *l)
 {
-    LOG_ERROR(l != NULL, error, "in: sllist is NULL");
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
     LOG_ERROR(sllist_is_empty(l) == false, error, "sllist is empty");
-    LOG_ERROR(l->header != NULL, error, "in: sllist->header is NULL");
-    LOG_ERROR(l->header->next != NULL, error, "in: sllist->header->next is NULL");
-    LOG_ERROR(l->trailer != NULL, error, "in: sllist->trailer is NULL");
-    LOG_ERROR(l->trailer->next != NULL, error, "in: sllist->trailer->next is NULL");
+    LOG_ERROR(l->header != NULL, error, "sllist->header is NULL");
+    LOG_ERROR(l->header->next != NULL, error, "sllist->header->next is NULL");
+    LOG_ERROR(l->trailer != NULL, error, "sllist->trailer is NULL");
+    LOG_ERROR(l->trailer->next != NULL, error, "sllist->trailer->next is NULL");
 
     size_t size = sllist_get_size(l);
     node *rear = sllist_get_rear(l);

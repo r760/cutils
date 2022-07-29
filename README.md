@@ -15,6 +15,58 @@ utilities for the C programming language
 - log warning macros
 - log error macros
 
+note:
+- log colors can be turned off by defining `N_LOG_COLORS`
+- log info macros can be turned off by defining `N_LOG_INFO`
+- log debug macros can be turned off by defining `N_LOG_DEBUG`
+- log warning macros can be turned off by defining `N_LOG_WARN`
+- log error macros can be turned off by defining `N_LOG_ERROR`
+
+for example, consider the following program (example.c)
+```
+#include <log.h>
+
+int main(int argc, char *argv[])
+{
+    LOG_INFO("argc: %d", argc);
+
+    for (int i = 1; i < argc; i++) {
+        LOG_DEBUG("argv[%d]: %s", i, argv[i]);
+    }
+
+    printf("hello, world!\n");
+
+    return 0;
+}
+```
+which can be compiled using different define directives inorder to toggle log off select log features;
+
+Version 1:
+```
+{/tmp} >>> gcc -Wall -g example.c -llog -o example
+{/tmp} >>> ./example 1 2 3
+Thu Jul 28 21:27:33 2022 INFO  (example.c:5) main()  --> argc: 4
+Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --> argv[1]: 1
+Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --> argv[2]: 2
+Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --> argv[3]: 3
+hello, world!
+```
+Version 2:
+```
+{/tmp} >>> gcc -Wall -g -DN_LOG_INFO example.c -llog -o example
+{/tmp} >>> ./example 1 2 3
+Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --> argv[1]: 1
+Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --> argv[2]: 2
+Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --> argv[3]: 3
+hello, world!
+```
+Version 3:
+```
+{/tmp} >>> gcc -Wall -g -DN_LOG_INFO -DN_LOG_DEBUG example.c -llog -o example
+{/tmp} >>> ./example 1 2 3
+hello, world!
+```
+
 ## other
 - logic operator macros
 
