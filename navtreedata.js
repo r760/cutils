@@ -25,7 +25,7 @@ var NAVTREE =
   [ "utilities for the C programming language", "index.html", [
     [ "cutils", "index.html", [
       [ "data structures", "index.html#autotoc_md1", null ],
-      [ "logging tools", "index.html#autotoc_md2", null ],
+      [ "logging (and error checking/handling) tools", "index.html#autotoc_md2", null ],
       [ "other", "index.html#autotoc_md3", null ],
       [ "how to view all Makefile directives ?", "index.html#autotoc_md4", null ],
       [ "how to compile ?", "index.html#autotoc_md5", null ],

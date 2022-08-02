@@ -98,8 +98,11 @@ data structures</h1>
 <li>stack</li>
 <li>queue</li>
 </ul>
+<p>note:</p><ul>
+<li>logging tools are used to do error checking, and by default log colors are enabled... log colors can be turned off by defining <code>N_LOG_COLORS</code></li>
+</ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
-logging tools</h1>
+logging (and error checking/handling) tools</h1>
 <ul>
 <li>log info macro</li>
 <li>log debug macros</li>
@@ -154,8 +157,13 @@ how to view all Makefile directives ?</h1>
 <div class="fragment"><div class="line">make help</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 how to compile ?</h1>
-<div class="fragment"><div class="line">make all</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
+<ul>
+<li>with log colors <div class="fragment"><div class="line">make all</div>
+</div><!-- fragment --></li>
+<li>without log colors <div class="fragment"><div class="line">make DFLAGS=-DN_LOG_COLORS all</div>
+</div><!-- fragment --></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md6"></a>
 how to install ?</h1>
 <div class="fragment"><div class="line">make install</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
@@ -177,7 +185,7 @@ how to use; data structures, logging tools, and logic operators</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Jul 29 2022 01:44:09 for utilities for the C programming language by
+    <li class="footer">Generated on Tue Aug 2 2022 23:19:21 for utilities for the C programming language by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
