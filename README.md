@@ -9,7 +9,11 @@ utilities for the C programming language
 - stack
 - queue
 
-## logging tools
+note:
+- logging tools are used to do error checking, and by default log colors are enabled...
+log colors can be turned off by defining `N_LOG_COLORS`
+
+## logging (and error checking/handling) tools
 - log info macro
 - log debug macros
 - log warning macros
@@ -76,8 +80,13 @@ make help
 ```
 
 ## how to compile ?
+- with log colors
 ```
 make all
+```
+- without log colors
+```
+make DFLAGS=-DN_LOG_COLORS all
 ```
 
 ## how to install ?
