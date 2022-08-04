@@ -98,7 +98,6 @@ uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
 	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo rm -v /usr/local/include/{} \;
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo rm -v /usr/local/lib/{} \;
 
-## clean: remove binaries, object files, and shared object files, static libraries, and empty lib and bin dirs
+## clean: remove lib, and bin dirs (and everything inside)
 clean:
-	rm -f $(LIBDIR)/*.o $(LIBDIR)/*.so $(LIBDIR)/*.a $(BINDIR)/*
-	rmdir $(LIBDIR) $(BINDIR) &> /dev/null || true
+	rm -rf $(LIBDIR) $(BINDIR) &> /dev/null || true
