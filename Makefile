@@ -86,14 +86,14 @@ run_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDI
 run_valgrind_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDIR)/queue_cli
 	cd $(TESTSDIR); ./run.sh --check-memory-leaks
 
-## install: install log, darray, sllist, stack, queue libraries
+## install: install log, darray, sllist, stack, queue header-files and libraries
 install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
 	[ -d /usr/local/include ] || sudo mkdir -p /usr/local/include
 	[ -d /usr/local/lib ] || sudo mkdir -p /usr/local/lib
 	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo cp -v {} /usr/local/include/ \;
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo cp -v {} /usr/local/lib/ \;
 
-## uninstall: remove log, darray, sllist, stack, queue header-files and libraries from /usr/local/
+## uninstall: uninstall log, darray, sllist, stack, queue header-files and libraries
 uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
 	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo rm -v /usr/local/include/{} \;
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo rm -v /usr/local/lib/{} \;
