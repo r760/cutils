@@ -300,6 +300,87 @@ void *darray_get_element_at_index(darray *d, size_t index);
 bool darray_set_element_at_index(darray *d, void* element, size_t index);
 
 /**
+ * get number of elements in dynamic array which satisfy specified condition
+ *
+ * @param d
+ * dynamic array
+ *
+ * @param other
+ * argument to pass to condition function
+ *
+ * @param condition 
+ * condition (function pointer)
+ *
+ * @pre
+ * d is not NULL
+ *
+ * @pre
+ * d is not empty
+ *
+ * @pre
+ * condition is not NULL
+ *
+ * @returns number of elements found
+ *
+ * @note runtime O(n)
+ */
+size_t darray_count_elements(darray *d, void *other, bool (*condition)(void *element, void *other));
+
+/**
+ * get elements in dynamic array which satisfy specified condition
+ *
+ * @param d 
+ * dynamic array
+ *
+ * @param other
+ * argument to pass to condition function 
+ *
+ * @param condition 
+ * condition (function pointer)
+ *
+ * @pre
+ * d is not NULL
+ *
+ * @pre
+ * d is not empty
+ *
+ * @pre
+ * condition is not NULL
+ *
+ * @returns a dynamic array filled with the found elements if successful, NULL otherwise
+ *
+ * @note runtime O(n)
+ */
+darray *darray_get_elements(darray *d, void *other, bool (*condition)(void *element, void *other));
+
+/**
+ * remove elements in dynamic array which satisfy specified condition
+ *
+ * @param d 
+ * dynamic array
+ *
+ * @param other
+ * argument to pass to condition function 
+ *
+ * @param condition 
+ * condition (function pointer)
+ *
+ * @pre
+ * d is not NULL
+ *
+ * @pre
+ * d is not empty
+ *
+ * @pre
+ * condition is not NULL
+ *
+ * @returns a dynamic array filled with the removed elements if successful, NULL otherwise
+ *
+ * @note runtime O(n^2)
+ */
+darray *darray_delete_elements(darray *d, void *other, bool (*condition)(void *element, void *other));
+
+/**
  * reverse dynamic array element-wise
  *
  * @param d 

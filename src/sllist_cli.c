@@ -1,20 +1,31 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "../include/log.h"
 #include "../include/sllist.h"
 #define BUFF_SIZE 100
 
+int match_low, match_high;
+
+bool condition(void *element, void *other)
+{
+     int *i = (int *) element;
+     //LOG_DEBUG("[%d, %d]", match_low, match_high);
+     return (*i >= match_low) && (*i <= match_high);
+}
+
 void sllist_print(sllist *l)
 {
     void *data = NULL;
-
     printf("[");
-    SLLIST_FOR_EACH(curr, l) {
-        data = curr->data;
-        printf("%d", *(int*)data);
-        if (curr->next != NULL) {
-            printf(", ");
-        }
+    if (l != NULL) {
+	 SLLIST_FOR_EACH(curr, l) {
+	      data = curr->data;
+	      printf("%d", *(int*)data);
+	      if (curr->next != NULL) {
+		   printf(", ");
+	      }
+	 }
+	 
     }
     printf("]\n");
 }
@@ -68,6 +79,51 @@ int main(int argc, char *argv[])
                 free(j);
             }
             sllist_print(l);
+        } else if (strcmp(command, "ce") == 0) {
+            // has element
+            char *arg = strtok(NULL, " ");
+            int *j = malloc(sizeof(int));
+            *j = atoi(arg);
+
+            arg = strtok(NULL, " ");
+            int *k = malloc(sizeof(int));
+            *k = atoi(arg);
+
+            match_low = *j;
+            match_high = *k;
+
+	    printf("%lu\n", sllist_count_elements(l, NULL, &condition));
+	} else if (strcmp(command, "ge") == 0) {
+            // get elements
+            char *arg = strtok(NULL, " ");
+            int *j = malloc(sizeof(int));
+            *j = atoi(arg);
+            arg = strtok(NULL, " ");
+            int *k = malloc(sizeof(int));
+            *k = atoi(arg);
+            match_low = *j;
+            match_high = *k;
+            sllist *sub_list= sllist_get_elements(l, NULL, &condition);
+            sllist_print(sub_list);
+	    if (sub_list != NULL) {
+		 sllist_delete(&sub_list);
+	    }
+	} else if (strcmp(command, "de") == 0) {
+            // delete elements
+            char *arg = strtok(NULL, " ");
+            int *j = malloc(sizeof(int));
+            *j = atoi(arg);
+            arg = strtok(NULL, " ");
+            int *k = malloc(sizeof(int));
+            *k = atoi(arg);
+            match_low = *j;
+            match_high = *k;
+            sllist *sub_list = sllist_delete_elements(l, NULL, &condition);
+            sllist_print(l);
+            sllist_print(sub_list);
+	    if (sub_list != NULL) {
+		 sllist_delete(&sub_list);
+	    }
         } else if (strcmp(command, "gs") == 0) {
             // get size
             printf("%lu\n", sllist_get_size(l));

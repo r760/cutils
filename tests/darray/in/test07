@@ -1,0 +1,17 @@
+ar 10
+ar 20
+ar 30
+ar 40
+ar 50
+ge 0 9
+ge 51 60
+ge 10 10
+ge 20 20
+ge 30 30
+ge 40 40
+ge 50 50
+ge 10 50
+ge 20 50
+ge 30 50
+ge 40 50
+exit

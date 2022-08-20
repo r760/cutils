@@ -291,4 +291,85 @@ void *sllist_delete_front(sllist *l);
  */
 void *sllist_delete_rear(sllist *l);
 
+/**
+ * get number of elements in sllist which satisfy specified condition
+ *
+ * @param l
+ * sllist
+ *
+ * @param other
+ * argument to pass to condition function
+ *
+ * @param condition 
+ * condition (function pointer)
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @pre
+ * condition is not NULL
+ *
+ * @returns number of elements found
+ *
+ * @note runtime O(n)
+ */
+size_t sllist_count_elements(sllist *l, void *other, bool (*condition)(void *element, void *other));
+
+/**
+ * get elements in sllist which satisfy specified condition
+ *
+ * @param l 
+ * sllist
+ *
+ * @param other
+ * argument to pass to condition function 
+ *
+ * @param condition 
+ * condition (function pointer)
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @pre
+ * condition is not NULL
+ *
+ * @returns a sllist filled with the found elements if successful, NULL otherwise
+ *
+ * @note runtime O(n)
+ */
+sllist *sllist_get_elements(sllist *l, void *other, bool (*condition)(void *element, void *other));
+
+/**
+ * remove elements in sllist which satisfy specified condition
+ *
+ * @param l 
+ * sllist
+ *
+ * @param other
+ * argument to pass to condition function 
+ *
+ * @param condition 
+ * condition (function pointer)
+ *
+ * @pre
+ * l is not NULL
+ *
+ * @pre
+ * l is not empty
+ *
+ * @pre
+ * condition is not NULL
+ *
+ * @returns a sllist filled with the removed elements if successful, NULL otherwise
+ *
+ * @note runtime O(n^2)
+ */
+sllist *sllist_delete_elements(sllist *l, void *other, bool (*condition)(void *element, void *other));
+
 #endif

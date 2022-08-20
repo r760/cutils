@@ -5,37 +5,57 @@ cleanup()
     rm -f tmp.*
 }
 
-run_test()
+green_font()
+{
+    tput setaf 2
+}
+
+yellow_font()
 {
     tput setaf 3
+}
+
+red_font()
+{
+    tput setaf 1
+}
+
+reset_font()
+{
+    tput sgr0
+}
+
+run_test()
+{
+    yellow_font
     echo "=== === === === ==="
     echo "|  Testing ${1} |"
     echo "=== === === === ==="
-    tput sgr0
+    reset_font
 
     for test in $(ls ${1}/in);
     do
-        case $2 in
-            "--check-memory-leaks")
-                valgrind --track-origins=yes --leak-check=full ${BINDIR}/${1}_cli < ${1}/in/${test} > tmp.${test}
-                ;;
-            *)
-                ${BINDIR}/${1}_cli < ${1}/in/${test} > tmp.${test}
-                ;;
-        esac
-        TEST_RES=$(diff tmp.${test} ${1}/expected/${test})
+	case $2 in
+	    "--check-memory-leaks")
+		valgrind --track-origins=yes --leak-check=full ${BINDIR}/${1}_cli < ${1}/in/${test} > tmp.${test}
+		;;
+	    *)
+		${BINDIR}/${1}_cli < ${1}/in/${test} > tmp.${test}
+		;;
+	esac
+	TEST_RES=$(diff tmp.${test} ${1}/expected/${test})
 
-        if [[ ${TEST_RES} == "" ]]; then
-            echo -en " - ${test} "
-            tput setaf 2
-            echo "Passed"
-        else
-            echo -en " - ${test} "
-            tput setaf 1
-            echo "Failed"
-            echo "${TEST_RES}"
-        fi
-        tput sgr0
+	if [[ ${TEST_RES} == "" ]]; then
+	    echo -en " - ${test} "
+	    green_font
+	    echo "Passed"
+	else
+	    echo -en " - ${test} "
+	    red_font
+	    echo "Failed"
+	    echo "${TEST_RES}"
+	fi
+	reset_font
     done
     echo
 }

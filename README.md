@@ -32,10 +32,10 @@ for example, consider the following program (example.c)
 
 int main(int argc, char *argv[])
 {
-    LOG_INFO("argc: %d", argc);
+    LOG_INFO("argc '%d'", argc);
 
     for (int i = 1; i < argc; i++) {
-        LOG_DEBUG("argv[%d]: %s", i, argv[i]);
+        LOG_DEBUG("argv[%d] '%s'", i, argv[i]);
     }
 
     printf("hello, world!\n");
@@ -49,19 +49,19 @@ Version 1:
 ```
 {/tmp} >>> gcc -Wall -g example.c -llog -o example
 {/tmp} >>> ./example 1 2 3
-Thu Jul 28 21:27:33 2022 INFO  (example.c:5) main()  --> argc: 4
-Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --> argv[1]: 1
-Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --> argv[2]: 2
-Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --> argv[3]: 3
+Sat Aug 20 00:00:00 2022 INFO  (example.c:5) main()  --> argc '4'
+Sat Aug 20 00:00:00 2022 DEBUG (example.c:8) main()  --> argv[1] '1'
+Sat Aug 20 00:00:00 2022 DEBUG (example.c:8) main()  --> argv[2] '2'
+Sat Aug 20 00:00:00 2022 DEBUG (example.c:8) main()  --> argv[3] '3'
 hello, world!
 ```
 Version 2:
 ```
 {/tmp} >>> gcc -Wall -g -DN_LOG_INFO example.c -llog -o example
-{/tmp} >>> ./example 1 2 3
-Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --> argv[1]: 1
-Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --> argv[2]: 2
-Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --> argv[3]: 3
+{/tmp} >>> {/tmp} >>> ./example 1 2 3
+Sat Aug 20 00:01:00 2022 DEBUG (example.c:8) main()  --> argv[1] '1'
+Sat Aug 20 00:01:00 2022 DEBUG (example.c:8) main()  --> argv[2] '2'
+Sat Aug 20 00:01:00 2022 DEBUG (example.c:8) main()  --> argv[3] '3'
 hello, world!
 ```
 Version 3:

@@ -114,7 +114,7 @@ error:
     return false;
 }
 
-bool trim(darray *d)
+static bool darray_trim(darray *d)
 {
     d->capacity = d->size;
     void *raptr = realloc(d->data, d->size_of_data * d->capacity);
@@ -160,7 +160,7 @@ void *darray_delete_rear(darray *d)
         d->size--;
 
         if (d->size >= 2 && (d->size * 2 == d->capacity)) {
-            bool is_success = trim(d);
+            bool is_success = darray_trim(d);
             LOG_ERROR(is_success, error, "failed to trim darray");
         } else if (d->size == 0) {
             free(d->data);
@@ -267,6 +267,103 @@ bool darray_set_element_at_index(darray *d, void* element, size_t index)
 
 error:
     return false;
+}
+
+size_t darray_count_elements(darray *d, void *other, bool (*condition)(void *element, void *other))
+{
+     LOG_ERROR(d != NULL, error, "darray is NULL");
+     LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
+     LOG_ERROR(condition != NULL, error, "condition (function pointer) is NULL");
+
+     size_t size = 0;
+
+     DARRAY_FOREACH(i, d) {
+	  if (condition(darray_get_element_at_index(d, i), other)) {
+	       size++;
+	  }
+     }
+
+     return size;
+
+error:
+     return 0;
+}
+
+darray *darray_get_elements(darray *d, void *other, bool (*condition)(void *element, void *other))
+{
+    LOG_ERROR(d != NULL, error, "darray is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
+    LOG_ERROR(condition != NULL, error, "condition (function pointer) is NULL");
+
+    bool rv;
+
+    darray *sub_array = darray_create();
+    LOG_ERROR(sub_array != NULL, error, "failed to create darray");
+
+    DARRAY_FOREACH(i, d) {
+	 void *element = darray_get_element_at_index(d, i);
+	 if (condition(element, other)) {
+	      rv = darray_append_element(sub_array, element);
+	      LOG_ERROR(rv != false, error, "failed to append element '%p' to darray", element);
+	 }
+    }
+
+    if (darray_is_empty(sub_array)) {
+	 rv = darray_delete(&sub_array);
+	 LOG_ERROR(rv = true, error, "failed to free darray");
+	 return NULL;
+    }
+
+    return sub_array;
+
+error:
+    return NULL;
+}
+
+darray *darray_delete_elements(darray *d, void *other, bool (*condition)(void *element, void *other))
+{
+    LOG_ERROR(d != NULL, error, "darray is NULL");
+    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
+    LOG_ERROR(condition != NULL, error, "condition (function pointer) is NULL");
+
+    void *retval = NULL;
+    bool rv;
+    bool found = false;
+    size_t index = 0;
+
+    darray *sub_array = darray_create();
+    LOG_ERROR(sub_array != NULL, error, "failed to create darray");
+
+    while (!darray_is_empty(d)) {
+	 DARRAY_FOREACH(i, d) {
+	      if (condition(darray_get_element_at_index(d, i), other)) {
+		   found = true;
+		   index = i;
+		   break;
+	      }
+	 }
+	 if (found) {
+	      retval = darray_delete_at_index(d, index);
+	      LOG_ERROR(retval != NULL, error, "failed to delete element at index '%lu' of darray", index);
+	      rv = darray_append_element(sub_array, retval);
+	      LOG_ERROR(rv != false, error, "failed to append element '%p' to darray", retval);
+
+	      found = false;
+	 } else {
+	      break;
+	 }
+    }
+
+    if (darray_is_empty(sub_array)) {
+	 rv = darray_delete(&sub_array);
+	 LOG_ERROR(rv = true, error, "failed to free darray");
+	 return NULL;
+    }
+
+    return sub_array;
+
+error:
+    return NULL;
 }
 
 bool darray_reverse(darray *d)

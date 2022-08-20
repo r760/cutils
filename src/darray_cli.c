@@ -1,17 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/log.h"
+#include <string.h>
 #include "../include/darray.h"
+#include "../include/log.h"
 #define BUFF_SIZE 100
+
+int match_low, match_high;
+
+bool condition(void *element, void *other)
+{
+    int *i = (int *) element;
+    //LOG_DEBUG("%d [%d, %d]", *i, match_low, match_high);
+    return (*i >= match_low) && (*i <= match_high);
+}
 
 void darray_print(darray *d)
 {
     printf("[");
-    DARRAY_FOREACH(i, d) {
-        printf("%d", *(int *)darray_get_element_at_index(d, i));
-        if (i < darray_get_size(d) - 1) {
-            printf(", ");
-        }
+    if (d != NULL) {
+	 DARRAY_FOREACH(i, d) {
+	      printf("%d", *(int *)darray_get_element_at_index(d, i));
+	      if (i < darray_get_size(d) - 1) {
+		   printf(", ");
+	      }
+	 }
     }
     printf("]\n");
 }
@@ -70,6 +82,48 @@ int main(int argc, char *argv[])
             // reverse
             darray_reverse(d);
             darray_print(d);
+        } else if (strcmp(command, "ce") == 0) {
+            // count elements
+            char *arg = strtok(NULL, " ");
+            int *j = malloc(sizeof(int));
+            *j = atoi(arg);
+            arg = strtok(NULL, " ");
+            int *k = malloc(sizeof(int));
+            *k = atoi(arg);
+            match_low = *j;
+            match_high = *k;
+            printf("%lu\n", darray_count_elements(d, NULL, &condition));
+        } else if (strcmp(command, "ge") == 0) {
+            // get elements
+            char *arg = strtok(NULL, " ");
+            int *j = malloc(sizeof(int));
+            *j = atoi(arg);
+            arg = strtok(NULL, " ");
+            int *k = malloc(sizeof(int));
+            *k = atoi(arg);
+            match_low = *j;
+            match_high = *k;
+            darray *sub_array = darray_get_elements(d, NULL, &condition);
+            darray_print(sub_array);
+	    if (sub_array != NULL) {
+		 darray_delete(&sub_array);
+	    }
+	} else if (strcmp(command, "de") == 0) {
+            // delete elements
+            char *arg = strtok(NULL, " ");
+            int *j = malloc(sizeof(int));
+            *j = atoi(arg);
+            arg = strtok(NULL, " ");
+            int *k = malloc(sizeof(int));
+            *k = atoi(arg);
+            match_low = *j;
+            match_high = *k;
+            darray *sub_array = darray_delete_elements(d, NULL, &condition);
+            darray_print(d);
+            darray_print(sub_array);
+	    if (sub_array != NULL) {
+		 darray_delete(&sub_array);
+	    }
         } else if (strcmp(command, "a@i") == 0) {
             // add at index
             char *arg = strtok(NULL, " ");

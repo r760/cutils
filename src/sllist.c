@@ -248,3 +248,139 @@ void *sllist_delete_rear(sllist *l)
 error:
     return NULL;
 }
+
+size_t sllist_count_elements(sllist *l, void *other, bool (*condition)(void *element, void *other))
+{
+     LOG_ERROR(l != NULL, error, "sllist is NULL");
+     LOG_ERROR(sllist_is_empty(l) == false, error, "sllist is empty");
+     LOG_ERROR(l->header != NULL, error, "sllist->header is NULL");
+     LOG_ERROR(l->header->next != NULL, error, "sllist->header->next is NULL");
+     LOG_ERROR(l->trailer != NULL, error, "sllist->trailer is NULL");
+     LOG_ERROR(l->trailer->next != NULL, error, "sllist->trailer->next is NULL");
+
+     size_t size = 0;
+
+     SLLIST_FOR_EACH(curr, l) {
+	  if (condition(curr->data, other)) {
+	       size++;
+	  }
+     }
+
+     return size;
+
+error:
+     return 0;
+}
+
+sllist *sllist_get_elements(sllist *l, void *other, bool (*condition)(void *element, void *other))
+{
+     LOG_ERROR(l != NULL, error, "sllist is NULL");
+     LOG_ERROR(sllist_is_empty(l) == false, error, "sllist is empty");
+     LOG_ERROR(l->header != NULL, error, "sllist->header is NULL");
+     LOG_ERROR(l->header->next != NULL, error, "sllist->header->next is NULL");
+     LOG_ERROR(l->trailer != NULL, error, "sllist->trailer is NULL");
+     LOG_ERROR(l->trailer->next != NULL, error, "sllist->trailer->next is NULL");
+
+     bool rv ;
+     sllist *sub_list = sllist_create();
+     LOG_ERROR(sub_list != NULL, error, "failed to create sllist");
+
+     SLLIST_FOR_EACH(curr, l) {
+	  if (condition(curr->data, other)) {
+	       rv = sllist_append_element(sub_list, curr->data);
+	       LOG_ERROR(rv != false, error, "failed to append element '%p' to sllist", curr->data);
+	  }
+     }
+
+     if (sllist_is_empty(sub_list)) {
+	  rv = sllist_delete(&sub_list);
+	  LOG_ERROR(rv = true, error, "failed to free sllist");
+	  return NULL;
+     }
+
+     return sub_list;
+
+error:
+     return NULL;
+}
+
+static void *sllist_delete_element(sllist *l, void *other, bool (*condition)(void *element, void *other))
+{
+    LOG_ERROR(l != NULL, error, "sllist is NULL");
+    LOG_ERROR(sllist_is_empty(l) == false, error, "sllist is empty");
+    LOG_ERROR(l->header != NULL, error, "sllist->header is NULL");
+    LOG_ERROR(l->header->next != NULL, error, "sllist->header->next is NULL");
+    LOG_ERROR(l->trailer != NULL, error, "sllist->trailer is NULL");
+    LOG_ERROR(l->trailer->next != NULL, error, "sllist->trailer->next is NULL");
+
+    void *retval = NULL;
+    node *curr = sllist_get_front(l), *before = NULL;
+    LOG_ERROR(curr != NULL, error, "failed to get front of sllist");
+
+    if (condition(curr->data, other)) {
+	 retval = sllist_delete_front(l);
+	 LOG_ERROR(retval != NULL, error, "failed to delete front of sllist");
+    } else {
+	 before = curr;
+	 curr = curr->next;
+
+	 while (curr != NULL) {
+	      if (condition(curr->data, other)) {
+		   if (curr->next == NULL) {
+			retval = sllist_delete_rear(l);
+			LOG_ERROR(retval != NULL, error, "failed to delete rear of sllist");
+		   } else {
+			node *temp = curr;
+			retval = curr->data;
+			before->next = curr->next;
+			node_delete(&temp);
+			l->size--;
+			LOG_ERROR(retval != NULL, error, "failed to free delete node of sllist");
+		   }
+		   break;
+	      }
+
+	      before = curr;
+	      curr = curr->next;
+	 }
+    }
+
+    return retval;
+
+error:
+    return NULL;
+}
+
+sllist *sllist_delete_elements(sllist *l, void *other, bool (*condition)(void *element, void *other))
+{
+     LOG_ERROR(l != NULL, error, "sllist is NULL");
+     LOG_ERROR(sllist_is_empty(l) == false, error, "sllist is empty");
+     LOG_ERROR(l->header != NULL, error, "sllist->header is NULL");
+     LOG_ERROR(l->header->next != NULL, error, "sllist->header->next is NULL");
+     LOG_ERROR(l->trailer != NULL, error, "sllist->trailer is NULL");
+     LOG_ERROR(l->trailer->next != NULL, error, "sllist->trailer->next is NULL");
+
+     bool rv ;
+     sllist *sub_list = sllist_create();
+     LOG_ERROR(sub_list != NULL, error, "failed to create sllist");
+
+     while (!sllist_is_empty(l)) {
+	  void *retval = sllist_delete_element(l, other, condition);
+	  if (retval == NULL) {
+	       break;
+	  }
+	  rv = sllist_append_element(sub_list, retval);
+	  LOG_ERROR(rv != false, error, "failed to append element '%p' to sllist", retval);
+     }
+
+     if (sllist_is_empty(sub_list)) {
+	  rv = sllist_delete(&sub_list);
+	  LOG_ERROR(rv = true, error, "failed to free sllist");
+	  return NULL;
+     }
+
+     return sub_list;
+
+error:
+     return NULL;
+}

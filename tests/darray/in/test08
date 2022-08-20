@@ -1,0 +1,11 @@
+ar 10
+ar 20
+ar 30
+ar 40
+ar 50
+de 0 9
+de 51 60
+de 10 10
+de 50 50
+de 20 40
+exit
