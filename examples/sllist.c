@@ -12,16 +12,16 @@ int main(int argc, char *argv[])
     }
 
     // print sllist size
-    printf("sllist size '%lu'\n", sllist_get_size(l));
+    printf("sllist size: '%lu'\n", sllist_get_size(l));
 
     // print sllist 'is empty'
     bool is_empty = sllist_is_empty(l);
     char *is_empty_str = (is_empty) ? "true" : "false";
-    printf("sllist empty '%s'\n", is_empty_str);
+    printf("sllist empty: '%s'\n", is_empty_str);
 
     // print sllist's 'most anciently added element'
     char *data = sllist_get_front_data(l);
-    printf("sllist most anciently added element '%s'\n", data);
+    printf("sllist most anciently added element: '%s'\n", data);
 
     // remove each element of sllist from the front and print it
     printf("[");

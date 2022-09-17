@@ -12,16 +12,16 @@ int main(int argc, char *argv[])
     }
 
     // print stack size
-    printf("stack size '%lu'\n", stack_get_size(s));
+    printf("stack size: '%lu'\n", stack_get_size(s));
 
     // print stack 'is empty'
     bool is_empty = stack_is_empty(s);
     char *is_empty_str = (is_empty) ? "true" : "false";
-    printf("stack empty '%s'\n", is_empty_str);
+    printf("stack empty: '%s'\n", is_empty_str);
 
     // print stack's 'most recently added element' (ie top of stack)
     char *data = stack_top(s);
-    printf("stack top '%s'\n", data);
+    printf("stack top: '%s'\n", data);
  
     // pop each element of stack and print it
     printf("[");

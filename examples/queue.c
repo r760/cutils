@@ -12,16 +12,16 @@ int main(int argc, char *argv[])
     }
 
     // print queue size
-    printf("queue size '%lu'\n", queue_get_size(q));
+    printf("queue size: '%lu'\n", queue_get_size(q));
 
     // print queue 'is empty'
     bool is_empty = queue_is_empty(q);
     char *is_empty_str = (is_empty) ? "true" : "false";
-    printf("queue empty '%s'\n", is_empty_str);
+    printf("queue empty: '%s'\n", is_empty_str);
 
     // print queue's 'most anciently added element'
     char *data = queue_peek(q);
-    printf("queue peek '%s'\n", data);
+    printf("queue peek: '%s'\n", data);
 
     // dequeue each element of queue and print it
     printf("[");
