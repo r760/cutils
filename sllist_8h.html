@@ -160,6 +160,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a14ce219aa84564e6f83f44e5ab83da3e"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sllist_8h.html#a14ce219aa84564e6f83f44e5ab83da3e">sllist_delete_rear</a> (<a class="el" href="structsllist.html">sllist</a> *l)</td></tr>
 <tr class="memdesc:a14ce219aa84564e6f83f44e5ab83da3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove last element of sllist  <a href="sllist_8h.html#a14ce219aa84564e6f83f44e5ab83da3e">More...</a><br /></td></tr>
 <tr class="separator:a14ce219aa84564e6f83f44e5ab83da3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95674152d7a975ce93d6f4613097dc72"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sllist_8h.html#a95674152d7a975ce93d6f4613097dc72">sllist_count_elements</a> (<a class="el" href="structsllist.html">sllist</a> *l, void *other, bool(*condition)(void *element, void *other))</td></tr>
+<tr class="memdesc:a95674152d7a975ce93d6f4613097dc72"><td class="mdescLeft">&#160;</td><td class="mdescRight">get number of elements in sllist which satisfy specified condition  <a href="sllist_8h.html#a95674152d7a975ce93d6f4613097dc72">More...</a><br /></td></tr>
+<tr class="separator:a95674152d7a975ce93d6f4613097dc72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6679d9deab555b48e4d37d704a0932d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsllist.html">sllist</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sllist_8h.html#a6679d9deab555b48e4d37d704a0932d7">sllist_get_elements</a> (<a class="el" href="structsllist.html">sllist</a> *l, void *other, bool(*condition)(void *element, void *other))</td></tr>
+<tr class="memdesc:a6679d9deab555b48e4d37d704a0932d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">get elements in sllist which satisfy specified condition  <a href="sllist_8h.html#a6679d9deab555b48e4d37d704a0932d7">More...</a><br /></td></tr>
+<tr class="separator:a6679d9deab555b48e4d37d704a0932d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a376af1d95dfb7101045e613c1210f632"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsllist.html">sllist</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sllist_8h.html#a376af1d95dfb7101045e613c1210f632">sllist_delete_elements</a> (<a class="el" href="structsllist.html">sllist</a> *l, void *other, bool(*condition)(void *element, void *other))</td></tr>
+<tr class="memdesc:a376af1d95dfb7101045e613c1210f632"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove elements in sllist which satisfy specified condition  <a href="sllist_8h.html#a376af1d95dfb7101045e613c1210f632">More...</a><br /></td></tr>
+<tr class="separator:a376af1d95dfb7101045e613c1210f632"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="aa242d079b2763af0700bcaaec605dbc8"></a>
@@ -651,13 +660,166 @@ l is not empty</dd></dl>
 
 </div>
 </div>
+<a id="a95674152d7a975ce93d6f4613097dc72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95674152d7a975ce93d6f4613097dc72">&#9670;&nbsp;</a></span>sllist_count_elements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t sllist_count_elements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsllist.html">sllist</a> *&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(void *element, void *other)&#160;</td>
+          <td class="paramname"><em>condition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get number of elements in sllist which satisfy specified condition </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>sllist</td></tr>
+    <tr><td class="paramname">other</td><td>argument to pass to condition function</td></tr>
+    <tr><td class="paramname">condition</td><td>condition (function pointer)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>l is not NULL</dd>
+<dd>
+l is not empty</dd>
+<dd>
+condition is not NULL</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>number of elements found</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>runtime O(n) </dd></dl>
+
+</div>
+</div>
+<a id="a6679d9deab555b48e4d37d704a0932d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6679d9deab555b48e4d37d704a0932d7">&#9670;&nbsp;</a></span>sllist_get_elements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsllist.html">sllist</a>* sllist_get_elements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsllist.html">sllist</a> *&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(void *element, void *other)&#160;</td>
+          <td class="paramname"><em>condition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get elements in sllist which satisfy specified condition </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>sllist</td></tr>
+    <tr><td class="paramname">other</td><td>argument to pass to condition function</td></tr>
+    <tr><td class="paramname">condition</td><td>condition (function pointer)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>l is not NULL</dd>
+<dd>
+l is not empty</dd>
+<dd>
+condition is not NULL</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a sllist filled with the found elements if successful, NULL otherwise</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>runtime O(n) </dd></dl>
+
+</div>
+</div>
+<a id="a376af1d95dfb7101045e613c1210f632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a376af1d95dfb7101045e613c1210f632">&#9670;&nbsp;</a></span>sllist_delete_elements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsllist.html">sllist</a>* sllist_delete_elements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsllist.html">sllist</a> *&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(void *element, void *other)&#160;</td>
+          <td class="paramname"><em>condition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>remove elements in sllist which satisfy specified condition </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>sllist</td></tr>
+    <tr><td class="paramname">other</td><td>argument to pass to condition function</td></tr>
+    <tr><td class="paramname">condition</td><td>condition (function pointer)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>l is not NULL</dd>
+<dd>
+l is not empty</dd>
+<dd>
+condition is not NULL</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a sllist filled with the removed elements if successful, NULL otherwise</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>runtime O(n^2) </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="sllist_8h.html">sllist.h</a></li>
-    <li class="footer">Generated on Thu Aug 4 2022 02:34:47 for utilities for the C programming language by
+    <li class="footer">Generated on Sat Sep 17 2022 11:21:45 for utilities for the C programming language by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

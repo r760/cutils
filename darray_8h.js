@@ -15,5 +15,8 @@ var darray_8h =
     [ "darray_delete_at_index", "darray_8h.html#a09c45e2b76c8f3fb498af44998f692dc", null ],
     [ "darray_get_element_at_index", "darray_8h.html#a9156214495b9064f2c5a72ca0a7e2e92", null ],
     [ "darray_set_element_at_index", "darray_8h.html#a9519f2c35656128b887d41e97fe0ad2b", null ],
+    [ "darray_count_elements", "darray_8h.html#a87e023bf9ecaec4bc082f500e091e8be", null ],
+    [ "darray_get_elements", "darray_8h.html#a919d282cbd42fd47ba0d160631460380", null ],
+    [ "darray_delete_elements", "darray_8h.html#a51d1f8b9cb60531a507a7ffbf3e8c63e", null ],
     [ "darray_reverse", "darray_8h.html#ab9de73c89a1f2341a7133f96c9d47b39", null ]
 ];

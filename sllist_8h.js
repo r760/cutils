@@ -17,5 +17,8 @@ var sllist_8h =
     [ "sllist_prepend_element", "sllist_8h.html#a538f94039e5bdab9d3d4d79ebfca5c12", null ],
     [ "sllist_append_element", "sllist_8h.html#a4874d8d4fe55300b83efc1d18740e29d", null ],
     [ "sllist_delete_front", "sllist_8h.html#a3a4542a5e6350e227060456df7ddf1b6", null ],
-    [ "sllist_delete_rear", "sllist_8h.html#a14ce219aa84564e6f83f44e5ab83da3e", null ]
+    [ "sllist_delete_rear", "sllist_8h.html#a14ce219aa84564e6f83f44e5ab83da3e", null ],
+    [ "sllist_count_elements", "sllist_8h.html#a95674152d7a975ce93d6f4613097dc72", null ],
+    [ "sllist_get_elements", "sllist_8h.html#a6679d9deab555b48e4d37d704a0932d7", null ],
+    [ "sllist_delete_elements", "sllist_8h.html#a376af1d95dfb7101045e613c1210f632", null ]
 ];

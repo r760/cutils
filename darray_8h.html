@@ -148,6 +148,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a9519f2c35656128b887d41e97fe0ad2b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="darray_8h.html#a9519f2c35656128b887d41e97fe0ad2b">darray_set_element_at_index</a> (<a class="el" href="structdarray.html">darray</a> *d, void *element, size_t index)</td></tr>
 <tr class="memdesc:a9519f2c35656128b887d41e97fe0ad2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">set element of dynamic array at specified index  <a href="darray_8h.html#a9519f2c35656128b887d41e97fe0ad2b">More...</a><br /></td></tr>
 <tr class="separator:a9519f2c35656128b887d41e97fe0ad2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87e023bf9ecaec4bc082f500e091e8be"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="darray_8h.html#a87e023bf9ecaec4bc082f500e091e8be">darray_count_elements</a> (<a class="el" href="structdarray.html">darray</a> *d, void *other, bool(*condition)(void *element, void *other))</td></tr>
+<tr class="memdesc:a87e023bf9ecaec4bc082f500e091e8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">get number of elements in dynamic array which satisfy specified condition  <a href="darray_8h.html#a87e023bf9ecaec4bc082f500e091e8be">More...</a><br /></td></tr>
+<tr class="separator:a87e023bf9ecaec4bc082f500e091e8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a919d282cbd42fd47ba0d160631460380"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdarray.html">darray</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="darray_8h.html#a919d282cbd42fd47ba0d160631460380">darray_get_elements</a> (<a class="el" href="structdarray.html">darray</a> *d, void *other, bool(*condition)(void *element, void *other))</td></tr>
+<tr class="memdesc:a919d282cbd42fd47ba0d160631460380"><td class="mdescLeft">&#160;</td><td class="mdescRight">get elements in dynamic array which satisfy specified condition  <a href="darray_8h.html#a919d282cbd42fd47ba0d160631460380">More...</a><br /></td></tr>
+<tr class="separator:a919d282cbd42fd47ba0d160631460380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51d1f8b9cb60531a507a7ffbf3e8c63e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdarray.html">darray</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="darray_8h.html#a51d1f8b9cb60531a507a7ffbf3e8c63e">darray_delete_elements</a> (<a class="el" href="structdarray.html">darray</a> *d, void *other, bool(*condition)(void *element, void *other))</td></tr>
+<tr class="memdesc:a51d1f8b9cb60531a507a7ffbf3e8c63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove elements in dynamic array which satisfy specified condition  <a href="darray_8h.html#a51d1f8b9cb60531a507a7ffbf3e8c63e">More...</a><br /></td></tr>
+<tr class="separator:a51d1f8b9cb60531a507a7ffbf3e8c63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9de73c89a1f2341a7133f96c9d47b39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="darray_8h.html#ab9de73c89a1f2341a7133f96c9d47b39">darray_reverse</a> (<a class="el" href="structdarray.html">darray</a> *d)</td></tr>
 <tr class="memdesc:ab9de73c89a1f2341a7133f96c9d47b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">reverse dynamic array element-wise  <a href="darray_8h.html#ab9de73c89a1f2341a7133f96c9d47b39">More...</a><br /></td></tr>
 <tr class="separator:ab9de73c89a1f2341a7133f96c9d47b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -670,6 +679,159 @@ index &gt;= 0 and index &lt;= dynamic array size - 1</dd></dl>
 
 </div>
 </div>
+<a id="a87e023bf9ecaec4bc082f500e091e8be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e023bf9ecaec4bc082f500e091e8be">&#9670;&nbsp;</a></span>darray_count_elements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t darray_count_elements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdarray.html">darray</a> *&#160;</td>
+          <td class="paramname"><em>d</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(void *element, void *other)&#160;</td>
+          <td class="paramname"><em>condition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get number of elements in dynamic array which satisfy specified condition </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>dynamic array</td></tr>
+    <tr><td class="paramname">other</td><td>argument to pass to condition function</td></tr>
+    <tr><td class="paramname">condition</td><td>condition (function pointer)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>d is not NULL</dd>
+<dd>
+d is not empty</dd>
+<dd>
+condition is not NULL</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>number of elements found</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>runtime O(n) </dd></dl>
+
+</div>
+</div>
+<a id="a919d282cbd42fd47ba0d160631460380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a919d282cbd42fd47ba0d160631460380">&#9670;&nbsp;</a></span>darray_get_elements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdarray.html">darray</a>* darray_get_elements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdarray.html">darray</a> *&#160;</td>
+          <td class="paramname"><em>d</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(void *element, void *other)&#160;</td>
+          <td class="paramname"><em>condition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get elements in dynamic array which satisfy specified condition </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>dynamic array</td></tr>
+    <tr><td class="paramname">other</td><td>argument to pass to condition function</td></tr>
+    <tr><td class="paramname">condition</td><td>condition (function pointer)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>d is not NULL</dd>
+<dd>
+d is not empty</dd>
+<dd>
+condition is not NULL</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a dynamic array filled with the found elements if successful, NULL otherwise</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>runtime O(n) </dd></dl>
+
+</div>
+</div>
+<a id="a51d1f8b9cb60531a507a7ffbf3e8c63e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51d1f8b9cb60531a507a7ffbf3e8c63e">&#9670;&nbsp;</a></span>darray_delete_elements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdarray.html">darray</a>* darray_delete_elements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdarray.html">darray</a> *&#160;</td>
+          <td class="paramname"><em>d</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(void *element, void *other)&#160;</td>
+          <td class="paramname"><em>condition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>remove elements in dynamic array which satisfy specified condition </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>dynamic array</td></tr>
+    <tr><td class="paramname">other</td><td>argument to pass to condition function</td></tr>
+    <tr><td class="paramname">condition</td><td>condition (function pointer)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd>d is not NULL</dd>
+<dd>
+d is not empty</dd>
+<dd>
+condition is not NULL</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a dynamic array filled with the removed elements if successful, NULL otherwise</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>runtime O(n^2) </dd></dl>
+
+</div>
+</div>
 <a id="ab9de73c89a1f2341a7133f96c9d47b39"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab9de73c89a1f2341a7133f96c9d47b39">&#9670;&nbsp;</a></span>darray_reverse()</h2>
 
@@ -707,7 +869,7 @@ d is not empty</dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="darray_8h.html">darray.h</a></li>
-    <li class="footer">Generated on Thu Aug 4 2022 02:34:47 for utilities for the C programming language by
+    <li class="footer">Generated on Sat Sep 17 2022 11:21:45 for utilities for the C programming language by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

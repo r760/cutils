@@ -42,7 +42,10 @@ var menudata={children:[
 {text:"q",url:"globals.html#index_q"},
 {text:"s",url:"globals.html#index_s"},
 {text:"w",url:"globals.html#index_w"}]},
-{text:"Functions",url:"globals_func.html"},
+{text:"Functions",url:"globals_func.html",children:[
+{text:"d",url:"globals_func.html#index_d"},
+{text:"n",url:"globals_func.html#index_n"},
+{text:"s",url:"globals_func.html#index_s"}]},
 {text:"Typedefs",url:"globals_type.html"},
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html"},

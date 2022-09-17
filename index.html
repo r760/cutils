@@ -120,10 +120,10 @@ logging (and error checking/handling) tools</h1>
 <div class="line"> </div>
 <div class="line">int main(int argc, char *argv[])</div>
 <div class="line">{</div>
-<div class="line">    LOG_INFO(&quot;argc: %d&quot;, argc);</div>
+<div class="line">    LOG_INFO(&quot;argc: &#39;%d&#39;&quot;, argc);</div>
 <div class="line"> </div>
 <div class="line">    for (int i = 1; i &lt; argc; i++) {</div>
-<div class="line">        LOG_DEBUG(&quot;argv[%d]: %s&quot;, i, argv[i]);</div>
+<div class="line">        LOG_DEBUG(&quot;argv[%d]: &#39;%s&#39;&quot;, i, argv[i]);</div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    printf(&quot;hello, world!\n&quot;);</div>
@@ -133,16 +133,16 @@ logging (and error checking/handling) tools</h1>
 </div><!-- fragment --><p>which can be compiled using different define directives inorder to toggle log off select log features;</p>
 <p>Version 1: </p><div class="fragment"><div class="line">{/tmp} &gt;&gt;&gt; gcc -Wall -g example.c -llog -o example</div>
 <div class="line">{/tmp} &gt;&gt;&gt; ./example 1 2 3</div>
-<div class="line">Thu Jul 28 21:27:33 2022 INFO  (example.c:5) main()  --&gt; argc: 4</div>
-<div class="line">Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --&gt; argv[1]: 1</div>
-<div class="line">Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --&gt; argv[2]: 2</div>
-<div class="line">Thu Jul 28 21:27:33 2022 DEBUG (example.c:8) main()  --&gt; argv[3]: 3</div>
+<div class="line">Sat Aug 21 00:00:00 2022 INFO  (example.c:5) main()  --&gt; argc: &#39;4&#39;</div>
+<div class="line">Sat Aug 21 00:00:00 2022 DEBUG (example.c:8) main()  --&gt; argv[1]: &#39;1&#39;</div>
+<div class="line">Sat Aug 21 00:00:00 2022 DEBUG (example.c:8) main()  --&gt; argv[2]: &#39;2&#39;</div>
+<div class="line">Sat Aug 21 00:00:00 2022 DEBUG (example.c:8) main()  --&gt; argv[3]: &#39;3&#39;</div>
 <div class="line">hello, world!</div>
 </div><!-- fragment --><p>Version 2: </p><div class="fragment"><div class="line">{/tmp} &gt;&gt;&gt; gcc -Wall -g -DN_LOG_INFO example.c -llog -o example</div>
-<div class="line">{/tmp} &gt;&gt;&gt; ./example 1 2 3</div>
-<div class="line">Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --&gt; argv[1]: 1</div>
-<div class="line">Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --&gt; argv[2]: 2</div>
-<div class="line">Thu Jul 28 21:28:37 2022 DEBUG (example.c:8) main()  --&gt; argv[3]: 3</div>
+<div class="line">{/tmp} &gt;&gt;&gt; {/tmp} &gt;&gt;&gt; ./example 1 2 3</div>
+<div class="line">Sat Aug 21 00:01:00 2022 DEBUG (example.c:8) main()  --&gt; argv[1]: &#39;1&#39;</div>
+<div class="line">Sat Aug 21 00:01:00 2022 DEBUG (example.c:8) main()  --&gt; argv[2]: &#39;2&#39;</div>
+<div class="line">Sat Aug 21 00:01:00 2022 DEBUG (example.c:8) main()  --&gt; argv[3]: &#39;3&#39;</div>
 <div class="line">hello, world!</div>
 </div><!-- fragment --><p>Version 3: </p><div class="fragment"><div class="line">{/tmp} &gt;&gt;&gt; gcc -Wall -g -DN_LOG_INFO -DN_LOG_DEBUG example.c -llog -o example</div>
 <div class="line">{/tmp} &gt;&gt;&gt; ./example 1 2 3</div>
@@ -185,7 +185,7 @@ how to use; data structures, logging tools, and logic operators</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Aug 4 2022 02:34:47 for utilities for the C programming language by
+    <li class="footer">Generated on Sat Sep 17 2022 11:21:45 for utilities for the C programming language by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
