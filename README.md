@@ -8,6 +8,7 @@ utilities for the C programming language
 - single linked list
 - stack
 - queue
+- hash map
 
 note:
 - logging tools are used to do error checking, and by default log colors are enabled...
@@ -109,6 +110,6 @@ make help
 ```
 
 note:
-- inorder to be able to compile all the examples inside the `cutils/examples` directory, you must first install all cutils tools
+- inorder to be able to compile all the examples inside the `cutils/examples` directory, you must first make all cutils tools
 - the examples mentioned above do not show how to use every function... for an exhaustive description
 of every function view the docs
