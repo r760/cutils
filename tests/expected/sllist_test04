@@ -1,0 +1,20 @@
+true
+0
+[bravo]
+false
+1
+[alpha, bravo]
+false
+2
+[alpha, bravo, charlie]
+false
+3
+[alpha, bravo]
+false
+2
+[alpha]
+false
+1
+[]
+true
+0

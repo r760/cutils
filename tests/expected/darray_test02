@@ -1,0 +1,6 @@
+[alpha]
+[bravo, alpha]
+[charlie, bravo, alpha]
+[bravo, alpha]
+[alpha]
+[]

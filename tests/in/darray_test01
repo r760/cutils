@@ -1,0 +1,7 @@
+darray append_element alpha
+darray append_element bravo
+darray append_element charlie
+darray delete_rear
+darray delete_rear
+darray delete_rear
+exit

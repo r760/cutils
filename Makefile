@@ -15,7 +15,7 @@ help:	Makefile
 	@sed -n 's/^##[ ]*/\n/p' $< | sed 's/: /:\n\t/g; 1d'
 
 ## all: compile everything
-all:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDIR)/queue_cli
+all:	$(BINDIR)/cli_tester
 
 ## lib: create lib dir
 lib:
@@ -42,61 +42,41 @@ $(LIBDIR)/libdarray.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o
 $(LIBDIR)/libsllist.a:	$(LIBDIR)/log.o $(LIBDIR)/sllist.o
 	ar rcs $@ $^
 
-## bin/darray_cli: compile bin/darray_cli
-$(BINDIR)/darray_cli:	$(SRCDIR)/darray_cli.c $(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a
+## lib/libhmap.a: compile static library lib/libhmap.a
+$(LIBDIR)/libhmap.a:	$(LIBDIR)/log.o $(LIBDIR)/hmap.o
+	ar rcs $@ $^
+
+## bin/cli_tester: compile bin/cli_tester
+$(BINDIR)/cli_tester:	$(SRCDIR)/cli_tester.c $(SRCDIR)/*_handler.c $(SRCDIR)/darray.c $(SRCDIR)/sllist.c $(SRCDIR)/hmap.c $(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a $(LIBDIR)/libhmap.a
 	make bin > /dev/null
-	$(CC) $(CFLAGS) $(DFLAGS) $< -llog -ldarray -o $@
+	$(CC) $(CFLAGS) $(DFLAGS) $(SRCDIR)/cli_tester.c $(SRCDIR)/*_handler.c -llog -ldarray -lsllist -lhmap -o $@
 
-## bin/sllist_cli: compile bin/sllist_cli
-$(BINDIR)/sllist_cli:	$(SRCDIR)/sllist_cli.c $(LIBDIR)/liblog.a $(LIBDIR)/libsllist.a
-	make bin > /dev/null
-	$(CC) $(CFLAGS) $(DFLAGS) $< -llog -lsllist -o $@
-
-## bin/stack_cli: compile bin/stack_cli
-$(BINDIR)/stack_cli:	$(SRCDIR)/stack_cli.c $(LIBDIR)/liblog.a $(LIBDIR)/libsllist.a
-	make bin > /dev/null
-	$(CC) $(CFLAGS) $(DFLAGS) $< -llog -lsllist -o $@
-
-## bin/queue_cli: compile bin/queue_cli
-$(BINDIR)/queue_cli:	$(SRCDIR)/queue_cli.c $(LIBDIR)/liblog.a $(LIBDIR)/libsllist.a
-	make bin > /dev/null
-	$(CC) $(CFLAGS) $(DFLAGS) $< -llog -lsllist -o $@
-
-## run_darray_cli: run darray_cli
-run_darray_cli:	$(BINDIR)/darray_cli
-	./$<
-
-## run_sllist_cli: run sllist_cli
-run_sllist_cli:	$(BINDIR)/sllist_cli
-	./$<
-
-## run_stack_cli: run stack_cli
-run_stack_cli:	$(BINDIR)/stack_cli
-	./$<
-
-## run_queue_cli: run queue_cli
-run_queue_cli:	$(BINDIR)/queue_cli
+## run_cli_tester: run cli_tester
+run_cli_tester:	$(BINDIR)/cli_tester
 	./$<
 
 ## run_tests: run tests
-run_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDIR)/queue_cli
+run_tests:	$(BINDIR)/cli_tester
 	cd $(TESTSDIR); ./run.sh
 
 ## run_valgrind_tests: run tests (and check for memory leaks)
-run_valgrind_tests:	$(BINDIR)/darray_cli $(BINDIR)/sllist_cli $(BINDIR)/stack_cli $(BINDIR)/queue_cli
+run_valgrind_tests:    $(BINDIR)/cli_tester
 	cd $(TESTSDIR); ./run.sh --check-memory-leaks
 
 ## install: install log, darray, sllist, stack, queue header-files and libraries
-install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
+install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a $(LIBDIR)/libhmap.a
 	[ -d /usr/local/include ] || sudo mkdir -p /usr/local/include
 	[ -d /usr/local/lib ] || sudo mkdir -p /usr/local/lib
+	[ -d /usr/local/src ] || sudo mkdir -p /usr/local/src
 	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo cp -v {} /usr/local/include/ \;
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo cp -v {} /usr/local/lib/ \;
+	cd $(SRCDIR); find . -type f -name "*.c" -exec sudo cp -v {} /usr/local/src/ \;
 
 ## uninstall: uninstall log, darray, sllist, stack, queue header-files and libraries
 uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
 	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo rm -v /usr/local/include/{} \;
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo rm -v /usr/local/lib/{} \;
+	cd $(SRCDIR); find . -type f -name "*.c" -exec sudo rm -v /usr/local/src/{} \;
 
 ## clean: remove lib, and bin dirs (and everything inside)
 clean:

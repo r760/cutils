@@ -1,0 +1,21 @@
+queue is_empty
+queue get_size
+queue enqueue alpha
+queue is_empty
+queue get_size
+queue enqueue bravo
+queue is_empty
+queue get_size
+queue enqueue charlie
+queue is_empty
+queue get_size
+queue dequeue
+queue is_empty
+queue get_size
+queue dequeue
+queue is_empty
+queue get_size
+queue dequeue
+queue is_empty
+queue get_size
+exit

@@ -1,0 +1,21 @@
+stack is_empty
+stack get_size
+stack push alpha
+stack is_empty
+stack get_size
+stack push bravo
+stack is_empty
+stack get_size
+stack push charlie
+stack is_empty
+stack get_size
+stack pop
+stack is_empty
+stack get_size
+stack pop
+stack is_empty
+stack get_size
+stack pop
+stack is_empty
+stack get_size
+exit

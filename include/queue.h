@@ -3,14 +3,93 @@
 #include "sllist.h"
 
 typedef sllist queue;
+typedef sllist_iter queue_iter;
 
 /**
- * walk queue
+ * create a new queue iterator
  *
- * @note runtime O(n)
- * @see SLLIST_FOR_EACH
+ * @returns newly created queue iterator if successful, NULL otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_create()
  */
-#define QUEUE_FOR_EACH SLLIST_FOR_EACH
+#define queue_iter_create(l) sllist_iter_create(l)
+
+/**
+ * delete queue iterator
+ *
+ * @param l_iter
+ * queue iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_delete()
+ */
+#define queue_iter_delete(l_iter) sllist_iter_delete(l_iter)
+
+/**
+ * reset queue iterator to its initial position
+ *
+ * @param l_iter
+ * queue iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_reset()
+ */
+#define queue_iter_reset(l_iter) sllist_iter_reset(l_iter)
+
+/**
+ * check if queue iterator has another item
+ *
+ * @param l_iter
+ * queue iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_has_next()
+ */
+#define queue_iter_has_next(l_iter) sllist_iter_has_next(l_iter)
+
+/**
+ * get the next item from the queue iterator
+ *
+ * @param l_iter
+ * queue iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns pair if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_next()
+ */
+#define queue_iter_next(l_iter) sllist_iter_next(l_iter)
 
 /**
  * create a new queue

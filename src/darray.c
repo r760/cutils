@@ -5,6 +5,80 @@
 #include "../include/log.h"
 #include "../include/logic.h"
 #include "../include/darray.h"
+#include "../include/hmap.h"
+
+darray_iter *darray_iter_create(darray *d)
+{
+     LOG_ERROR(d != NULL, error, "darray is NULL");
+
+     darray_iter *d_iter = malloc(sizeof(darray_iter));
+     LOG_ERROR(d_iter != NULL, error, "failed to malloc darray_iter");
+     d_iter->d = d;
+     d_iter->i = 0;
+
+     return d_iter;
+
+error:
+     return NULL;
+}
+
+bool darray_iter_delete(darray_iter **d_iter)
+{
+     LOG_ERROR(d_iter != NULL, error, "pointer to darray_iter is NULL");
+     LOG_ERROR(*d_iter != NULL, error, "darray_iter is NULL");
+
+     free(*d_iter);
+     *d_iter = NULL;
+
+     return true;
+
+error:
+     return false;
+}
+
+bool darray_iter_reset(darray_iter *d_iter)
+{
+     LOG_ERROR(d_iter != NULL, error, "darray_iter is NULL");
+     d_iter->i = 0;
+
+     return true;
+
+error:
+     return false;
+}
+
+bool darray_iter_has_next(darray_iter *d_iter)
+{
+     LOG_ERROR(d_iter != NULL, error, "darray_iter is NULL");
+
+     size_t i = d_iter->i;
+     void *element = darray_iter_next(d_iter);
+
+     d_iter->i = i;
+
+     return element != NULL;
+
+error:
+     return false;
+}
+
+void *darray_iter_next(darray_iter *d_iter)
+{
+     LOG_ERROR(d_iter != NULL, error, "darray_iter is NULL");
+     size_t i = d_iter->i, size = d_iter->d->size;
+
+     void *element = NULL;
+
+     if (i >= 0 && i < size) {
+	  element = darray_get_element_at_index(d_iter->d, i);
+	  d_iter->i = i + 1;
+     }
+
+     return element;
+
+error:
+     return NULL;
+}
 
 darray* darray_create()
 {
@@ -114,7 +188,7 @@ error:
     return false;
 }
 
-static bool darray_trim(darray *d)
+bool darray_trim(darray *d)
 {
     d->capacity = d->size;
     void *raptr = realloc(d->data, d->size_of_data * d->capacity);
@@ -170,6 +244,7 @@ void *darray_delete_rear(darray *d)
     } else if (d->capacity == 1) {
         d->capacity = 0;
         d->size = 0;
+	free(d->data); // FIX MEMORY LEAKS ?
         d->data = NULL;
     }
 
@@ -209,7 +284,7 @@ error:
     return false;
 }
 
-void *darray_delete_at_index(darray *d, size_t index)
+void *darray_delete_element_at_index(darray *d, size_t index)
 {
     LOG_ERROR(d != NULL, error, "darray is NULL");
     LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
@@ -269,7 +344,7 @@ error:
     return false;
 }
 
-size_t darray_count_elements(darray *d, void *other, bool (*condition)(void *element, void *other))
+size_t darray_count_elements(darray *d, void *other, bool (*condition)(void *element, void *other), bool hmap)
 {
      LOG_ERROR(d != NULL, error, "darray is NULL");
      LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
@@ -277,11 +352,26 @@ size_t darray_count_elements(darray *d, void *other, bool (*condition)(void *ele
 
      size_t size = 0;
 
-     DARRAY_FOREACH(i, d) {
-	  if (condition(darray_get_element_at_index(d, i), other)) {
-	       size++;
+     darray_iter *d_iter = darray_iter_create(d);
+     LOG_ERROR(d_iter != NULL, error, "failed to create darray_iter");
+
+     while (darray_iter_has_next(d_iter)) {
+	  void *curr_element = darray_iter_next(d_iter);
+	  LOG_ERROR(curr_element != NULL, error, "current element is NULL");
+	  if (hmap) {
+	       if (condition(((pair *)curr_element)->value, other)) {
+		    size++;
+	       }
+	  } else {
+	       if (condition(curr_element, other)) {
+		    size++;
+	       }
 	  }
+
      }
+
+     bool retval = darray_iter_delete(&d_iter);
+     LOG_ERROR(retval == true, error, "failed to delete darray_iter");
 
      return size;
 
@@ -291,79 +381,100 @@ error:
 
 darray *darray_get_elements(darray *d, void *other, bool (*condition)(void *element, void *other))
 {
-    LOG_ERROR(d != NULL, error, "darray is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
-    LOG_ERROR(condition != NULL, error, "condition (function pointer) is NULL");
+     LOG_ERROR(d != NULL, error, "darray is NULL");
+     LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
+     LOG_ERROR(condition != NULL, error, "condition (function pointer) is NULL");
 
-    bool rv;
+     bool rv;
 
-    darray *sub_array = darray_create();
-    LOG_ERROR(sub_array != NULL, error, "failed to create darray");
+     darray *sub_array = darray_create();
+     LOG_ERROR(sub_array != NULL, error, "failed to create darray");
 
-    DARRAY_FOREACH(i, d) {
-	 void *element = darray_get_element_at_index(d, i);
-	 if (condition(element, other)) {
-	      rv = darray_append_element(sub_array, element);
-	      LOG_ERROR(rv != false, error, "failed to append element '%p' to darray", element);
-	 }
-    }
+     darray_iter *d_iter = darray_iter_create(d);
+     LOG_ERROR(d_iter != NULL, error, "failed to create darray_iter");
 
-    if (darray_is_empty(sub_array)) {
-	 rv = darray_delete(&sub_array);
-	 LOG_ERROR(rv = true, error, "failed to free darray");
-	 return NULL;
-    }
+     while (darray_iter_has_next(d_iter)) {
+	  void *curr_element = darray_iter_next(d_iter);
+	  LOG_ERROR(curr_element != NULL, error, "current element is NULL");
+	  if (condition(curr_element, other)) {
+	       rv = darray_append_element(sub_array, curr_element);
+	       LOG_ERROR(rv != false, error, "failed to append element '%p' to darray", curr_element);
+	  }
+     }
 
-    return sub_array;
+     bool retval = darray_iter_delete(&d_iter);
+     LOG_ERROR(retval == true, error, "failed to delete darray_iter");
+
+     if (darray_is_empty(sub_array)) {
+	  rv = darray_delete(&sub_array);
+	  LOG_ERROR(rv = true, error, "failed to free darray");
+	  return NULL;
+     }
+
+     return sub_array;
 
 error:
-    return NULL;
+     return NULL;
 }
 
 darray *darray_delete_elements(darray *d, void *other, bool (*condition)(void *element, void *other))
 {
-    LOG_ERROR(d != NULL, error, "darray is NULL");
-    LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
-    LOG_ERROR(condition != NULL, error, "condition (function pointer) is NULL");
+     LOG_ERROR(d != NULL, error, "darray is NULL");
+     LOG_ERROR(darray_is_empty(d) == false, error, "darray is empty");
+     LOG_ERROR(condition != NULL, error, "condition (function pointer) is NULL");
 
-    void *retval = NULL;
-    bool rv;
-    bool found = false;
-    size_t index = 0;
+     void *retval = NULL;
+     bool rv;
+     bool found = false;
+     size_t i = 0, index = 0;
 
-    darray *sub_array = darray_create();
-    LOG_ERROR(sub_array != NULL, error, "failed to create darray");
+     darray *sub_array = darray_create();
+     LOG_ERROR(sub_array != NULL, error, "failed to create darray");
 
-    while (!darray_is_empty(d)) {
-	 DARRAY_FOREACH(i, d) {
-	      if (condition(darray_get_element_at_index(d, i), other)) {
-		   found = true;
-		   index = i;
-		   break;
-	      }
-	 }
-	 if (found) {
-	      retval = darray_delete_at_index(d, index);
-	      LOG_ERROR(retval != NULL, error, "failed to delete element at index '%lu' of darray", index);
-	      rv = darray_append_element(sub_array, retval);
-	      LOG_ERROR(rv != false, error, "failed to append element '%p' to darray", retval);
+     darray_iter *d_iter = darray_iter_create(d);
+     LOG_ERROR(d_iter != NULL, error, "failed to create darray_iter");
 
-	      found = false;
-	 } else {
-	      break;
-	 }
-    }
+     while (!darray_is_empty(d)) {
+	  i = 0;
+	  index = 0;
+	  rv = darray_iter_reset(d_iter);
+	  LOG_ERROR(rv == true, error, "failed to reset darray_iter");
 
-    if (darray_is_empty(sub_array)) {
-	 rv = darray_delete(&sub_array);
-	 LOG_ERROR(rv = true, error, "failed to free darray");
-	 return NULL;
-    }
+	  while (darray_iter_has_next(d_iter)) {
+	       void *curr_element = darray_iter_next(d_iter);
+	       LOG_ERROR(curr_element != NULL, error, "current element is NULL");
+	       if (condition(curr_element, other)) {
+		    found = true;
+		    index = i;
+		    break;
+	       }
+	       i++;
+	  }
 
-    return sub_array;
+	  if (found) {
+	       retval = darray_delete_element_at_index(d, index);
+	       LOG_ERROR(retval != NULL, error, "failed to delete element at index '%lu' of darray", index);
+	       rv = darray_append_element(sub_array, retval);
+	       LOG_ERROR(rv != false, error, "failed to append element '%p' to darray", retval);
+	       found = false;
+	  } else {
+	       break;
+	  }
+     }
+
+     rv = darray_iter_delete(&d_iter);
+     LOG_ERROR(rv == true, error, "failed to delete darray_iter");
+
+     if (darray_is_empty(sub_array)) {
+	  rv = darray_delete(&sub_array);
+	  LOG_ERROR(rv = true, error, "failed to free darray");
+	  return NULL;
+     }
+
+     return sub_array;
 
 error:
-    return NULL;
+     return NULL;
 }
 
 bool darray_reverse(darray *d)

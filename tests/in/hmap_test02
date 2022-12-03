@@ -1,0 +1,16 @@
+hmap insert_key_value alpha one 
+hmap get_value_by_key alpha
+hmap replace_value_for_key alpha 1
+hmap get_value_by_key alpha
+hmap insert_key_value bravo two 
+hmap get_value_by_key bravo
+hmap replace_value_for_key bravo 2
+hmap get_value_by_key bravo
+hmap insert_key_value charlie three 
+hmap get_value_by_key charlie
+hmap replace_value_for_key charlie 3
+hmap get_value_by_key charlie
+hmap delete_key_value_by_key alpha
+hmap delete_key_value_by_key bravo
+hmap delete_key_value_by_key charlie
+exit

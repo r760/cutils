@@ -1,0 +1,7 @@
+stack push alpha
+stack push bravo
+stack push charlie
+stack pop
+stack pop
+stack pop
+exit

@@ -2,6 +2,92 @@
 #include "../include/log.h"
 #include "../include/sllist.h"
 
+sllist_iter *sllist_iter_create(sllist *l)
+{
+     LOG_ERROR(l != NULL, error, "sllist is NULL");
+
+     sllist_iter *l_iter = malloc(sizeof(sllist_iter));
+     LOG_ERROR(l_iter != NULL, error, "failed to malloc sllist_iter");
+
+     l_iter->l = l;
+     if (!sllist_is_empty(l)) {
+	  l_iter->curr = sllist_get_front(l);
+	  LOG_ERROR(l_iter->curr != NULL, error, "failed to get front of sllist");
+     } else {
+	  l_iter->curr = NULL;
+     }
+
+     return l_iter;
+
+error:
+     return NULL;
+}
+
+bool sllist_iter_delete(sllist_iter **l_iter)
+{
+     LOG_ERROR(l_iter != NULL, error, "pointer to sllist_iter is NULL");
+     LOG_ERROR(*l_iter != NULL, error, "sllist_iter is NULL");
+
+     free(*l_iter);
+     *l_iter = NULL;
+
+     return true;
+
+error:
+     return false;
+}
+
+bool sllist_iter_reset(sllist_iter *l_iter)
+{
+     LOG_ERROR(l_iter != NULL, error, "sllist_iter is NULL");
+
+     sllist *l = l_iter->l;
+     LOG_ERROR(l != NULL, error, "sllist is NULL");
+
+     l_iter->curr = sllist_get_front(l);
+     LOG_ERROR(l_iter->curr != NULL, error, "failed to get front of sllist");
+
+     return true;
+
+error:
+     return false;
+}
+
+bool sllist_iter_has_next(sllist_iter *l_iter)
+{
+     LOG_ERROR(l_iter != NULL, error, "sllist_iter is NULL");
+
+     node *curr = l_iter->curr;
+     void *element = sllist_iter_next(l_iter);
+
+     l_iter->curr = curr;
+
+     return element != NULL;
+
+error:
+     return false;
+}
+
+void *sllist_iter_next(sllist_iter *l_iter)
+{
+     LOG_ERROR(l_iter != NULL, error, "sllist_iter is NULL");
+
+     node *curr = l_iter->curr;
+
+     sllist *l = l_iter->l;
+     LOG_ERROR(l != NULL, error, "sllist is NULL");
+
+     if (curr != NULL) {
+	  void *data = curr->data;
+	  curr = curr->next; 
+	  l_iter->curr = curr;
+	  return data;
+     }
+
+error:
+     return NULL;
+}
+
 node *node_create()
 {
     node *n = malloc(sizeof(node));
@@ -51,6 +137,16 @@ bool sllist_delete(sllist **l)
 {
     LOG_ERROR(l != NULL, error, "pointer to sllist is NULL");
     LOG_ERROR(*l != NULL, error, "sllist is NULL");
+
+    if (!sllist_is_empty(*l)) {
+	 node *curr = sllist_get_front(*l);
+
+	 while (curr != NULL) {
+	      node *temp = curr;
+	      curr = curr->next;
+	      free(temp);
+	 }
+    }
 
     free((*l)->header);
     free((*l)->trailer);
@@ -260,11 +356,20 @@ size_t sllist_count_elements(sllist *l, void *other, bool (*condition)(void *ele
 
      size_t size = 0;
 
-     SLLIST_FOR_EACH(curr, l) {
-	  if (condition(curr->data, other)) {
+     sllist_iter *l_iter = sllist_iter_create(l);
+     LOG_ERROR(l_iter != NULL, error, "failed to create sllist_iter");
+
+     while (sllist_iter_has_next(l_iter)) {
+	  void *data = sllist_iter_next(l_iter);
+	  LOG_ERROR(data != NULL, error, "data is NULL");
+	  if (condition(data, other)) {
 	       size++;
 	  }
+
      }
+
+     bool retval = sllist_iter_delete(&l_iter);
+     LOG_ERROR(retval == true, error, "failed to delete sllist_iter");
 
      return size;
 
@@ -285,12 +390,21 @@ sllist *sllist_get_elements(sllist *l, void *other, bool (*condition)(void *elem
      sllist *sub_list = sllist_create();
      LOG_ERROR(sub_list != NULL, error, "failed to create sllist");
 
-     SLLIST_FOR_EACH(curr, l) {
-	  if (condition(curr->data, other)) {
-	       rv = sllist_append_element(sub_list, curr->data);
-	       LOG_ERROR(rv != false, error, "failed to append element '%p' to sllist", curr->data);
+     sllist_iter *l_iter = sllist_iter_create(l);
+     LOG_ERROR(l_iter != NULL, error, "failed to create sllist_iter");
+
+     while (sllist_iter_has_next(l_iter)) {
+	  void *data = sllist_iter_next(l_iter);
+	  LOG_ERROR(data != NULL, error, "data is NULL");
+	  if (condition(data, other)) {
+	       rv = sllist_append_element(sub_list, data);
+	       LOG_ERROR(rv != false, error, "failed to append element '%p' to sllist", data);
 	  }
+
      }
+
+     bool retval = sllist_iter_delete(&l_iter);
+     LOG_ERROR(retval == true, error, "failed to delete sllist_iter");
 
      if (sllist_is_empty(sub_list)) {
 	  rv = sllist_delete(&sub_list);

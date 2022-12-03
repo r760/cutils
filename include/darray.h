@@ -4,48 +4,125 @@
 #include <stdlib.h>
 
 /**
- * walk dynamic array
- *
- * @param i
- * name of size_t variable to be created
- *
- * @param d
- * dynamic array
- *
- * @pre
- * d is not NULL
- *
- * @pre
- * there does not exist a variable named i
- *
- * @note runtime O(n)
- */
-#define DARRAY_FOREACH(i, d) for (size_t i = 0; !darray_is_empty(d) && i < darray_get_size(d); i++)
-
-/**
  * definition of a dynamic array
  */
 typedef struct
 {
-    /**
-     * size of dynamic array, ie the number of elements currently contained in dynamic array
-     */
-    size_t size;
-    /**
-     * capacity of dynamic array, ie the number of elements that can be contained in dynamic array
-     *
-     * @note capacity of dynamic array is dynamically increased/decreased as needed
-     */
-    size_t capacity;
-    /**
-     * size of data in dynamic array, this is set to the size of void *
-     */
-    size_t size_of_data;
-    /**
-     * data held in dynamic array
-     */
-    void **data;
+     /**
+      * size of dynamic array, ie the number of elements currently contained in dynamic array
+      */
+     size_t size;
+     /**
+      * capacity of dynamic array, ie the number of elements that can be contained in dynamic array
+      *
+      * @note capacity of dynamic array is dynamically increased/decreased as needed
+      */
+     size_t capacity;
+     /**
+      * size of data in dynamic array, this is set to the size of void *
+      */
+     size_t size_of_data;
+     /**
+      * data held in dynamic array
+      */
+     void **data;
 } darray;
+
+/**
+ * definition of a darray iterator
+ */
+typedef struct
+{
+     /**
+      * darray
+      */
+     darray *d;
+     /**
+      * index of the current entry in the darray
+      */
+     size_t i;
+} darray_iter;
+
+/**
+ * create a new darray iterator
+ *
+ * @returns newly created darray iterator if successful, NULL otherwise
+ *
+ * @note runtime O(1)
+ */
+darray_iter *darray_iter_create(darray *d);
+
+/**
+ * delete darray iterator
+ *
+ * @param d_iter
+ * darray iterator
+ *
+ * @pre
+ * d_iter is not NULL
+ *
+ * @pre
+ * *d_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ */
+bool darray_iter_delete(darray_iter **d_iter);
+
+/**
+ * reset darray iterator to its initial position
+ *
+ * @param d_iter
+ * darray iterator
+ *
+ * @pre
+ * d_iter is not NULL
+ *
+ * @pre
+ * *d_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ */
+bool darray_iter_reset(darray_iter *d_iter);
+
+/**
+ * check if darray iterator has another item
+ *
+ * @param d_iter
+ * darray iterator
+ *
+ * @pre
+ * d_iter is not NULL
+ *
+ * @pre
+ * *d_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ */
+bool darray_iter_has_next(darray_iter *d_iter);
+
+/**
+ * get the next item from the darray iterator
+ *
+ * @param d_iter
+ * darray iterator
+ *
+ * @pre
+ * d_iter is not NULL
+ *
+ * @pre
+ * *d_iter is not NULL
+ *
+ * @returns pair if successful, false otherwise
+ *
+ * @note runtime O(1)
+ */
+void *darray_iter_next(darray_iter *d_iter);
 
 /**
  * create a new dynamic array 
@@ -246,7 +323,7 @@ bool darray_insert_element_at_index(darray *d, void *element, size_t index);
  *
  * @note runtime O(n)
  */
-void *darray_delete_at_index(darray *d, size_t index);
+void *darray_delete_element_at_index(darray *d, size_t index);
 
 /**
  * get element from dynamic array at specified index
@@ -324,7 +401,7 @@ bool darray_set_element_at_index(darray *d, void* element, size_t index);
  *
  * @note runtime O(n)
  */
-size_t darray_count_elements(darray *d, void *other, bool (*condition)(void *element, void *other));
+size_t darray_count_elements(darray *d, void *other, bool (*condition)(void *element, void *other), bool hmap);
 
 /**
  * get elements in dynamic array which satisfy specified condition

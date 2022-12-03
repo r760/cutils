@@ -1,0 +1,19 @@
+darray append_element alpha
+darray append_element beta
+darray append_element charlie
+darray append_element delta
+darray append_element echo
+darray count_elements alpha
+darray count_elements alpha|beta
+darray count_elements alpha|beta|charlie
+darray count_elements alpha|beta|charlie|delta
+darray count_elements alpha|beta|charlie|delta|echo
+darray get_elements alpha
+darray get_elements alpha|beta
+darray get_elements alpha|beta|charlie
+darray get_elements alpha|beta|charlie|delta
+darray get_elements alpha|beta|charlie|delta|echo
+darray delete_elements alpha
+darray delete_elements beta|charlie
+darray delete_elements delta|echo
+exit

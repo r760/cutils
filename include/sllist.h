@@ -4,37 +4,17 @@
 #include <stdlib.h>
 
 /**
- * walk sllist
- *
- * @param curr
- * name of node variable to be created
- *
- * @param l
- * sllist
- *
- * @pre
- * l is not NULL
- *
- * @pre
- * there does not exist a variable named curr
- *
- * @note runtime O(n)
- */
-#define SLLIST_FOR_EACH(curr, l) \
-    for (node *curr = (sllist_is_empty(l) == false) ? sllist_get_front(l) : NULL; curr != NULL; curr = curr->next)
-
-/**
  * definition of a node
  */
 struct node {
-    /**
-     * next node
-     */
-    struct node *next; 
-    /**
-     * data contained in current node
-     */
-    void *data; 
+     /**
+      * next node
+      */
+     struct node *next; 
+     /**
+      * data contained in current node
+      */
+     void *data; 
 };
 
 typedef struct node node;
@@ -43,19 +23,115 @@ typedef struct node node;
  * definition of a sllist (single linked list)
  */
 typedef struct {
-    /**
-     * header node of sllist
-     */
-    node *header; 
-    /**
-     * trailer node of sllist
-     */
-    node *trailer; 
-    /**
-     * size of sllist, which excludes; header, and trailer nodes
-     */
-    size_t size; 
+     /**
+      * header node of sllist
+      */
+     node *header; 
+     /**
+      * trailer node of sllist
+      */
+     node *trailer; 
+     /**
+      * size of sllist, which excludes; header, and trailer nodes
+      */
+     size_t size; 
 } sllist;
+
+/**
+ * definition of a sllist iterator
+ */
+typedef struct
+{
+     /**
+      * sllist
+      */
+     sllist *l;
+     /**
+      * current node in sllist
+      */
+     node *curr;
+} sllist_iter;
+
+/**
+ * create a new sllist iterator
+ *
+ * @returns newly created sllist iterator if successful, NULL otherwise
+ *
+ * @note runtime O(1)
+ */
+sllist_iter *sllist_iter_create(sllist *l);
+
+/**
+ * delete sllist iterator
+ *
+ * @param l_iter
+ * sllist iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ */
+bool sllist_iter_delete(sllist_iter **l_iter);
+
+/**
+ * reset sllist iterator to its initial position
+ *
+ * @param l_iter
+ * sllist iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ */
+bool sllist_iter_reset(sllist_iter *l_iter);
+
+/**
+ * check if sllist iterator has another item
+ *
+ * @param l_iter
+ * sllist iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ */
+bool sllist_iter_has_next(sllist_iter *l_iter);
+
+/**
+ * get the next item from the sllist iterator
+ *
+ * @param l_iter
+ * sllist iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns pair if successful, false otherwise
+ *
+ * @note runtime O(1)
+ */
+void *sllist_iter_next(sllist_iter *l_iter);
 
 /**
  * create a new node

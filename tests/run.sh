@@ -33,17 +33,17 @@ run_test()
     echo "=== === === === ==="
     reset_font
 
-    for test in $(ls ${1}/in);
+    for test in $(ls in);
     do
-	case $2 in
+	case $1 in
 	    "--check-memory-leaks")
-		valgrind --track-origins=yes --leak-check=full ${BINDIR}/${1}_cli < ${1}/in/${test} > tmp.${test}
+		valgrind --track-origins=yes --leak-check=full ${BINDIR}/cli_tester < in/${test} > tmp.${test}
 		;;
 	    *)
-		${BINDIR}/${1}_cli < ${1}/in/${test} > tmp.${test}
+		${BINDIR}/cli_tester < in/${test} > tmp.${test}
 		;;
 	esac
-	TEST_RES=$(diff tmp.${test} ${1}/expected/${test})
+	TEST_RES=$(diff tmp.${test} expected/${test})
 
 	if [[ ${TEST_RES} == "" ]]; then
 	    echo -en " - ${test} "
@@ -61,8 +61,5 @@ run_test()
 }
 
 BINDIR=../bin
-run_test darray $1
-run_test sllist $1
-run_test stack $1
-run_test queue $1
+run_test $1
 cleanup

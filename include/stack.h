@@ -3,14 +3,93 @@
 #include "sllist.h"
 
 typedef sllist stack;
+typedef sllist_iter stack_iter;
 
 /**
- * walk stack
+ * create a new stack iterator
  *
- * @note runtime O(n)
- * @see SLLIST_FOR_EACH
+ * @returns newly created stack iterator if successful, NULL otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_create()
  */
-#define STACK_FOR_EACH SLLIST_FOR_EACH
+#define stack_iter_create(l) sllist_iter_create(l)
+
+/**
+ * delete stack iterator
+ *
+ * @param l_iter
+ * stack iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_delete()
+ */
+#define stack_iter_delete(l_iter) sllist_iter_delete(l_iter)
+
+/**
+ * reset stack iterator to its initial position
+ *
+ * @param l_iter
+ * stack iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_reset()
+ */
+#define stack_iter_reset(l_iter) sllist_iter_reset(l_iter)
+
+/**
+ * check if stack iterator has another item
+ *
+ * @param l_iter
+ * stack iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns true if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_has_next()
+ */
+#define stack_iter_has_next(l_iter) sllist_iter_has_next(l_iter)
+
+/**
+ * get the next item from the stack iterator
+ *
+ * @param l_iter
+ * stack iterator
+ *
+ * @pre
+ * l_iter is not NULL
+ *
+ * @pre
+ * *l_iter is not NULL
+ *
+ * @returns pair if successful, false otherwise
+ *
+ * @note runtime O(1)
+ * @see sllist_iter_next()
+ */
+#define stack_iter_next(l_iter) sllist_iter_next(l_iter)
 
 /**
  * create a new stack

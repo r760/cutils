@@ -1,0 +1,21 @@
+[alpha]
+[alpha, beta]
+[alpha, beta, charlie]
+[alpha, beta, charlie, delta]
+[alpha, beta, charlie, delta, echo]
+1
+2
+3
+4
+5
+[alpha]
+[alpha, beta]
+[alpha, beta, charlie]
+[alpha, beta, charlie, delta]
+[alpha, beta, charlie, delta, echo]
+[beta, charlie, delta, echo]
+[alpha]
+[delta, echo]
+[beta, charlie]
+[]
+[delta, echo]

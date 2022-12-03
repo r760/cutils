@@ -1,0 +1,28 @@
+darray is_empty
+darray get_size
+darray get_capacity
+darray append_element bravo
+darray is_empty
+darray get_size
+darray get_capacity
+darray prepend_element alpha
+darray is_empty
+darray get_size
+darray get_capacity
+darray append_element charlie
+darray is_empty
+darray get_size
+darray get_capacity
+darray delete_rear
+darray is_empty
+darray get_size
+darray get_capacity
+darray delete_rear
+darray is_empty
+darray get_size
+darray get_capacity
+darray delete_front
+darray is_empty
+darray get_size
+darray get_capacity
+exit

@@ -1,0 +1,7 @@
+queue enqueue alpha
+queue enqueue bravo
+queue enqueue charlie
+queue dequeue
+queue dequeue
+queue dequeue
+exit

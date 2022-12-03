@@ -1,0 +1,12 @@
+hmap get_size
+hmap get_capacity
+hmap insert_key_value alpha one 
+hmap get_size
+hmap get_capacity
+hmap replace_value_for_key alpha 1
+hmap get_size
+hmap get_capacity
+hmap delete_key_value_by_key alpha
+hmap get_size
+hmap get_capacity
+exit
