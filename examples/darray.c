@@ -1,25 +1,37 @@
-#include <darray.h>
 #include <stdio.h>
 #include <string.h>
-
-bool condition(void *element, void *other)
-{
-     char *str = element;
-     return str[0] == 'A' || str[0] == 'B';
-}
+#include "darray.h"
 
 void darray_print(darray *d)
 {
      printf("[");
-     DARRAY_FOREACH(i, d) {
-	  char *data = darray_get_element_at_index(d, i);
-	  printf("%s", data);
-	  if (i < darray_get_size(d) - 1) {
+     darray_iter *d_iter = darray_iter_create(d);
+     while (darray_iter_has_next(d_iter)) {
+	  void *curr_element = darray_iter_next(d_iter);
+	  printf("%s", (char *)curr_element);
+	  if (darray_iter_has_next(d_iter)) {
 	       printf(", ");
+	       
 	  }
-
      }
+     darray_iter_delete(&d_iter);
      printf("]\n");
+}
+
+bool condition(void *element, void *other)
+{
+     char *str = strdup(other);
+     char *match = strtok(str, "|");
+     while (match != NULL) {
+	  if (strcmp((char*) element, match) == 0) {
+	       free(str);
+	       return true;
+	  }
+	  match = strtok(NULL, "|");
+     }
+
+     free(str);
+     return false;
 }
 
 int main(int argc, char *argv[])
@@ -46,8 +58,8 @@ int main(int argc, char *argv[])
      // print darray
      darray_print(d);
 
-     // remove all elements (which are C strings) of darray which start with 'A' or 'B'
-     darray *sub_array = darray_delete_elements(d, NULL, &condition);
+     // remove all elements (which are C strings) of darray which are Alpha or Beta
+     darray *sub_array = darray_delete_elements(d, "Alpha|Beta", &condition);
 
      // print (sub) darray
      printf("removing -> ");

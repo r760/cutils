@@ -43,7 +43,7 @@ $(LIBDIR)/libsllist.a:	$(LIBDIR)/log.o $(LIBDIR)/sllist.o
 	ar rcs $@ $^
 
 ## lib/libhmap.a: compile static library lib/libhmap.a
-$(LIBDIR)/libhmap.a:	$(LIBDIR)/log.o $(LIBDIR)/hmap.o
+$(LIBDIR)/libhmap.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o $(LIBDIR)/hmap.o
 	ar rcs $@ $^
 
 ## bin/cli_tester: compile bin/cli_tester

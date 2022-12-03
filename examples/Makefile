@@ -1,11 +1,18 @@
 CC=gcc
 CFLAGS=-Wall -g
+DFLAGS=
+
+INCLUDEDIR=../include
+LIBDIR=../lib
+
+CFLAGS+=-I$(INCLUDEDIR)
+CFLAGS+=-L$(LIBDIR)
 
 help:	Makefile
 	@sed -n 's/^##[ ]*/\n/p' $< | sed 's/: /:\n\t/g; 1d'
 
 ## all: compile everything
-all:	darray sllist stack queue log logic
+all:	darray sllist stack queue hmap log logic
 
 ## darray: compile darray
 darray:	darray.c
@@ -22,6 +29,10 @@ stack:	stack.c
 ## queue: compile queue
 queue:	queue.c
 	$(CC) $(CFLAGS) $< -lsllist -o $@
+
+## hmap: compile hmap
+hmap:	hmap.c
+	$(CC) $(CFLAGS) $< -lhmap -o $@
 
 ## log: compile log
 log:	log.c
@@ -47,6 +58,10 @@ stack_example:	stack
 queue_example:	queue
 	./queue Alpha Beta Charlie Delta Echo
 
+## hmap_example: an example of how to run hmap
+hmap_example:	hmap
+	./hmap Alpha 1 Beta 2 Charlie 3 Delta 4 Echo 5
+
 ## log_example: an example of how to run log
 log_example:	log
 	./log
@@ -55,9 +70,9 @@ log_example:	log
 logic_example:	logic
 	./logic
 
-## example: run examples of darray, sllist, stack, queue, log, and logic
-example:	darray_example sllist_example stack_example queue_example log_example logic_example
+## example: run examples of darray, sllist, stack, queue, hmap, log, and logic
+example:	darray_example sllist_example stack_example queue_example hmap_example log_example logic_example
 
 ## clean: remove binaries
 clean:
-	rm -vf darray sllist stack queue log logic
+	rm -vf darray sllist stack queue hmap log logic
