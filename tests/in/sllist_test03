@@ -1,7 +1,0 @@
-sllist append_element bravo
-sllist append_element charlie
-sllist prepend_element alpha
-sllist delete_rear
-sllist delete_rear
-sllist delete_front
-exit

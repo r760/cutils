@@ -1,0 +1,21 @@
+list is_empty
+list get_size
+list append_element bravo
+list is_empty
+list get_size
+list prepend_element alpha
+list is_empty
+list get_size
+list append_element charlie
+list is_empty
+list get_size
+list delete_rear
+list is_empty
+list get_size
+list delete_rear
+list is_empty
+list get_size
+list delete_front
+list is_empty
+list get_size
+exit

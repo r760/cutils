@@ -1,0 +1,7 @@
+list append_element bravo
+list append_element charlie
+list prepend_element alpha
+list delete_rear
+list delete_rear
+list delete_front
+exit

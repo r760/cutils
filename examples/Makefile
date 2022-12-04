@@ -12,23 +12,23 @@ help:	Makefile
 	@sed -n 's/^##[ ]*/\n/p' $< | sed 's/: /:\n\t/g; 1d'
 
 ## all: compile everything
-all:	darray sllist stack queue hmap log logic
+all:	darray list stack queue hmap log logic
 
 ## darray: compile darray
 darray:	darray.c
 	$(CC) $(CFLAGS) $< -ldarray -o $@
 
-## sllist: compile sllist
-sllist:	sllist.c
-	$(CC) $(CFLAGS) $< -lsllist -o $@
+## list: compile list
+list:	list.c
+	$(CC) $(CFLAGS) $< -llist -o $@
 
 ## stack: compile stack
 stack:	stack.c
-	$(CC) $(CFLAGS) $< -lsllist -o $@
+	$(CC) $(CFLAGS) $< -llist -o $@
 
 ## queue: compile queue
 queue:	queue.c
-	$(CC) $(CFLAGS) $< -lsllist -o $@
+	$(CC) $(CFLAGS) $< -llist -o $@
 
 ## hmap: compile hmap
 hmap:	hmap.c
@@ -46,9 +46,9 @@ logic:	logic.c
 darray_example:	darray
 	./darray Alpha Beta Charlie Delta Echo
 
-## sllist_example: an example of how to run sllist
-sllist_example:	sllist
-	./sllist Alpha Beta Charlie Delta Echo
+## list_example: an example of how to run list
+list_example:	list
+	./list Alpha Beta Charlie Delta Echo
 
 ## stack_example: an example of how to run stack
 stack_example:	stack
@@ -70,9 +70,9 @@ log_example:	log
 logic_example:	logic
 	./logic
 
-## example: run examples of darray, sllist, stack, queue, hmap, log, and logic
-example:	darray_example sllist_example stack_example queue_example hmap_example log_example logic_example
+## example: run examples of darray, list, stack, queue, hmap, log, and logic
+example:	darray_example list_example stack_example queue_example hmap_example log_example logic_example
 
 ## clean: remove binaries
 clean:
-	rm -vf darray sllist stack queue hmap log logic
+	rm -vf darray list stack queue hmap log logic

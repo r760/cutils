@@ -38,8 +38,8 @@ $(LIBDIR)/liblog.a:	$(LIBDIR)/log.o
 $(LIBDIR)/libdarray.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o
 	ar rcs $@ $^
 
-## lib/libsllist.a: compile static library lib/libsllist.a
-$(LIBDIR)/libsllist.a:	$(LIBDIR)/log.o $(LIBDIR)/sllist.o
+## lib/liblist.a: compile static library lib/liblist.a
+$(LIBDIR)/liblist.a:	$(LIBDIR)/log.o $(LIBDIR)/list.o
 	ar rcs $@ $^
 
 ## lib/libhmap.a: compile static library lib/libhmap.a
@@ -47,9 +47,9 @@ $(LIBDIR)/libhmap.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o $(LIBDIR)/hmap.o
 	ar rcs $@ $^
 
 ## bin/cli_tester: compile bin/cli_tester
-$(BINDIR)/cli_tester:	$(SRCDIR)/cli_tester.c $(SRCDIR)/*_handler.c $(SRCDIR)/darray.c $(SRCDIR)/sllist.c $(SRCDIR)/hmap.c $(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a $(LIBDIR)/libhmap.a
+$(BINDIR)/cli_tester:	$(SRCDIR)/cli_tester.c $(SRCDIR)/*_handler.c $(SRCDIR)/darray.c $(SRCDIR)/list.c $(SRCDIR)/hmap.c $(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/liblist.a $(LIBDIR)/libhmap.a
 	make bin > /dev/null
-	$(CC) $(CFLAGS) $(DFLAGS) $(SRCDIR)/cli_tester.c $(SRCDIR)/*_handler.c -llog -ldarray -lsllist -lhmap -o $@
+	$(CC) $(CFLAGS) $(DFLAGS) $(SRCDIR)/cli_tester.c $(SRCDIR)/*_handler.c -llog -ldarray -llist -lhmap -o $@
 
 ## run_cli_tester: run cli_tester
 run_cli_tester:	$(BINDIR)/cli_tester
@@ -63,8 +63,8 @@ run_tests:	$(BINDIR)/cli_tester
 run_valgrind_tests:    $(BINDIR)/cli_tester
 	cd $(TESTSDIR); ./run.sh --check-memory-leaks
 
-## install: install log, darray, sllist, stack, queue header-files and libraries
-install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a $(LIBDIR)/libhmap.a
+## install: install log, darray, list, stack, queue header-files and libraries
+install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/liblist.a $(LIBDIR)/libhmap.a
 	[ -d /usr/local/include ] || sudo mkdir -p /usr/local/include
 	[ -d /usr/local/lib ] || sudo mkdir -p /usr/local/lib
 	[ -d /usr/local/src ] || sudo mkdir -p /usr/local/src
@@ -72,8 +72,8 @@ install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a $(LIBDIR
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo cp -v {} /usr/local/lib/ \;
 	cd $(SRCDIR); find . -type f -name "*.c" -exec sudo cp -v {} /usr/local/src/ \;
 
-## uninstall: uninstall log, darray, sllist, stack, queue header-files and libraries
-uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/libsllist.a
+## uninstall: uninstall log, darray, list, stack, queue header-files and libraries
+uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/liblist.a
 	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo rm -v /usr/local/include/{} \;
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo rm -v /usr/local/lib/{} \;
 	cd $(SRCDIR); find . -type f -name "*.c" -exec sudo rm -v /usr/local/src/{} \;

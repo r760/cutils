@@ -1,7 +1,0 @@
-sllist prepend_element alpha
-sllist prepend_element bravo
-sllist prepend_element charlie
-sllist delete_front
-sllist delete_front
-sllist delete_front
-exit

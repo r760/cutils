@@ -102,7 +102,7 @@ make uninstall
 
 ## how to use; data structures, logging tools, and logic operators
 - take a look inside the `cutils/examples` directory: it contains examples of how to use;
-darray, sllist, stack, queue data structures, logging tools, and logic operators ... it also shows
+darray, list, stack, queue data structures, logging tools, and logic operators ... it also shows
 which header files are needed to be included in the source files (.c files), and how to compile
 everything in the Makefile... to view all Makefile directives you can use
 ```

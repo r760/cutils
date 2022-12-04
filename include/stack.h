@@ -1,9 +1,9 @@
 #ifndef STACK_H
 #define STACK_H
-#include "sllist.h"
+#include "list.h"
 
-typedef sllist stack;
-typedef sllist_iter stack_iter;
+typedef list stack;
+typedef list_iter stack_iter;
 
 /**
  * create a new stack iterator
@@ -11,9 +11,9 @@ typedef sllist_iter stack_iter;
  * @returns newly created stack iterator if successful, NULL otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_create()
+ * @see list_iter_create()
  */
-#define stack_iter_create(l) sllist_iter_create(l)
+#define stack_iter_create(l) list_iter_create(l)
 
 /**
  * delete stack iterator
@@ -30,9 +30,9 @@ typedef sllist_iter stack_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_delete()
+ * @see list_iter_delete()
  */
-#define stack_iter_delete(l_iter) sllist_iter_delete(l_iter)
+#define stack_iter_delete(l_iter) list_iter_delete(l_iter)
 
 /**
  * reset stack iterator to its initial position
@@ -49,9 +49,9 @@ typedef sllist_iter stack_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_reset()
+ * @see list_iter_reset()
  */
-#define stack_iter_reset(l_iter) sllist_iter_reset(l_iter)
+#define stack_iter_reset(l_iter) list_iter_reset(l_iter)
 
 /**
  * check if stack iterator has another item
@@ -68,9 +68,9 @@ typedef sllist_iter stack_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_has_next()
+ * @see list_iter_has_next()
  */
-#define stack_iter_has_next(l_iter) sllist_iter_has_next(l_iter)
+#define stack_iter_has_next(l_iter) list_iter_has_next(l_iter)
 
 /**
  * get the next item from the stack iterator
@@ -87,9 +87,9 @@ typedef sllist_iter stack_iter;
  * @returns pair if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_next()
+ * @see list_iter_next()
  */
-#define stack_iter_next(l_iter) sllist_iter_next(l_iter)
+#define stack_iter_next(l_iter) list_iter_next(l_iter)
 
 /**
  * create a new stack
@@ -97,9 +97,9 @@ typedef sllist_iter stack_iter;
  * @returns newly created stack if successful, NULL otherwise
  *
  * @note runtime O(1)
- * @see sllist_create()
+ * @see list_create()
  */
-#define stack_create() sllist_create()
+#define stack_create() list_create()
 
 /**
  * delete stack
@@ -113,9 +113,9 @@ typedef sllist_iter stack_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_delete()
+ * @see list_delete()
  */
-#define stack_delete(s) sllist_delete(s)
+#define stack_delete(s) list_delete(s)
 
 /**
  * get size of stack
@@ -129,9 +129,9 @@ typedef sllist_iter stack_iter;
  * @returns size of stack
  *
  * @note runtime O(1)
- * @see sllist_get_size()
+ * @see list_get_size()
  */
-#define stack_get_size(s) sllist_get_size(s)
+#define stack_get_size(s) list_get_size(s)
 
 /**
  * check if stack is empty
@@ -145,9 +145,9 @@ typedef sllist_iter stack_iter;
  * @returns true if stack is empty, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_is_empty() 
+ * @see list_is_empty() 
  */
-#define stack_is_empty(s) sllist_is_empty(s)
+#define stack_is_empty(s) list_is_empty(s)
 
 /**
  * get most recently added element to stack
@@ -164,9 +164,9 @@ typedef sllist_iter stack_iter;
  * @returns most recently added element to stack if it exists, NULL otherwise
  *
  * @note runtime O(1)
- * @see sllist_get_front_data()
+ * @see list_get_front_data()
  */
-#define stack_top(s) sllist_get_front_data(s)
+#define stack_top(s) list_get_front_data(s)
 
 /**
  * push element to stack
@@ -186,9 +186,9 @@ typedef sllist_iter stack_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_prepend_element()
+ * @see list_prepend_element()
  */
-#define stack_push(s, e) sllist_prepend_element(s, e)
+#define stack_push(s, e) list_prepend_element(s, e)
 
 /**
  * pop stack
@@ -205,8 +205,8 @@ typedef sllist_iter stack_iter;
  * @returns most recently added element to stack if it exists, NULL otherwise
  *
  * @note runtime O(1)
- * @see sllist_delete_front()
+ * @see list_delete_front()
  */
-#define stack_pop(s) sllist_delete_front(s)
+#define stack_pop(s) list_delete_front(s)
 
 #endif

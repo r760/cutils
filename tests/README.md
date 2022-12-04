@@ -17,7 +17,7 @@ test06 ->
 test07 ->
 	append_element/count_elements/get_elements/delete_elements
 
-## sllist
+## list
 test01 ->
 	append_element/delete_rear
 test02 ->

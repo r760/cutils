@@ -1,9 +1,9 @@
 #ifndef QUEUE_H
 #define QUEUE_H
-#include "sllist.h"
+#include "list.h"
 
-typedef sllist queue;
-typedef sllist_iter queue_iter;
+typedef list queue;
+typedef list_iter queue_iter;
 
 /**
  * create a new queue iterator
@@ -11,9 +11,9 @@ typedef sllist_iter queue_iter;
  * @returns newly created queue iterator if successful, NULL otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_create()
+ * @see list_iter_create()
  */
-#define queue_iter_create(l) sllist_iter_create(l)
+#define queue_iter_create(l) list_iter_create(l)
 
 /**
  * delete queue iterator
@@ -30,9 +30,9 @@ typedef sllist_iter queue_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_delete()
+ * @see list_iter_delete()
  */
-#define queue_iter_delete(l_iter) sllist_iter_delete(l_iter)
+#define queue_iter_delete(l_iter) list_iter_delete(l_iter)
 
 /**
  * reset queue iterator to its initial position
@@ -49,9 +49,9 @@ typedef sllist_iter queue_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_reset()
+ * @see list_iter_reset()
  */
-#define queue_iter_reset(l_iter) sllist_iter_reset(l_iter)
+#define queue_iter_reset(l_iter) list_iter_reset(l_iter)
 
 /**
  * check if queue iterator has another item
@@ -68,9 +68,9 @@ typedef sllist_iter queue_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_has_next()
+ * @see list_iter_has_next()
  */
-#define queue_iter_has_next(l_iter) sllist_iter_has_next(l_iter)
+#define queue_iter_has_next(l_iter) list_iter_has_next(l_iter)
 
 /**
  * get the next item from the queue iterator
@@ -87,9 +87,9 @@ typedef sllist_iter queue_iter;
  * @returns pair if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_iter_next()
+ * @see list_iter_next()
  */
-#define queue_iter_next(l_iter) sllist_iter_next(l_iter)
+#define queue_iter_next(l_iter) list_iter_next(l_iter)
 
 /**
  * create a new queue
@@ -97,9 +97,9 @@ typedef sllist_iter queue_iter;
  * @returns newly created queue if successful, NULL otherwise
  *
  * @note runtime O(1)
- * @see sllist_create()
+ * @see list_create()
  */
-#define queue_create() sllist_create()
+#define queue_create() list_create()
 
 /**
  * delete queue
@@ -113,9 +113,9 @@ typedef sllist_iter queue_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_delete()
+ * @see list_delete()
  */
-#define queue_delete(q) sllist_delete(q)
+#define queue_delete(q) list_delete(q)
 
 /**
  * get size of queue
@@ -129,9 +129,9 @@ typedef sllist_iter queue_iter;
  * @returns size of queue
  *
  * @note runtime O(1)
- * @see sllist_get_size()
+ * @see list_get_size()
  */
-#define queue_get_size(q) sllist_get_size(q)
+#define queue_get_size(q) list_get_size(q)
 
 /**
  * check if queue is empty
@@ -145,9 +145,9 @@ typedef sllist_iter queue_iter;
  * @returns true if queue is empty, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_is_empty()
+ * @see list_is_empty()
  */
-#define queue_is_empty(q) sllist_is_empty(q)
+#define queue_is_empty(q) list_is_empty(q)
 
 /**
  * get most anciently added element to queue
@@ -164,9 +164,9 @@ typedef sllist_iter queue_iter;
  * @returns most anciently added element to queue if it exists, NULL otherwise
  *
  * @note runtime O(1)
- * @see sllist_get_front_data()
+ * @see list_get_front_data()
  */
-#define queue_peek(q) sllist_get_front_data(q)
+#define queue_peek(q) list_get_front_data(q)
 
 /**
  * add element to queue
@@ -186,9 +186,9 @@ typedef sllist_iter queue_iter;
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
- * @see sllist_append_element()
+ * @see list_append_element()
  */
-#define queue_enqueue(q, e) sllist_append_element(q, e)
+#define queue_enqueue(q, e) list_append_element(q, e)
 
 /**
  * remove most anciently added element to queue
@@ -205,8 +205,8 @@ typedef sllist_iter queue_iter;
  * @returns most anciently added element to queue if it exists, NULL otherwise
  *
  * @note runtime O(1)
- * @see sllist_delete_front()
+ * @see list_delete_front()
  */
-#define queue_dequeue(q) sllist_delete_front(q)
+#define queue_dequeue(q) list_delete_front(q)
 
 #endif

@@ -4,20 +4,20 @@
 #include <string.h>
 #include "../include/log.h"
 #include "../include/darray.h"
-#include "../include/sllist.h"
+#include "../include/list.h"
 #include "../include/stack.h"
 #include "../include/queue.h"
 #include "../include/hmap.h"
 #define BUFF_SIZE 100
 
 darray *g_d = NULL;
-sllist *g_l = NULL;
+list *g_l = NULL;
 stack *g_s = NULL;
 queue *g_q = NULL;
 hmap *g_h = NULL;
 
 extern bool darray_handler(char *command);
-extern bool sllist_handler(char *command);
+extern bool list_handler(char *command);
 extern bool stack_handler(char *command);
 extern bool queue_handler(char *command);
 extern bool hmap_handler(char *command);
@@ -27,8 +27,8 @@ static bool init()
      g_d = darray_create();
      LOG_ERROR(g_d != NULL, error, "failed to create darray");
 
-     g_l = sllist_create();
-     LOG_ERROR(g_l != NULL, error, "failed to create sllist");
+     g_l = list_create();
+     LOG_ERROR(g_l != NULL, error, "failed to create list");
 
      g_s = stack_create();
      LOG_ERROR(g_s != NULL, error, "failed to create stack");
@@ -62,8 +62,8 @@ static bool cleanup()
      rv = darray_delete(&g_d);
      LOG_ERROR(rv == true, error, "failed to free darray");
 
-     rv = sllist_delete(&g_l);
-     LOG_ERROR(rv == true, error, "failed to free sllist");
+     rv = list_delete(&g_l);
+     LOG_ERROR(rv == true, error, "failed to free list");
 
      rv = stack_delete(&g_s);
      LOG_ERROR(rv == true, error, "failed to free stack");
@@ -96,8 +96,8 @@ int main(int argc, char *argv[])
 	       break;
 	  } else if (strcmp(command, "darray") == 0) {
 	       rv = darray_handler(command);
-	  } else if (strcmp(command, "sllist") == 0) {
-	       rv = sllist_handler(command);
+	  } else if (strcmp(command, "list") == 0) {
+	       rv = list_handler(command);
 	  } else if (strcmp(command, "stack") == 0) {
 	       rv = stack_handler(command);
 	  } else if (strcmp(command, "queue") == 0) {
