@@ -8,88 +8,85 @@ typedef list_iter stack_iter;
 /**
  * create a new stack iterator
  *
+ * @param s
+ * stack
+ *
+ * @pre
+ * s is not NULL
+ *
  * @returns newly created stack iterator if successful, NULL otherwise
  *
  * @note runtime O(1)
  * @see list_iter_create()
  */
-#define stack_iter_create(l) list_iter_create(l)
+#define stack_iter_create(s) list_iter_create(s)
 
 /**
  * delete stack iterator
  *
- * @param l_iter
+ * @param s_iter
  * stack iterator
  *
  * @pre
- * l_iter is not NULL
+ * s_iter is not NULL
  *
  * @pre
- * *l_iter is not NULL
+ * *s_iter is not NULL
  *
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
  * @see list_iter_delete()
  */
-#define stack_iter_delete(l_iter) list_iter_delete(l_iter)
+#define stack_iter_delete(s_iter) list_iter_delete(s_iter)
 
 /**
  * reset stack iterator to its initial position
  *
- * @param l_iter
+ * @param s_iter
  * stack iterator
  *
  * @pre
- * l_iter is not NULL
- *
- * @pre
- * *l_iter is not NULL
+ * s_iter is not NULL
  *
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
  * @see list_iter_reset()
  */
-#define stack_iter_reset(l_iter) list_iter_reset(l_iter)
+#define stack_iter_reset(s_iter) list_iter_reset(s_iter)
 
 /**
  * check if stack iterator has another item
  *
- * @param l_iter
+ * @param s_iter
  * stack iterator
  *
  * @pre
- * l_iter is not NULL
+ * s_iter is not NULL
  *
- * @pre
- * *l_iter is not NULL
- *
- * @returns true if successful, false otherwise
+ * @returns true if stack iterator has another item, false otherwise
  *
  * @note runtime O(1)
  * @see list_iter_has_next()
  */
-#define stack_iter_has_next(l_iter) list_iter_has_next(l_iter)
+#define stack_iter_has_next(s_iter) list_iter_has_next(s_iter)
 
 /**
  * get the next item from the stack iterator
  *
- * @param l_iter
+ * @param s_iter
  * stack iterator
  *
  * @pre
- * l_iter is not NULL
+ * s_iter is not NULL
  *
- * @pre
- * *l_iter is not NULL
- *
- * @returns pair if successful, false otherwise
+ * @returns the next item from the stack iterator if it has one, NULL otherwise
  *
  * @note runtime O(1)
  * @see list_iter_next()
  */
-#define stack_iter_next(l_iter) list_iter_next(l_iter)
+#define stack_iter_next(s_iter) list_iter_next(s_iter)
 
 /**
  * create a new stack
@@ -112,7 +109,7 @@ typedef list_iter stack_iter;
  *
  * @returns true if successful, false otherwise
  *
- * @note runtime O(1)
+ * @note runtime O(n)
  * @see list_delete()
  */
 #define stack_delete(s) list_delete(s)

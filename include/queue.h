@@ -8,88 +8,85 @@ typedef list_iter queue_iter;
 /**
  * create a new queue iterator
  *
+ * @param q
+ * queue
+ *
+ * @pre
+ * q is not NULL
+ *
  * @returns newly created queue iterator if successful, NULL otherwise
  *
  * @note runtime O(1)
  * @see list_iter_create()
  */
-#define queue_iter_create(l) list_iter_create(l)
+#define queue_iter_create(q) list_iter_create(q)
 
 /**
  * delete queue iterator
  *
- * @param l_iter
+ * @param q_iter
  * queue iterator
  *
  * @pre
- * l_iter is not NULL
+ * q_iter is not NULL
  *
  * @pre
- * *l_iter is not NULL
+ * *q_iter is not NULL
  *
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
  * @see list_iter_delete()
  */
-#define queue_iter_delete(l_iter) list_iter_delete(l_iter)
+#define queue_iter_delete(q_iter) list_iter_delete(q_iter)
 
 /**
  * reset queue iterator to its initial position
  *
- * @param l_iter
+ * @param q_iter
  * queue iterator
  *
  * @pre
- * l_iter is not NULL
- *
- * @pre
- * *l_iter is not NULL
+ * q_iter is not NULL
  *
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
  * @see list_iter_reset()
  */
-#define queue_iter_reset(l_iter) list_iter_reset(l_iter)
+#define queue_iter_reset(q_iter) list_iter_reset(q_iter)
 
 /**
  * check if queue iterator has another item
  *
- * @param l_iter
+ * @param q_iter
  * queue iterator
  *
  * @pre
- * l_iter is not NULL
+ * q_iter is not NULL
  *
- * @pre
- * *l_iter is not NULL
- *
- * @returns true if successful, false otherwise
+ * @returns true if queue iterator has another item, false otherwise
  *
  * @note runtime O(1)
  * @see list_iter_has_next()
  */
-#define queue_iter_has_next(l_iter) list_iter_has_next(l_iter)
+#define queue_iter_has_next(q_iter) list_iter_has_next(q_iter)
 
 /**
  * get the next item from the queue iterator
  *
- * @param l_iter
+ * @param q_iter
  * queue iterator
  *
  * @pre
- * l_iter is not NULL
+ * q_iter is not NULL
  *
- * @pre
- * *l_iter is not NULL
- *
- * @returns pair if successful, false otherwise
+ * @returns the next item from the queue iterator if it has one, NULL otherwise
  *
  * @note runtime O(1)
  * @see list_iter_next()
  */
-#define queue_iter_next(l_iter) list_iter_next(l_iter)
+#define queue_iter_next(q_iter) list_iter_next(q_iter)
 
 /**
  * create a new queue
@@ -112,7 +109,7 @@ typedef list_iter queue_iter;
  *
  * @returns true if successful, false otherwise
  *
- * @note runtime O(1)
+ * @note runtime O(n)
  * @see list_delete()
  */
 #define queue_delete(q) list_delete(q)

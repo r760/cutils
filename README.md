@@ -5,7 +5,7 @@ utilities for the C programming language
 
 ## data structures
 - dynamic array
-- single linked list
+- list
 - stack
 - queue
 - hash map

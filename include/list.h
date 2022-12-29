@@ -55,6 +55,12 @@ typedef struct
 /**
  * create a new list iterator
  *
+ * @param l
+ * list
+ *
+ * @pre
+ * l is not NULL
+
  * @returns newly created list iterator if successful, NULL otherwise
  *
  * @note runtime O(1)
@@ -88,9 +94,6 @@ bool list_iter_delete(list_iter **l_iter);
  * @pre
  * l_iter is not NULL
  *
- * @pre
- * *l_iter is not NULL
- *
  * @returns true if successful, false otherwise
  *
  * @note runtime O(1)
@@ -106,10 +109,7 @@ bool list_iter_reset(list_iter *l_iter);
  * @pre
  * l_iter is not NULL
  *
- * @pre
- * *l_iter is not NULL
- *
- * @returns true if successful, false otherwise
+ * @returns true if list iterator has another item, false otherwise
  *
  * @note runtime O(1)
  */
@@ -124,10 +124,7 @@ bool list_iter_has_next(list_iter *l_iter);
  * @pre
  * l_iter is not NULL
  *
- * @pre
- * *l_iter is not NULL
- *
- * @returns pair if successful, false otherwise
+ * @returns the next item from the list iterator if it has one, NULL otherwise
  *
  * @note runtime O(1)
  */
@@ -183,7 +180,7 @@ list *list_create();
  *
  * @returns true if successful, false otherwise
  *
- * @note runtime O(1)
+ * @note runtime O(n)
  */
 bool list_delete(list **l);
 

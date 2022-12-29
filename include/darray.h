@@ -46,6 +46,12 @@ typedef struct
 /**
  * create a new darray iterator
  *
+ * @param d
+ * darray
+ *
+ * @pre
+ * d is not NULL
+ *
  * @returns newly created darray iterator if successful, NULL otherwise
  *
  * @note runtime O(1)
@@ -100,7 +106,7 @@ bool darray_iter_reset(darray_iter *d_iter);
  * @pre
  * *d_iter is not NULL
  *
- * @returns true if successful, false otherwise
+ * @returns true if darray iterator has another item, false otherwise
  *
  * @note runtime O(1)
  */
@@ -118,7 +124,7 @@ bool darray_iter_has_next(darray_iter *d_iter);
  * @pre
  * *d_iter is not NULL
  *
- * @returns pair if successful, false otherwise
+ * @returns the next item from the darray iterator if it has one, NULL otherwise
  *
  * @note runtime O(1)
  */
