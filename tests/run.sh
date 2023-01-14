@@ -29,7 +29,7 @@ run_test()
 {
     yellow_font
     echo "=== === === === ==="
-    echo "|  Testing ${1} |"
+    echo "|     Testing     |"
     echo "=== === === === ==="
     reset_font
 
