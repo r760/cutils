@@ -86,9 +86,14 @@ typedef struct
 /**
  * create a new hash map iterator
  *
+ * @param h
+ * hash map
+ *
+ * @pre
+ * h is not NULL
+ *
  * @returns newly created hash map iterator if successful, NULL otherwise
  *
- * @note runtime O(1)
  */
 hmap_iter *hmap_iter_create(hmap *h);
 
@@ -106,7 +111,6 @@ hmap_iter *hmap_iter_create(hmap *h);
  *
  * @returns true if successful, false otherwise
  *
- * @note runtime O(1)
  */
 bool hmap_iter_delete(hmap_iter **h_iter);
 
@@ -124,7 +128,6 @@ bool hmap_iter_delete(hmap_iter **h_iter);
  *
  * @returns true if successful, false otherwise
  *
- * @note runtime O(1)
  */
 bool hmap_iter_reset(hmap_iter *h_iter);
 
@@ -140,9 +143,8 @@ bool hmap_iter_reset(hmap_iter *h_iter);
  * @pre
  * *h_iter is not NULL
  *
- * @returns true if successful, false otherwise
+ * @returns true if hash map iterator has another item, false otherwise
  *
- * @note runtime O(1)
  */
 bool hmap_iter_has_next(hmap_iter *h_iter);
 
@@ -158,9 +160,8 @@ bool hmap_iter_has_next(hmap_iter *h_iter);
  * @pre
  * *h_iter is not NULL
  *
- * @returns pair if successful, false otherwise
+ * @returns the next item from the hash map iterator if it has one, NULL otherwise
  *
- * @note runtime O(1)
  */
 pair *hmap_iter_next(hmap_iter *h_iter);
 
@@ -181,7 +182,6 @@ pair *hmap_iter_next(hmap_iter *h_iter);
  *
  * @returns newly created key-value pair if successful, NULL otherwise
  *
- * @note runtime O(1)
  */
 pair *pair_create(void *key, void *value);
 
@@ -199,7 +199,6 @@ pair *pair_create(void *key, void *value);
  *
  * @returns returns true if successful, NULL otherwise
  *
- * @note runtime O(1)
  */
 bool pair_delete(pair **p);
 
@@ -238,7 +237,6 @@ bool pair_delete(pair **p);
  * @pre
  * equals_value (function pointer) is not NULL
  *
- * @note runtime O(1)
  */
 hmap *hmap_create(size_t capacity, double load_factor,
 		  unsigned long (*hash)(void *key),
@@ -259,7 +257,6 @@ hmap *hmap_create(size_t capacity, double load_factor,
  *
  * @returns true if successful, false otherwise
  *
- * @note runtime O(1)
  */
 bool hmap_delete(hmap **h);
 
@@ -289,7 +286,7 @@ bool hmap_resize(hmap **h, size_t new_capacity);
  * hash map
  *
  * @param key
- * the key to insert
+ * key
  *
  * @param value
  * the value to insert
@@ -307,7 +304,7 @@ bool hmap_resize(hmap **h, size_t new_capacity);
  * value is not NULL
  *
  * @pre
- * hash map does not already contain key and value pair
+ * hash map does not already contain the key and value pair
  *
  * @returns true if successful, false otherwise
  */
@@ -320,7 +317,7 @@ bool hmap_insert_key_value(hmap **h, void *key, void *value);
  * hash map
  *
  * @param key
- * the key to insert
+ * key
  *
  * @pre
  * h is not NULL
@@ -336,13 +333,13 @@ bool hmap_insert_key_value(hmap **h, void *key, void *value);
 void *hmap_get_value_by_key(hmap *h, void *key);
 
 /**
- * delete key value with key in hash map
+ * delete key value (pair) by key in hash map
  *
  * @param h 
  * hash map
  *
  * @param key
- * the key to insert
+ * key
  *
  * @pre
  * h is not NULL
@@ -364,7 +361,7 @@ pair *hmap_delete_key_value_by_key(hmap *h, void *key);
  * hash map
  *
  * @param key
- * the key to insert
+ * key
  *
  * @pre
  * h is not NULL
@@ -386,7 +383,7 @@ void *hmap_replace_value_for_key(hmap *h, void *key, void *value);
  * hash map
  *
  * @param key
- * 
+ * key
  *
  * @pre
  * h is not NULL
@@ -405,6 +402,7 @@ bool hmap_contains_key(hmap *h, void *key);
  * hash map
  *
  * @param value
+ * value
  *
  * @pre
  * h is not NULL
@@ -441,6 +439,19 @@ size_t hmap_get_size(hmap *h);
  * @returns the capacity of hash map if successful, 0 otherwise
  */
 size_t hmap_get_capacity(hmap *h);
+
+/**
+ * get current load of hash map
+ *
+ * @param h 
+ * hash map
+ *
+ * @pre
+ * h is not NULL
+ *
+ * @returns the current load of hash map if successful, 0.0 otherwise
+ */
+double hmap_get_current_load(hmap *h);
 
 /**
  * get load factor of hash map

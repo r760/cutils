@@ -274,6 +274,8 @@ bool hmap_insert_key_value(hmap **h, void *key, void *value)
 
      size_t size = hmap_get_size(*h);
      size_t capacity = hmap_get_capacity(*h);
+     LOG_ERROR(capacity > 0, error, "hmap capacity is non-positive");
+
      double load_factor = hmap_get_load_factor(*h);
      double current_load = (double) size / (double) capacity;
 
@@ -454,6 +456,17 @@ size_t hmap_get_capacity(hmap *h)
 {
      LOG_ERROR(h != NULL, error, "hmap is NULL");
      return h->capacity;
+
+error:
+     return 0;
+}
+
+double hmap_get_current_load(hmap *h)
+{
+     LOG_ERROR(h != NULL, error, "hmap is NULL");
+     LOG_ERROR(h->capacity > 0, error, "hmap capacity is non-positive");
+
+     return ((double) h->size) / (double) (h->capacity);
 
 error:
      return 0;

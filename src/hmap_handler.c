@@ -61,6 +61,9 @@ bool hmap_handler(char *command)
      } else if (strcmp(function, "is_empty") == 0) {
 	  bool empty = hmap_is_empty(g_h);
 	  printf("%s\n", (empty) ? "true" : "false");
+     } else if (strcmp(function, "get_current_load") == 0) {
+	  double cl = hmap_get_current_load(g_h);
+	  printf("%.2f\n", cl);
      } else if (strcmp(function, "get_load_factor") == 0) {
 	  double lf = hmap_get_load_factor(g_h);
 	  printf("%.2f\n", lf);
