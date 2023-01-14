@@ -29,40 +29,40 @@ typedef struct
 } darray;
 
 /**
- * definition of a darray iterator
+ * definition of a dynamic array iterator
  */
 typedef struct
 {
      /**
-      * darray
+      * dynamic array
       */
      darray *d;
      /**
-      * index of the current entry in the darray
+      * index of the current entry in the dynamic array
       */
      size_t i;
 } darray_iter;
 
 /**
- * create a new darray iterator
+ * create a new dynamic array iterator
  *
  * @param d
- * darray
+ * dynamic array
  *
  * @pre
  * d is not NULL
  *
- * @returns newly created darray iterator if successful, NULL otherwise
+ * @returns newly created dynamic array iterator if successful, NULL otherwise
  *
  * @note runtime O(1)
  */
 darray_iter *darray_iter_create(darray *d);
 
 /**
- * delete darray iterator
+ * delete dynamic array iterator
  *
  * @param d_iter
- * darray iterator
+ * dynamic array iterator
  *
  * @pre
  * d_iter is not NULL
@@ -77,10 +77,10 @@ darray_iter *darray_iter_create(darray *d);
 bool darray_iter_delete(darray_iter **d_iter);
 
 /**
- * reset darray iterator to its initial position
+ * reset dynamic array iterator to its initial position
  *
  * @param d_iter
- * darray iterator
+ * dynamic array iterator
  *
  * @pre
  * d_iter is not NULL
@@ -95,10 +95,10 @@ bool darray_iter_delete(darray_iter **d_iter);
 bool darray_iter_reset(darray_iter *d_iter);
 
 /**
- * check if darray iterator has another item
+ * check if dynamic array iterator has another item
  *
  * @param d_iter
- * darray iterator
+ * dynamic array iterator
  *
  * @pre
  * d_iter is not NULL
@@ -106,17 +106,17 @@ bool darray_iter_reset(darray_iter *d_iter);
  * @pre
  * *d_iter is not NULL
  *
- * @returns true if darray iterator has another item, false otherwise
+ * @returns true if dynamic array iterator has another item, false otherwise
  *
  * @note runtime O(1)
  */
 bool darray_iter_has_next(darray_iter *d_iter);
 
 /**
- * get the next item from the darray iterator
+ * get the next item from the dynamic array iterator
  *
  * @param d_iter
- * darray iterator
+ * dynamic array iterator
  *
  * @pre
  * d_iter is not NULL
@@ -124,7 +124,7 @@ bool darray_iter_has_next(darray_iter *d_iter);
  * @pre
  * *d_iter is not NULL
  *
- * @returns the next item from the darray iterator if it has one, NULL otherwise
+ * @returns the next item from the dynamic array iterator if it has one, NULL otherwise
  *
  * @note runtime O(1)
  */

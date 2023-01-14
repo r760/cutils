@@ -34,8 +34,8 @@ typedef struct
       */
      size_t capacity;
      /**
-      * load_factor of hash map, when (size of hash map / capacity of hash map) >= load factor of hmap, then
-      * hmap will be resized to new hash map capacity = (old hash map capactiy) * 2
+      * load_factor of hash map, when (size of hash map / capacity of hash map) >= load factor of hash map, then
+      * hash map will be resized to new hash map capacity = (old hash map capactiy) * 2
       */
      double load_factor;
      /**
@@ -205,8 +205,6 @@ bool pair_delete(pair **p);
 /**
  * create a new hash map
  *
- * @returns newly created hash map if successful, NULL otherwise
- *
  * @param capacity
  * initial capacity of hash map
  *
@@ -236,6 +234,8 @@ bool pair_delete(pair **p);
  *
  * @pre
  * equals_value (function pointer) is not NULL
+ *
+ * @returns newly created hash map if successful, NULL otherwise
  *
  */
 hmap *hmap_create(size_t capacity, double load_factor,
