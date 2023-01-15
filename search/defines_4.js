@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['nor_172',['NOR',['../logic_8h.html#a5c23470c6eed0c2c405245e773c53630',1,'logic.h']]],
-  ['not_173',['NOT',['../logic_8h.html#ada6424aee2560288a12432bbdafd55e3',1,'logic.h']]]
+  ['or_289',['OR',['../logic_8h.html#a7659a52bef60b40436b673cca1ea074d',1,'logic.h']]]
 ];

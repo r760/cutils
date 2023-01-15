@@ -1,7 +1,12 @@
 var darray_8h =
 [
     [ "darray", "structdarray.html", "structdarray" ],
-    [ "DARRAY_FOREACH", "darray_8h.html#a7a9a0cfa7e624f998cd264e64388c16b", null ],
+    [ "darray_iter", "structdarray__iter.html", "structdarray__iter" ],
+    [ "darray_iter_create", "darray_8h.html#ac900adeef368f925f0d93fc0eee844db", null ],
+    [ "darray_iter_delete", "darray_8h.html#ac7720ff7f40d2e956eb13eaa62242fbb", null ],
+    [ "darray_iter_reset", "darray_8h.html#a3ceb20d5150af7459807c2244d40bdf0", null ],
+    [ "darray_iter_has_next", "darray_8h.html#a68b744d02f9a16880d0df0649fafbfb2", null ],
+    [ "darray_iter_next", "darray_8h.html#a40e8b63e67cb0bf8424e53068896ca9e", null ],
     [ "darray_create", "darray_8h.html#ae34221091f6b799e440622138990f024", null ],
     [ "darray_delete", "darray_8h.html#aeb9c8d46adcb577f35d175210f881832", null ],
     [ "darray_get_size", "darray_8h.html#a0210a6ee7b442176869f94810291feb2", null ],
@@ -12,10 +17,10 @@ var darray_8h =
     [ "darray_delete_front", "darray_8h.html#a56dcedb1b22c271af1799acaa00fb554", null ],
     [ "darray_delete_rear", "darray_8h.html#a4e9ddfb1b4df496c5123324681138338", null ],
     [ "darray_insert_element_at_index", "darray_8h.html#ac0b9df67e0ca6e4660440e7bd155fba8", null ],
-    [ "darray_delete_at_index", "darray_8h.html#a09c45e2b76c8f3fb498af44998f692dc", null ],
+    [ "darray_delete_element_at_index", "darray_8h.html#a5b6b5af8217b88efd78ccec649a84302", null ],
     [ "darray_get_element_at_index", "darray_8h.html#a9156214495b9064f2c5a72ca0a7e2e92", null ],
     [ "darray_set_element_at_index", "darray_8h.html#a9519f2c35656128b887d41e97fe0ad2b", null ],
-    [ "darray_count_elements", "darray_8h.html#a87e023bf9ecaec4bc082f500e091e8be", null ],
+    [ "darray_count_elements", "darray_8h.html#a8e51278bdee0039ba60b54a8c4ff0980", null ],
     [ "darray_get_elements", "darray_8h.html#a919d282cbd42fd47ba0d160631460380", null ],
     [ "darray_delete_elements", "darray_8h.html#a51d1f8b9cb60531a507a7ffbf3e8c63e", null ],
     [ "darray_reverse", "darray_8h.html#ab9de73c89a1f2341a7133f96c9d47b39", null ]

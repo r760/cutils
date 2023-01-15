@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['darray_5fforeach_157',['DARRAY_FOREACH',['../darray_8h.html#a7a9a0cfa7e624f998cd264e64388c16b',1,'darray.h']]]
+  ['implies_273',['IMPLIES',['../logic_8h.html#a64166f0de904384e315a11c6137aa800',1,'logic.h']]]
 ];

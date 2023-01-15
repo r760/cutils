@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['darray_96',['darray',['../structdarray.html',1,'']]]
+  ['darray_157',['darray',['../structdarray.html',1,'']]],
+  ['darray_5fiter_158',['darray_iter',['../structdarray__iter.html',1,'']]]
 ];
