@@ -30,26 +30,14 @@ $(LIBDIR)/%.o:	$(SRCDIR)/%.c
 	make lib > /dev/null
 	$(CC) $(CFLAGS) $(DFLAGS) -c $^ -o $@
 
-## lib/liblog.a: compile static library lib/liblog.a
-$(LIBDIR)/liblog.a:	$(LIBDIR)/log.o
-	ar rcs $@ $^
-
-## lib/libdarray.a: compile static library lib/libdarray.a
-$(LIBDIR)/libdarray.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o
-	ar rcs $@ $^
-
-## lib/liblist.a: compile static library lib/liblist.a
-$(LIBDIR)/liblist.a:	$(LIBDIR)/log.o $(LIBDIR)/list.o
-	ar rcs $@ $^
-
-## lib/libhmap.a: compile static library lib/libhmap.a
-$(LIBDIR)/libhmap.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o $(LIBDIR)/hmap.o
+## lib/libcutils.a: compile static library lib/libcutils.a
+$(LIBDIR)/libcutils.a:	$(LIBDIR)/log.o $(LIBDIR)/darray.o $(LIBDIR)/hmap.o
 	ar rcs $@ $^
 
 ## bin/cli_tester: compile bin/cli_tester
-$(BINDIR)/cli_tester:	$(SRCDIR)/cli_tester.c $(SRCDIR)/*_handler.c $(SRCDIR)/darray.c $(SRCDIR)/list.c $(SRCDIR)/hmap.c $(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/liblist.a $(LIBDIR)/libhmap.a
+$(BINDIR)/cli_tester:	$(SRCDIR)/*.c $(LIBDIR)/libcutils.a
 	make bin > /dev/null
-	$(CC) $(CFLAGS) $(DFLAGS) $(SRCDIR)/cli_tester.c $(SRCDIR)/*_handler.c -llog -ldarray -llist -lhmap -o $@
+	$(CC) $(CFLAGS) $(DFLAGS) $(SRCDIR)/*.c -lcutils -o $@
 
 ## run_cli_tester: run cli_tester
 run_cli_tester:	$(BINDIR)/cli_tester
@@ -63,8 +51,8 @@ run_tests:	$(BINDIR)/cli_tester
 run_valgrind_tests:    $(BINDIR)/cli_tester
 	cd $(TESTSDIR); ./run.sh --check-memory-leaks
 
-## install: install log, darray, list, stack, queue header-files and libraries
-install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/liblist.a $(LIBDIR)/libhmap.a
+## install: install cutils header-files and library
+install:	$(LIBDIR)/libcutils.a
 	[ -d /usr/local/include ] || sudo mkdir -p /usr/local/include
 	[ -d /usr/local/lib ] || sudo mkdir -p /usr/local/lib
 	[ -d /usr/local/src ] || sudo mkdir -p /usr/local/src
@@ -72,8 +60,8 @@ install:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/liblist.a $(LIBDIR)/
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo cp -v {} /usr/local/lib/ \;
 	cd $(SRCDIR); find . -type f -name "*.c" -exec sudo cp -v {} /usr/local/src/ \;
 
-## uninstall: uninstall log, darray, list, stack, queue header-files and libraries
-uninstall:	$(LIBDIR)/liblog.a $(LIBDIR)/libdarray.a $(LIBDIR)/liblist.a
+## uninstall: uninstall cutils header-files and library
+uninstall:	$(LIBDIR)/libcutils.a
 	cd $(INCLUDEDIR); find . -type f -name "*.h" -exec sudo rm -v /usr/local/include/{} \;
 	cd $(LIBDIR); find . -type f -name "*.a" -exec sudo rm -v /usr/local/lib/{} \;
 	cd $(SRCDIR); find . -type f -name "*.c" -exec sudo rm -v /usr/local/src/{} \;
