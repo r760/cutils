@@ -89,44 +89,30 @@ $(document).ready(function(){initNavTree('structhmap.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 
-<p>definition of a hash map  
- <a href="structhmap.html#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="hmap_8h_source.html">hmap.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:ab8bcf8df4cb49aae7dcf503eb476ef9e"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#ab8bcf8df4cb49aae7dcf503eb476ef9e">size</a></td></tr>
-<tr class="memdesc:ab8bcf8df4cb49aae7dcf503eb476ef9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of hash map, ie the number of elements currently contained in hash map  <a href="structhmap.html#ab8bcf8df4cb49aae7dcf503eb476ef9e">More...</a><br /></td></tr>
 <tr class="separator:ab8bcf8df4cb49aae7dcf503eb476ef9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1879a85de21aa05a2888556aebbae744"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#a1879a85de21aa05a2888556aebbae744">capacity</a></td></tr>
-<tr class="memdesc:a1879a85de21aa05a2888556aebbae744"><td class="mdescLeft">&#160;</td><td class="mdescRight">capacity of hash map, ie the number of elements that can be contained in hash map  <a href="structhmap.html#a1879a85de21aa05a2888556aebbae744">More...</a><br /></td></tr>
 <tr class="separator:a1879a85de21aa05a2888556aebbae744"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19d34d1054d043ec683b04ea74fbaa19"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#a19d34d1054d043ec683b04ea74fbaa19">load_factor</a></td></tr>
-<tr class="memdesc:a19d34d1054d043ec683b04ea74fbaa19"><td class="mdescLeft">&#160;</td><td class="mdescRight">load_factor of hash map, when (size of hash map / capacity of hash map) &gt;= load factor of hash map, then hash map will be resized to new hash map capacity = (old hash map capactiy) * 2  <a href="structhmap.html#a19d34d1054d043ec683b04ea74fbaa19">More...</a><br /></td></tr>
 <tr class="separator:a19d34d1054d043ec683b04ea74fbaa19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8251702cf2d10f2760760aafa4bb046e"><td class="memItemLeft" align="right" valign="top">unsigned long(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#a8251702cf2d10f2760760aafa4bb046e">hash</a> )(void *key)</td></tr>
-<tr class="memdesc:a8251702cf2d10f2760760aafa4bb046e"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to hash function used by hash map  <a href="structhmap.html#a8251702cf2d10f2760760aafa4bb046e">More...</a><br /></td></tr>
 <tr class="separator:a8251702cf2d10f2760760aafa4bb046e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fe003806861b8d29a135a1a7d66991c"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#a3fe003806861b8d29a135a1a7d66991c">equals_key</a> )(void *this_obj, void *other_obj)</td></tr>
-<tr class="memdesc:a3fe003806861b8d29a135a1a7d66991c"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to equals function for key used by hash map  <a href="structhmap.html#a3fe003806861b8d29a135a1a7d66991c">More...</a><br /></td></tr>
 <tr class="separator:a3fe003806861b8d29a135a1a7d66991c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fecb2c3bcbd3d1c6c37116198a23f6a"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#a0fecb2c3bcbd3d1c6c37116198a23f6a">equals_value</a> )(void *this_obj, void *other_obj)</td></tr>
-<tr class="memdesc:a0fecb2c3bcbd3d1c6c37116198a23f6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to equals function for value used by hash map  <a href="structhmap.html#a0fecb2c3bcbd3d1c6c37116198a23f6a">More...</a><br /></td></tr>
 <tr class="separator:a0fecb2c3bcbd3d1c6c37116198a23f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a71c4d977c5788a94c8e03091058b55"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#a0a71c4d977c5788a94c8e03091058b55">lock_resize</a></td></tr>
-<tr class="memdesc:a0a71c4d977c5788a94c8e03091058b55"><td class="mdescLeft">&#160;</td><td class="mdescRight">boolean flag, when true stops hash map from automatically resizing  <a href="structhmap.html#a0a71c4d977c5788a94c8e03091058b55">More...</a><br /></td></tr>
 <tr class="separator:a0a71c4d977c5788a94c8e03091058b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4e748bc01c2b326d9adbd0e63c8f2e6"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#ac4e748bc01c2b326d9adbd0e63c8f2e6">size_of_data</a></td></tr>
-<tr class="memdesc:ac4e748bc01c2b326d9adbd0e63c8f2e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of data in hash map, this is set to the size of void *  <a href="structhmap.html#ac4e748bc01c2b326d9adbd0e63c8f2e6">More...</a><br /></td></tr>
 <tr class="separator:ac4e748bc01c2b326d9adbd0e63c8f2e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73417b40790d469f382a43e0023f32a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdarray.html">darray</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap.html#a73417b40790d469f382a43e0023f32a5">data</a></td></tr>
-<tr class="memdesc:a73417b40790d469f382a43e0023f32a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">data held in hash map  <a href="structhmap.html#a73417b40790d469f382a43e0023f32a5">More...</a><br /></td></tr>
 <tr class="separator:a73417b40790d469f382a43e0023f32a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>definition of a hash map </p>
-</div><h2 class="groupheader">Field Documentation</h2>
+<h2 class="groupheader">Field Documentation</h2>
 <a id="ab8bcf8df4cb49aae7dcf503eb476ef9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8bcf8df4cb49aae7dcf503eb476ef9e">&#9670;&nbsp;</a></span>size</h2>
 
@@ -138,8 +124,6 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>size of hash map, ie the number of elements currently contained in hash map </p>
 
 </div>
 </div>
@@ -155,9 +139,6 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>capacity of hash map, ie the number of elements that can be contained in hash map </p>
-<dl class="section note"><dt>Note</dt><dd>capacity of hash map is dynamically increased/decreased as needed according to load_factor </dd></dl>
-
 </div>
 </div>
 <a id="a19d34d1054d043ec683b04ea74fbaa19"></a>
@@ -171,8 +152,6 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>load_factor of hash map, when (size of hash map / capacity of hash map) &gt;= load factor of hash map, then hash map will be resized to new hash map capacity = (old hash map capactiy) * 2 </p>
 
 </div>
 </div>
@@ -188,8 +167,6 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>pointer to hash function used by hash map </p>
-
 </div>
 </div>
 <a id="a3fe003806861b8d29a135a1a7d66991c"></a>
@@ -203,8 +180,6 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>pointer to equals function for key used by hash map </p>
 
 </div>
 </div>
@@ -220,8 +195,6 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>pointer to equals function for value used by hash map </p>
-
 </div>
 </div>
 <a id="a0a71c4d977c5788a94c8e03091058b55"></a>
@@ -235,8 +208,6 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>boolean flag, when true stops hash map from automatically resizing </p>
 
 </div>
 </div>
@@ -252,8 +223,6 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>size of data in hash map, this is set to the size of void * </p>
-
 </div>
 </div>
 <a id="a73417b40790d469f382a43e0023f32a5"></a>
@@ -268,8 +237,6 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>data held in hash map </p>
-
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
@@ -281,7 +248,7 @@ Data Fields</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structhmap.html">hmap</a></li>
-    <li class="footer">Generated on Sun Jan 15 2023 00:00:26 for utilities for the C programming language by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Jul 21 2023 23:10:49 for utilities for the C programming language by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
